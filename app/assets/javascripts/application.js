@@ -5,4 +5,3 @@
 //= require jquery_nested_form
 //= require dataTables/js/jquery.dataTables
 //= require dataTables/js/dataTables.bootstrap
-//= require_tree .
