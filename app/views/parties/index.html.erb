@@ -14,7 +14,7 @@
                           <div class="panel-body">
                           <%if current_user.role == 'Party'%>
                           <%else%>
-                             <%= link_to 'New Party', new_party_path, class: 'btn btn-link' %>
+                             <%= link_to 'New Party', new_party_path, class: 'btn btn-primary' %>
                           <%end%>
                             <div class="table-responsive">
                               <table class="table table-bordered table-striped">
@@ -23,7 +23,7 @@
                                     <th>Party name</th>
                                     <th>Party gstin no</th>
                                     <th>Party arn no</th>
-                                    <th>Place of supply</th>
+                                 
                                     <th>Commodity name</th>
                                     <th>State Name</th>
                                     <th>State Code</th>
@@ -52,7 +52,7 @@
                                       <td><%= party.party_name %></td>
                                       <td><%= party.party_gstin_no %></td>
                                       <td><%= party.party_arn_no %></td>
-                                      <td><%= party.party_address %></td>
+                                  
                                       <td><%= party.commodity_name %></td>
                                       <td><%= party.state_name %></td>
                                       <td><%= party.state_code %></td>

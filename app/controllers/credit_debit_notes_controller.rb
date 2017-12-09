@@ -1,6 +1,10 @@
 class CreditDebitNotesController < ApplicationController
    def index
-    @credit_debit_notes = CreditDebitNote.all
+    if current_user.role == 'Party'
+      @credit_debit_notes = current_user.credit_debit_notes
+    else
+       @credit_debit_notes = CreditDebitNote.all
+    end
   end
 
   def new
@@ -12,7 +16,9 @@ class CreditDebitNotesController < ApplicationController
 
   def create
     @credit_debit_note = CreditDebitNote.new(credit_debit_note_params)
+    @user = current_user
     if @credit_debit_note.save
+      @credit_debit_note.update!(user_id: @user.id)
       flash[:notice] = "Successfully Created credit_debit_note"
       redirect_to @credit_debit_note and return
     end
@@ -65,7 +71,7 @@ def show
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def credit_debit_note_params
-      params.require(:credit_debit_note).permit(:note_type,:id, :date_of_original_invoice, :invoice_no, :gstin_no, :e_way_bill_no, :date_of_issue_note, :issue_note_no, :pre_gst, :place_of_supply, :customer_id, :reason_for_issuing_note, :register_type, :note_typee,credit_debit_note_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :tax_amt, :total_amt,:_destroy])
+      params.require(:credit_debit_note).permit(:user_id,:note_type,:id, :date_of_original_invoice, :invoice_no, :gstin_no, :e_way_bill_no, :date_of_issue_note, :issue_note_no, :pre_gst, :place_of_supply, :customer_id, :reason_for_issuing_note, :register_type, :note_typee,credit_debit_note_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :tax_amt, :total_amt,:_destroy])
     end
   end
     # Never trust parameters from the scary internet, only allow the white list through.

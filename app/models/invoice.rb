@@ -1,5 +1,6 @@
 class Invoice < ApplicationRecord
 	belongs_to :customer 
+  belongs_to :invoice
   has_many :invoice_items, inverse_of: :invoice
   accepts_nested_attributes_for :invoice_items, reject_if: :all_blank, allow_destroy: true
   scope :shod, ->(id) { where(id: id).take }

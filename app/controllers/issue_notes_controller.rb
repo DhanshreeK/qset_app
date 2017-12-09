@@ -1,6 +1,6 @@
 class IssueNotesController < ApplicationController
   def index
-    @issue_notes = IssueNote.all
+     current_user.role == 'Party' ? @issue_notes = current_user.issue_notes :  @issue_notes = IssueNote.all
   end
 
   def new
@@ -12,7 +12,9 @@ class IssueNotesController < ApplicationController
 
   def create
     @issue_note = IssueNote.new(issue_note_params)
+    @user = current_user
     if @issue_note.save
+      @issue_note.update!(user_id: @user.id)
       flash[:notice] = "Successfully Created issue_note"
       redirect_to @issue_note and return
     end

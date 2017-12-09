@@ -1,7 +1,11 @@
 class ExemptInvoicesController < ApplicationController
   def index
-   @exempt_invoices = ExemptInvoice.all
- end
+    if current_user.role == 'Party'
+      @exempt_invoices = current_user.exempt_invoices
+    else
+      @exempt_invoices = ExemptInvoice.all
+    end
+  end
 
  def new
   @exempt_invoice = ExemptInvoice.new
@@ -12,7 +16,9 @@ class ExemptInvoicesController < ApplicationController
 
   def create
     @exempt_invoice = ExemptInvoice.new(export_invoice_params)
+    @user = current_user
     if @exempt_invoice.save
+      @exempt_invoice.update(user_id: @user.id)
       flash[:notice] = "Successfully Created Invoice"
       redirect_to @exempt_invoice and return
     end
@@ -65,6 +71,6 @@ def show
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def export_invoice_params
-      params.require(:exempt_invoice).permit(:customer_id, :exempt_invoice_number,:exempt_invoice_date,exempt_invoice_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :tax_amt, :total_amt,:_destroy])
+      params.require(:exempt_invoice).permit(:user_id,:customer_id, :exempt_invoice_number,:exempt_invoice_date,exempt_invoice_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :tax_amt, :total_amt,:_destroy])
     end
 end

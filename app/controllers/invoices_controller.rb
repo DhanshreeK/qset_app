@@ -1,7 +1,11 @@
 class InvoicesController < ApplicationController
 
   def index
-    @invoices = Invoice.all
+    if current_user.role == 'Party'
+      @invoices = current_user.invoices
+    else
+      @invoices = Invoice.all
+    end
   end
 
   def new
@@ -13,7 +17,9 @@ class InvoicesController < ApplicationController
 
   def create
     @invoice = Invoice.new(invoice_params)
+    @user = current_user
     if @invoice.save
+      @invoice.update!(user_id: @user.id)
       flash[:notice] = "Successfully Created Invoice"
       redirect_to @invoice and return
     end
@@ -66,7 +72,7 @@ def show
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def invoice_params
-      params.require(:invoice).permit(:id,:gstr_holder,:customer_id, :invoice_no,:date,invoice_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :tax_amt, :total_amt,:_destroy])
+      params.require(:invoice).permit(:user_id,:id,:gstr_holder,:customer_id, :invoice_no,:date,invoice_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :tax_amt, :total_amt,:_destroy])
     end
   end
     # Never trust parameters from the scary internet, only allow the white list through.

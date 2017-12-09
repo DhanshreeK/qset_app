@@ -4,7 +4,11 @@ class UnitOfMeasuresController < ApplicationController
   # GET /unit_of_measures
   # GET /unit_of_measures.json
   def index
-    @unit_of_measures = UnitOfMeasure.all
+    if current_user.role == 'Party'
+      @unit_of_measures = current_user.unit_of_measures
+    else
+      @unit_of_measures = UnitOfMeasure.all
+    end
   end
 
   # GET /unit_of_measures/1
@@ -25,9 +29,10 @@ class UnitOfMeasuresController < ApplicationController
   # POST /unit_of_measures.json
   def create
     @unit_of_measure = UnitOfMeasure.new(unit_of_measure_params)
-
+    @user = current_user
     respond_to do |format|
       if @unit_of_measure.save
+        @unit_of_measure.update(user_id: @user.id)
         format.html { redirect_to @unit_of_measure, notice: 'Unit of measure was successfully created.' }
         format.json { render :show, status: :created, location: @unit_of_measure }
       else

@@ -1,5 +1,6 @@
 class CreditDebitNote < ApplicationRecord
   belongs_to :customer
+  belongs_to :user
   has_many :credit_debit_note_items, inverse_of: :credit_debit_note
   accepts_nested_attributes_for :credit_debit_note_items, reject_if: :all_blank, allow_destroy: true
   scope :shod, ->(id) { where(id: id).take }
@@ -13,5 +14,4 @@ class CreditDebitNote < ApplicationRecord
       'CDN' + date.to_s + last_id.to_s
     end
   end
-
 end

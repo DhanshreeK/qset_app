@@ -1,5 +1,6 @@
 class ExportInvoice < ApplicationRecord
   belongs_to :customer 
+  belongs_to :user
   has_many :export_invoice_items, inverse_of: :export_invoice
   accepts_nested_attributes_for :export_invoice_items, reject_if: :all_blank, allow_destroy: true
   scope :shod, ->(id) { where(id: id).take }

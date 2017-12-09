@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171205131059) do
+ActiveRecord::Schema.define(version: 20171209041116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,7 +79,9 @@ ActiveRecord::Schema.define(version: 20171205131059) do
     t.datetime "updated_at", null: false
     t.string "register_type"
     t.string "note_type"
+    t.bigint "user_id"
     t.index ["customer_id"], name: "index_credit_debit_notes_on_customer_id"
+    t.index ["user_id"], name: "index_credit_debit_notes_on_user_id"
   end
 
   create_table "customer_items", force: :cascade do |t|
@@ -116,6 +118,8 @@ ActiveRecord::Schema.define(version: 20171205131059) do
     t.datetime "updated_at", null: false
     t.integer "party_id"
     t.string "invoice_no"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_customers_on_user_id"
   end
 
   create_table "exempt_invoice_items", force: :cascade do |t|
@@ -143,7 +147,9 @@ ActiveRecord::Schema.define(version: 20171205131059) do
     t.date "exempt_invoice_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["customer_id"], name: "index_exempt_invoices_on_customer_id"
+    t.index ["user_id"], name: "index_exempt_invoices_on_user_id"
   end
 
   create_table "export_invoice_items", force: :cascade do |t|
@@ -171,7 +177,9 @@ ActiveRecord::Schema.define(version: 20171205131059) do
     t.date "export_invoice_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["customer_id"], name: "index_export_invoices_on_customer_id"
+    t.index ["user_id"], name: "index_export_invoices_on_user_id"
   end
 
   create_table "general_settings", force: :cascade do |t|
@@ -220,6 +228,8 @@ ActiveRecord::Schema.define(version: 20171205131059) do
     t.integer "item_id"
     t.string "shipping_address"
     t.string "gstr_holder"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_invoices_on_user_id"
   end
 
   create_table "issue_credit_debit_notes", force: :cascade do |t|
@@ -274,7 +284,9 @@ ActiveRecord::Schema.define(version: 20171205131059) do
     t.string "note_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["customer_id"], name: "index_issue_notes_on_customer_id"
+    t.index ["user_id"], name: "index_issue_notes_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -291,7 +303,9 @@ ActiveRecord::Schema.define(version: 20171205131059) do
     t.decimal "sgst"
     t.decimal "igst"
     t.bigint "unit_of_measure_id"
+    t.bigint "user_id"
     t.index ["unit_of_measure_id"], name: "index_items_on_unit_of_measure_id"
+    t.index ["user_id"], name: "index_items_on_user_id"
   end
 
   create_table "parties", force: :cascade do |t|
@@ -329,6 +343,8 @@ ActiveRecord::Schema.define(version: 20171205131059) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_unit_of_measures_on_user_id"
   end
 
   create_table "user_charted_accountants", force: :cascade do |t|
@@ -373,18 +389,26 @@ ActiveRecord::Schema.define(version: 20171205131059) do
   add_foreign_key "credit_debit_note_items", "credit_debit_notes"
   add_foreign_key "credit_debit_note_items", "items"
   add_foreign_key "credit_debit_notes", "customers"
+  add_foreign_key "credit_debit_notes", "users"
+  add_foreign_key "customers", "users"
   add_foreign_key "exempt_invoice_items", "exempt_invoices"
   add_foreign_key "exempt_invoice_items", "items"
   add_foreign_key "exempt_invoices", "customers"
+  add_foreign_key "exempt_invoices", "users"
   add_foreign_key "export_invoice_items", "export_invoices"
   add_foreign_key "export_invoice_items", "items"
   add_foreign_key "export_invoices", "customers"
+  add_foreign_key "export_invoices", "users"
+  add_foreign_key "invoices", "users"
   add_foreign_key "issue_credit_debit_notes", "customers"
   add_foreign_key "issue_note_items", "issue_notes"
   add_foreign_key "issue_note_items", "items"
   add_foreign_key "issue_notes", "customers"
+  add_foreign_key "issue_notes", "users"
   add_foreign_key "items", "unit_of_measures"
+  add_foreign_key "items", "users"
   add_foreign_key "parties", "charted_accountants"
+  add_foreign_key "unit_of_measures", "users"
   add_foreign_key "user_charted_accountants", "charted_accountants"
   add_foreign_key "user_charted_accountants", "users"
   add_foreign_key "users", "charted_accountants"

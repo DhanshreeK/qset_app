@@ -14,8 +14,11 @@
                       <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <%if current_user.role == 'SuperAdmin'%>
                         <h4>SuperAdmin <span class="caret"></span></h4>
-                      <%else%>
-                        <h4>Charted Accountant <span class="caret"></span></h4>
+                        <%elsif current_user.role == 'ChartedAccountant'
+                            %>
+                             <h4>ChartedAccountant <span class="caret"></span></h4>
+                        <%else%>
+                        <h4><%=current_user.party.party_name%><span class="caret"></span></h4>
                       </a>
                       <%end%>
                     <!-- <small class="title">CA</small> -->

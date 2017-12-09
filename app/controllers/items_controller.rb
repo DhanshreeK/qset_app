@@ -4,11 +4,11 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = Item.all
-  end
-
-  def add_item
-    @item = Item.new
+    if current_user.role == 'Party'
+      @items = current_user.items
+    else
+      @items = Item.all
+    end
   end
 
   def load_item_data
@@ -29,9 +29,10 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(item_params)
-
+    @user = current_user
     respond_to do |format|
       if @item.save
+        @item.update!(user_id: @user.id)
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.json { render :show, status: :created, location: @item }
       else

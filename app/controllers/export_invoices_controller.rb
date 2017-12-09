@@ -1,11 +1,15 @@
 class ExportInvoicesController < ApplicationController
 
   def index
-   @export_invoices = ExportInvoice.all
- end
+    if current_user.role == 'Party'
+      @export_invoices = current_user.export_invoices
+    else
+      @export_invoices = ExportInvoice.all
+    end
+  end
 
- def new
-  @export_invoice = ExportInvoice.new
+  def new
+    @export_invoice = ExportInvoice.new
     @export_invoice.export_invoice_items.build # build ingredient attributes, nothing new here
     @export_invoice.export_invoice_number = ExportInvoice.set_invoice_no
     @items = Item.all
@@ -13,7 +17,9 @@ class ExportInvoicesController < ApplicationController
 
   def create
     @export_invoice = ExportInvoice.new(export_invoice_params)
+    @user = current_user
     if @export_invoice.save
+      @export_invoice.update!(user_id: @user.id)
       flash[:notice] = "Successfully Created Invoice"
       redirect_to @export_invoice and return
     end

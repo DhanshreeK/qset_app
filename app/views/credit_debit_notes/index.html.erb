@@ -1,14 +1,12 @@
-        <section class="main-content-wrapper">
-          <!-- Main content view  -->
           <div class="pageheader">
-            <h1>Received Invoices</h1>
+            <h1>Credit Debit Note Bill(Received)</h1>
             <div class="breadcrumb-wrapper hidden-xs">
               <span class="label">You are here:</span>
               <ol class="breadcrumb">
                 <li><a href="/">Dashboard</a>
                 </li>
                 <li>Tables</li>
-                <li class="active">View Invoices</li>
+                <li class="active">Credit Debit Note Bill(Received)</li>
               </ol>
             </div>
           </div>
@@ -17,7 +15,7 @@
               <div class="col-md-12">
                 <div class="panel panel-default">
                   <div class="panel-heading">
-                    <h3 class="panel-title">Received Invoices</h3>
+                    <h3 class="panel-title">Credit/Debit Note Bill(Received)</h3>
                     <div class="actions pull-right">
                      <i class="fa fa-expand"></i>
                      <i class="fa fa-chevron-down"></i>
@@ -25,32 +23,43 @@
                    </div>
                  </div>
                  <div class="panel-body">
-                  <%= link_to 'Add Invoices', new_credit_debit_note_path, class: 'btn btn-primary' %>
+                  <%= link_to 'Add Credit Debit Note Bill(Received)', new_exempt_invoice_path, class: 'btn btn-primary' %>
                   <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
-                      <thead>
-                        <tr>
-                          <th>Invoice Number</th>
-                          <th>Date of Invoice</th>
-                          <th colspan="3"></th>
-                        </tr>
-                      </thead>
+                      <tr>
+                        <th>SR NO</th>
+                        <th>Invoice Number</th>
+                        <th>Date of Invoice</th>
+                        <th>Customer Name</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
 
-                      <tbody>
-                        <%  @credit_debit_notes.each_with_index do |a,i| %>
-                        <tr>
-                          <td><%=i+1%></td>
-                          <td><%=a.invoice_no %></td>
-                          <td><%=a.date_of_original_invoice%></td>
-                          <td><%= link_to 'View Invoice', credit_debit_note_path(a)%></td>
-                          <td><%= link_to 'Destroy',credit_debit_note_path(a), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                        </tr>
-                        <% end %>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+                    <tbody>
+                     <% @credit_debit_notes.each_with_index do |a,i| %>
+                     <tr>
+                      <td><%=i+1%></td>
+                      <td><%=link_to a.invoice_no, credit_debit_note_path(a), class: 'btn btn-link' %></td>
+                      <td><%=a.date_of_original_invoice %></td>
+                      <td><%=a.customer.customer_name%></td>
+                      <td><%= link_to 'Destroy',credit_debit_note_path(a), method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn btn-link'%></td>
+                    </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+
               </div>
             </div>
-          </section>
-          <br>
+          </div>
+        </div>
+      </section>
+
+
+      <% content_for :javascript do %>
+      <!--Load these page level functions-->
+      <script>
+        $(document).ready(function() {
+         $('#example').dataTable();
+       });
+     </script>
+     <% end %>
