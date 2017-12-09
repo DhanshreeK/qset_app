@@ -81,5 +81,5 @@ test:
 production:
  <<: *default
  database: GST_App_production
- username: GST_App
+ username: postgres
 password: <%= ENV['ELEARNING_DATABASE_PASSWORD'] %>
