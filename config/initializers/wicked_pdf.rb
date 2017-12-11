@@ -1,3 +1,5 @@
-WickedPdf.config = {
-  exe_path: '/home/pawar/.rvm/gems/ruby-2.4.1/bin/wkhtmltopdf'
-}
+WickedPdf.config ||= {}
+WickedPdf.config.merge!({
+  # your extra configurations here
+})
+

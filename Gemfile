@@ -8,6 +8,7 @@ end
 gem 'simple_form'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
+gem 'wkhtmltopdf-heroku'
 gem 'devise'
 gem 'paperclip'
 gem "cancan"
@@ -18,7 +19,6 @@ gem 'bootstrap-select-rails'
 gem 'momentjs-rails'
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem "select2-rails"
-gem 'bootstrap-select-rails'
 # gem "cocoon"
 gem 'cocoon', '~> 1.2.0'
 gem 'js-routes'

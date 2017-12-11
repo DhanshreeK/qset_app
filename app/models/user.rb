@@ -10,6 +10,14 @@ class User < ApplicationRecord
   belongs_to :general_setting
   belongs_to :charted_accountant
   belongs_to :party
+  has_many :items
+  has_many :unit_of_measures
+  has_many :customers
+  has_many :invoices
+  has_many :export_invoices
+  has_many :exempt_invoices
+  has_many :credit_debit_notes
+  has_many :issue_notes
 
 
   def create_general_setting

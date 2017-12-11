@@ -43,7 +43,45 @@ ActiveRecord::Schema.define(version: 20171209041116) do
     t.string "image_content_type"
     t.integer "image_file_size"
     t.datetime "image_updated_at"
-    t.boolean "status"
+  end
+
+  create_table "credit_debit_note_items", force: :cascade do |t|
+    t.bigint "item_id"
+    t.bigint "credit_debit_note_id"
+    t.string "unit_price"
+    t.string "quantity"
+    t.string "rate"
+    t.string "net_amt"
+    t.string "sgst"
+    t.string "cgst"
+    t.string "tax_rate"
+    t.string "tax_amt"
+    t.string "total_amt"
+    t.string "qty"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["credit_debit_note_id"], name: "index_credit_debit_note_items_on_credit_debit_note_id"
+    t.index ["item_id"], name: "index_credit_debit_note_items_on_item_id"
+  end
+
+  create_table "credit_debit_notes", force: :cascade do |t|
+    t.date "date_of_original_invoice"
+    t.string "invoice_no"
+    t.string "gstin_no"
+    t.string "e_way_bill_no"
+    t.string "date_of_issue_note"
+    t.string "issue_note_no"
+    t.string "pre_gst"
+    t.string "place_of_supply"
+    t.bigint "customer_id"
+    t.string "reason_for_issuing_note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "register_type"
+    t.string "note_type"
+    t.bigint "user_id"
+    t.index ["customer_id"], name: "index_credit_debit_notes_on_customer_id"
+    t.index ["user_id"], name: "index_credit_debit_notes_on_user_id"
   end
 
   create_table "credit_debit_note_items", force: :cascade do |t|
@@ -178,7 +216,6 @@ ActiveRecord::Schema.define(version: 20171209041116) do
     t.date "export_invoice_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
     t.index ["customer_id"], name: "index_export_invoices_on_customer_id"
     t.index ["user_id"], name: "index_export_invoices_on_user_id"
   end
@@ -202,7 +239,6 @@ ActiveRecord::Schema.define(version: 20171209041116) do
   create_table "export_purchase_bills", force: :cascade do |t|
     t.string "purchase_no"
     t.date "date"
-    t.bigint "customer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_export_purchase_bills_on_customer_id"
@@ -254,8 +290,26 @@ ActiveRecord::Schema.define(version: 20171209041116) do
     t.integer "item_id"
     t.string "shipping_address"
     t.string "gstr_holder"
-    t.bigint "user_id"
     t.index ["user_id"], name: "index_invoices_on_user_id"
+  end
+
+
+  create_table "issue_credit_debit_notes", force: :cascade do |t|
+    t.bigint "customer_id"
+    t.date "date_of_original_invoice"
+    t.string "invoice_no"
+    t.string "gstin_no"
+    t.string "e_way_bill_no"
+    t.date "date_of_issue_note"
+    t.string "issue_note_no"
+    t.string "pre_gst"
+    t.string "place_of_supply"
+    t.string "reason_for_issuing_note"
+    t.string "register_type"
+    t.string "note_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_issue_credit_debit_notes_on_customer_id"
   end
 
   create_table "issue_note_items", force: :cascade do |t|
@@ -310,7 +364,6 @@ ActiveRecord::Schema.define(version: 20171209041116) do
     t.decimal "cgst"
     t.decimal "sgst"
     t.decimal "igst"
-    t.bigint "unit_of_measure_id"
     t.bigint "user_id"
     t.index ["unit_of_measure_id"], name: "index_items_on_unit_of_measure_id"
     t.index ["user_id"], name: "index_items_on_user_id"
@@ -335,7 +388,6 @@ ActiveRecord::Schema.define(version: 20171209041116) do
   create_table "nillrate_exempt_bills", force: :cascade do |t|
     t.string "purchase_no"
     t.date "date"
-    t.bigint "customer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_nillrate_exempt_bills_on_customer_id"
@@ -369,7 +421,6 @@ ActiveRecord::Schema.define(version: 20171209041116) do
     t.bigint "charted_accountant_id"
     t.string "composite"
     t.string "regular"
-    t.boolean "status"
     t.index ["charted_accountant_id"], name: "index_parties_on_charted_accountant_id"
   end
 
@@ -462,6 +513,7 @@ ActiveRecord::Schema.define(version: 20171209041116) do
   add_foreign_key "export_purchase_bill_items", "items"
   add_foreign_key "export_purchase_bills", "customers"
   add_foreign_key "invoices", "users"
+  add_foreign_key "issue_credit_debit_notes", "customers"
   add_foreign_key "issue_note_items", "issue_notes"
   add_foreign_key "issue_note_items", "items"
   add_foreign_key "issue_notes", "customers"
@@ -471,10 +523,10 @@ ActiveRecord::Schema.define(version: 20171209041116) do
   add_foreign_key "nillrate_exempt_bill_items", "items"
   add_foreign_key "nillrate_exempt_bill_items", "nillrate_exempt_bills"
   add_foreign_key "nillrate_exempt_bills", "customers"
-  add_foreign_key "parties", "charted_accountants"
   add_foreign_key "purchase_bill_items", "items"
   add_foreign_key "purchase_bill_items", "purchase_bills"
   add_foreign_key "purchase_bills", "customers"
+  add_foreign_key "parties", "charted_accountants"
   add_foreign_key "unit_of_measures", "users"
   add_foreign_key "user_charted_accountants", "charted_accountants"
   add_foreign_key "user_charted_accountants", "users"
