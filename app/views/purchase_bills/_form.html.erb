@@ -1,5 +1,5 @@
 <div class="pageheader">
-                <h1>Export purchase bill invoice</h1>
+                <h1>Regular sell Invoice</h1>
                 <div class="breadcrumb-wrapper hidden-xs">
                     <span class="label">You are here:</span>
                     <ol class="breadcrumb">
@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                            <div class="panel-body">
-                            <%= nested_form_for @export_purchase_bill_invoice, url: {action:'create', controller: 'export_purchase_bills'} do |f|%>
+                            <%= nested_form_for @purchase_bill_invoice, url: {action:'create', controller: 'purchase_bills'} do |f|%>
 
                                         <form class="form-horizontal">
                                           <div class="form-group">
@@ -85,13 +85,15 @@
                               <table id="example"  class="table table-bordered table-striped" cellspacing="0" width="100%">
                                 <thead>
                                  <tr>
-                                      <th width="135"><h6>Description</h6></th>
-                                      <th width="185"><h6>Unit-Price</h6></th>
-                                      <th width="185"><h6>Quantity</h6></th>
-                                      <th width="185"><h6>Net Amt</h6></th>
-                                  
-                                   
-                                      <th width="185"><h6>Total Amt</h6></th>
+                                      <th><h6>Description&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></th>
+                                      <th><h6>Unit-Price</h6></th>
+                                      <th><h6>Quantity</h6></th>
+                                      <th><h6>Net Amt</h6></th>
+                                      <th><h6>SGST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></th>
+                                      <th><h6>CGST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></th>
+                                      <th><h6>Tax Rate</h6></th>
+                                      <th><h6>Tax Amt&nbsp;</h6></th>
+                                      <th><h6>Total Amt</h6></th>
                                       <th><h6>Action&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></th>
                                     </tr>
                                 </thead>
@@ -99,7 +101,7 @@
                               </table>
             
 
-                        <%= f.fields_for :export_purchase_bill_items, :wrapper => false do |invoice_item| %>
+                        <%= f.fields_for :purchase_bill_items, :wrapper => false do |invoice_item| %>
                                 
                              <div class="table-responsive">
                               <table id="example"  class="table table-bordered table-striped" cellspacing="0" width="100%">
@@ -120,10 +122,12 @@
                                       
                                   <td> <%=invoice_item.select :item_id ,Item.all.collect{|i| [i.dogns,i.rate, i.id]}, {prompt:true},class: "select"%></td>
                                   <td><%= invoice_item.text_field :unit_price, id: :rate, class: 'form-control'%></td>
-                                  <td><%= invoice_item.text_field :quantity, id: :qty, class: 'form-control'%></td>
+                                  <td><%= invoice_item.text_field :quantity, id: :quantity, class: 'form-control'%></td>
                                   <td><%= invoice_item.text_field :net_amount, id: :net_amount, class: 'form-control'%></td>
-                               
-                                  
+                                  <td><%= text_field_tag :sgst, "", class: 'form-control'%></td>
+                                  <td><%= text_field_tag :cgst, "", class: 'form-control'%></td>
+                                  <td><%= invoice_item.text_field :tax_rate, id: :tax_rate, class: 'form-control'%></td>
+                                  <td><%= invoice_item.text_field :tax_amt, id: :tax_amt, class: 'form-control'%></td>
                                   <td><%= invoice_item.text_field :total_amt, id: :total_amt, class: 'form-control'%></td>
                           
                                  <td><%= invoice_item.link_to_remove "Remove", class: 'btn btn-info' %></td>
@@ -136,7 +140,7 @@
 
 
 <% end %>
-<td><%= f.link_to_add "Add Item", :export_purchase_bill_items , class: 'btn btn-danger' %></td>
+<td><%= f.link_to_add "Add Item", :purchase_bill_items , class: 'btn btn-danger' %></td>
 <div class="pull-right">
 <p><%= f.submit "Create Invoice", class: 'btn btn-success' %></p>
 </div>
@@ -157,7 +161,7 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-  $('select#export_purchase_bill_customer_id').select2({
+  $('select#purchase_bill_customer_id').select2({
     placeholder: "Choose a customers",
     allowClear: true
   });
@@ -167,7 +171,7 @@ $(document).ready(function() {
 
 <% content_for :javascript do %>
 <script type="text/javascript">
-  $("#export_purchase_bill_customer_id").on("change", function() {
+  $("#purchase_bill_customer_id").on("change", function() {
     var customer_id;
     Item = $(this).val();
     $.ajax({
@@ -220,16 +224,18 @@ $(document).on("change", ".select", function () {
 
 <% content_for :javascript do %>
 <script type="text/javascript">
- $(document).on("keyup", "#rate, #qty", function() {
+ $(document).on("keyup", "#rate, #quantity", function() {
   container = elem.parents("tr.fields");
    var val1 = +container.find("#rate").val();
-   var val2 = +container.find("#qty").val();
- 
-  
-
+   var val2 = +container.find("#quantity").val();
+   var sval = +container.find("#sgst").val();
+   var cval = +container.find("#cgst").val();
+   var val3 = sval+cval;
+   +container.find("#tax_rate").val(val3);
    +container.find("#net_amount").val(val1*val2);
-   +container.find("#total_amt").val(val1*val2);
-
+   +container.find('#tax_amt').val(val3*val1*val2/100);
+    var ans = (val1*val2 + val3*val1*val2/100);
+   +container.find('#total_amt').val(ans);
   });
 
 
@@ -259,8 +265,13 @@ $(document).on('nested:fieldAdded', function(event){
 <% content_for :javascript do %>
 <script type="text/javascript">
 $(document).ready(function() {
-  $('select#export_purchase_bill_export_purchase_bill_items_attributes_0_item_id').select2({
+  $('select#purchase_bill_purchase_bill_items_attributes_0_item_id').select2({
   });
 });
 </script>
+<% end %>
+
+
+<% content_for :javascript do %>
+
 <% end %>

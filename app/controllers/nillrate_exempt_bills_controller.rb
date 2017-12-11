@@ -52,7 +52,7 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def nillrate_exempt_bill_invoice_params
-      params.require(:nillrate_exempt_bill).permit(:customer_id, :nillrate_exempt_bill_invoice_no, :date,nillrate_exempt_bill_items_attributes:[ :unit_price, :item_id, :quantity, :rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :net_amount, :tax_amt, :total_amt,:_destroy])
+      params.require(:nillrate_exempt_bill).permit(:customer_id, :purchase_no, :date,nillrate_exempt_bill_items_attributes:[ :unit_price, :item_id, :quantity, :rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :net_amount, :tax_amt, :total_amt,:_destroy])
     end
 end
     # Never trust parameters from the scary internet, only allow the white list through.

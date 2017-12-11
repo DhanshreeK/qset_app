@@ -32,20 +32,66 @@
  h5 {
    display:inline;
  }
+
+  img {
+    border: 1px solid #ddd;
+    border-radius: 1px;
+    padding: 3px;
+    width: 150px;
+}
+
+
+
+
+  .gallery-text {
+    float: left;
+    width: 48%;
+    margin: 1%;
+}
+.gallery-text p {
+    word-break: break-all;
+}
 </style>
 </head>
 <body>
 
-  <div class="center"><h2><b><font color="grey">Regular PurchaseBill</font></b></h2></div>
-  <div id="heading">
+
+    
+
+  <div id="gallery-text">
+
+    <div class="gallery-text">
+     <%= wicked_pdf_image_tag 'test.jpg' %>
+    </div>
+
+
+    <div class="gallery-text" align="right">
+
+        <p>
+          <p> <h2><strong><font color="grey">Regular Purchase bill  </strong>  </h2></font> <font size="3">(Original for Recipient)</font>
+          
+
+          </p>
+    </div> 
+
+
+
+
+
+               
+  </div>
    
 
     
-    <div class align ="left">
+  <div id="gallery-text">
+
+    <div class="gallery-text">
+      <p>
       <p><strong>Sold By:</strong>
+
+        
         <%=current_user.party.party_name%></p>
-        <p><strong>Date:</strong>
-          <%=@purchase_bill_invoice.date%></p>
+     
           <p> <strong>Address:</strong>
            <%=current_user.party.party_address%></p>
            
@@ -53,15 +99,40 @@
              <%=current_user.party.party_gstin_no%></p>
              <p> <strong>PAN No</strong>
                <%=current_user.party.party_pan_no%></p>
-               
-             </div>
-             <div class align ="right">
-               <p> <strong>Customer Name:</strong>
+        </p>
+    </div>
+
+
+    <div class="gallery-text" align="right">
+
+        <p>
+
+          <p> <strong>Customer Name:</strong>
                  <%=@purchase_bill_invoice.customer.customer_name%></p>
                  <p> <strong>Address:</strong>
                    <%=@purchase_bill_invoice.customer.address%></p>
                    <p> <strong>GSTIN No:</strong>
                      <%=@purchase_bill_invoice.customer.gstin_no_reg%></p>
+
+          </p>
+    </div> 
+
+
+
+
+
+               
+  </div>
+
+
+
+
+
+
+
+
+             <div class align ="right">
+           
                     
                        <br>
                        <br>
@@ -70,11 +141,22 @@
                      <div class align="left">
                       
                         <p><strong>Invoice Date:</strong>
-                          <%=@purchase_bill_invoice.date%></p><br>
+                          <%=@purchase_bill_invoice.date%></p>
+                          <p><strong>Invoice no:</strong>
+                          <%=@purchase_bill_invoice.purchase_no%></p><br>
+
+                        
+
                         </div>
                         
                       </div>  
                     </div>  
+                   
+
+
+
+
+
                     <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
                       <thead>
                         <tr>
@@ -123,7 +205,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
+                  
                         <td>Total Tax: &#8377;<%=tax_amt%></td>
                         <td>Total Amount: &#8377;<%= total_amt%></td>
                       </tr>
@@ -134,6 +216,34 @@
                 </div>
               </div>
             </div>
+          </thead>
+        </table>
+        <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
+                      <thead>
+                      
+                        <tr>
+                        <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> </th>
+                        </tr>
+
+                        <tr>
+                        <th> 
+
+                          <H2 align="right">For <%=current_user.party.party_name%></H2>
+
+                           <h2 align="right">&nbsp;</h2>
+
+                          <h2 align="right">Authorized Signatory</h2> 
+
+
+                        </th>
+                        </tr>
+                     
+         
+
+             
+          </thead>
+        </table>
+
 
 
 

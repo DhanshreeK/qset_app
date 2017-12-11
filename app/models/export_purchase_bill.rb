@@ -5,13 +5,13 @@ class ExportPurchaseBill < ApplicationRecord
   scope :shod, ->(id) { where(id: id).take }
 
 
-  def self.set_purchase_no
+    def self.set_purchase_no
     date = Date.today.strftime('%d')
     if ExportPurchaseBill.first.nil?
-      'P' + date.to_s + '1'
+      'EXP' + date.to_s + '1'
     else
       last_id = ExportPurchaseBill.last.id.next
-      'P' + date.to_s + last_id.to_s
+      'EXP' + date.to_s + last_id.to_s
     end
   end
 

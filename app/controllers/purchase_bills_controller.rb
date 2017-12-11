@@ -10,9 +10,33 @@ class PurchaseBillsController < ApplicationController
     @purchase_bill_invoice = PurchaseBill.new
     @purchase_bill_invoice.purchase_bill_items.build # build ingredient attributes, nothing new here
     @purchase_bill_invoice.purchase_no = PurchaseBill.set_purchase_no
+    
  	
     @items = Item.all
+    @general_setting = GeneralSetting.first
   end
+
+
+  def edit
+    @purchase_bill_invoice = PurchaseBill.find(params[:id])
+    
+  end
+
+
+  def update
+    @purchase_bill_invoice = PurchaseBill.find(params[:id])
+    respond_to do |format|
+
+      if @purchase_bill_invoice.update(purchase_bill_invoice_params)
+        format.html { redirect_to @purchase_bill_invoice, notice: 'Party was successfully updated.' }
+        format.json { render :show, status: :ok, location: @purchase_bill_invoice }
+      else
+        format.html { render :edit }
+        format.json { render json: @purchase_bill_invoice.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   def create
     @purchase_bill_invoice = PurchaseBill.new(purchase_bill_invoice_params)
@@ -21,6 +45,8 @@ class PurchaseBillsController < ApplicationController
         redirect_to @purchase_bill_invoice and return
       end
   end
+
+
 
   def destroy
     @purchase_bill_invoice = PurchaseBill.find(params[:id])
@@ -52,7 +78,7 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def purchase_bill_invoice_params
-      params.require(:purchase_bill).permit(:customer_id, :purchase_bill_invoice_no,:date,purchase_bill_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :net_amount, :tax_amt, :total_amt,:_destroy])
+      params.require(:purchase_bill).permit(:customer_id, :purchase_no, :purchase_bill_invoice_no,:date,purchase_bill_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :item_description, :sgst, :cgst, :tax_rate, :net_amount, :tax_amt, :total_amt,:_destroy])
     end
 end
     # Never trust parameters from the scary internet, only allow the white list through.

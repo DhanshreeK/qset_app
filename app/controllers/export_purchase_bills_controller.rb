@@ -10,13 +10,13 @@ class ExportPurchaseBillsController < ApplicationController
     @export_purchase_bill_invoice = ExportPurchaseBill.new
     @export_purchase_bill_invoice.export_purchase_bill_items.build # build ingredient attributes, nothing new here
     @export_purchase_bill_invoice.purchase_no = ExportPurchaseBill.set_purchase_no
- 	
-    @items = Item.all
+ 	  @items = Item.all
   end
 
   def create
-    @export_purchase_bill_invoice = ExportPurchaseBill.new(export_purchase_bill_invoice_params)
+    @export_purchase_bill_invoice = ExportPurchaseBill.new(export_purchase_params)
       if @export_purchase_bill_invoice.save
+         # @export_purchase_bill_invoice.update!(purchase_no: params[:export_purchase_bill][:purchase_no])
         flash[:notice] = "Successfully Created export_purchase_bill_Invoice"
         redirect_to @export_purchase_bill_invoice and return
       end
@@ -51,8 +51,8 @@ end
   private
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def export_purchase_bill_invoice_params
-      params.require(:export_purchase_bill).permit(:customer_id, :export_purchase_bill_invoice_no,:date,export_purchase_bill_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :net_amount, :tax_amt, :total_amt,:_destroy])
+    def export_purchase_params
+      params.require(:export_purchase_bill).permit(:customer_id, :purchase_no, :date,export_purchase_bill_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :net_amount, :tax_amt, :total_amt,:_destroy])
     end
 end
     # Never trust parameters from the scary internet, only allow the white list through.
