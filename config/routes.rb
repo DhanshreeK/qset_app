@@ -31,6 +31,29 @@ Rails.application.routes.draw do
   end
 
 
+
+  resources :purchase_bills do
+    member do
+      get :show_invoice
+    end
+  end
+
+
+  resources :export_purchase_bills do
+    member do
+      get :show_invoice
+    end
+  end
+
+
+
+  resources :nillrate_exempt_bills do
+    member do
+      get :show_invoice
+    end
+  end
+
+  
    resources :exempt_invoices do
      member do
       get :show_exempt_invoice

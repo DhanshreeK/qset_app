@@ -59,6 +59,7 @@ def show
     end
   end
 
+
   def show_invoice
    @invoice = Invoice.find(params[:id])
    respond_to do |format|
@@ -68,6 +69,7 @@ def show
       end
     end
   end
+  
   private
 
     # Never trust parameters from the scary internet, only allow the white list through.

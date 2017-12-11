@@ -70,12 +70,42 @@
                                     </div>
                                   <%end%>
 
+
+
                                     <div class="form-group">
                                       <div class="col-sm-3">
                                         <label class="col-sm-6 control-label">GST No</label>
-                                          <%= f.text_field :party_gstin_no, class: "form-control" ,placeholder: "Gst No."%>
+                                          <%= f.text_field :party_gstin_no, class: "form-control", id: :gstno ,placeholder: "Gst No."%>
+
+
                                       </div>
+                                      
+
                                     </div>
+
+                                    
+
+                                    <% content_for :javascript do %>
+                                    <script type="text/javascript">  
+
+                                       $(document).on("keyup", "#gstno", function() {
+
+                                        var  value = document.getElementById('gstno').value;
+
+                                        var res = value.substring(0, 2);
+
+                                        var res1 = value.substring(12, 14)
+                                        if(res1=="1Z" && value.length==15 && parseInt(res)<38){
+                                          alert("heello");
+                                          }
+                                        else{alert("wrong");}    
+                                              
+                                              });
+
+                                            
+                                    </script> 
+                                    <%end%> 
+
 
                                     <div class="form-group">
                                       <div class="col-sm-3">
@@ -200,3 +230,52 @@
                     </div>
                 </div>
         </section>
+
+
+
+                     <% content_for :javascript do %>
+                   <!--Load these page level functions-->
+                    <script>
+                    $(function(){
+                      Messenger().post("Thanks for checking out NeuBoard!");
+
+                      var loc = ['top', 'right'];
+                      var style = 'flat';
+
+                      var $output = $('.controls output');
+                      var $lsel = $('.location-selector');
+                      var $tsel = $('.theme-selector');
+
+                      var update = function(){
+                        var classes = 'messenger-fixed';
+
+                        for (var i=0; i < loc.length; i++)
+                          classes += ' messenger-on-' + loc[i];
+
+                        $.globalMessenger({ extraClasses: classes, theme: style });
+                        Messenger.options = { extraClasses: classes, theme: style };
+
+                        $output.text("Messenger.options = {\n    extraClasses: '" + classes + "',\n    theme: '" + style + "'\n}");
+                      };
+
+                      update();
+
+                      $lsel.locationSelector()
+                        .on('update', function(pos){
+                          loc = pos;
+
+                          update();
+                        })
+                      ;
+
+                      $tsel.themeSelector({
+                        themes: ['flat', 'future', 'block', 'air', 'ice']
+                      }).on('update', function(theme){
+                        style = theme;
+
+                        update();
+                      });
+
+                    });
+                    </script>
+            <% end %>
