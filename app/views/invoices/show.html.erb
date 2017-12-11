@@ -34,20 +34,20 @@
 
                      <div class="col-md-4 col-sm-offset-8">
                       <div class="pull-right">
+                      <%if current_user.role == 'Party'%>
                         <p><strong>Sold By:</strong>
                           <%=current_user.party.party_name%></p>
                           <p><strong>Date:</strong>
                             <%=@invoice.date%></p>
                             <p> <strong>Address:</strong>
                              <%=current_user.party.party_address%></p>
-                             
                              <p> <strong>GSTIN No:</strong>
                                <%=current_user.party.party_gstin_no%></p>
                                <p> <strong>PAN No</strong>
                                  <%=current_user.party.party_pan_no%></p>
                                  <br>
                                </div></div></div></div>
-
+                               <%end%>
 
                                <div class="table-responsive">
                                 <table class="table table-bordered table-striped">
