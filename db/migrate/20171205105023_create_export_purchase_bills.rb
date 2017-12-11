@@ -3,7 +3,7 @@ class CreateExportPurchaseBills < ActiveRecord::Migration[5.1]
     create_table :export_purchase_bills do |t|
 	  t.string :purchase_no  
       t.date :date
- 
+
       t.references :customer, foreign_key: true
 
       t.timestamps
