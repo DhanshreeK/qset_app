@@ -5,6 +5,11 @@
     table {
      width:100%;
    }
+
+   p {
+     width: 250px;
+
+   }
    table, th, td {
      border: 1px solid black;
      border-collapse: collapse;
@@ -13,9 +18,6 @@
    th, td {
      padding: 2px;
      text-align: left;
-   }
-    p{
-    width: 250px;
    }
    table#t01 tr:nth-child(even) {
      background-color: #eee;
@@ -30,118 +32,165 @@
  h5 {
    display:inline;
  }
+
+ img {
+  border: 1px solid #ddd;
+  border-radius: 1px;
+  padding: 3px;
+  width: 150px;
+}
+
+
+
+
+.gallery-text {
+  float: left;
+  width: 48%;
+  margin: 1%;
+}
+.gallery-text p {
+  word-break: break-all;
+}
 </style>
 </head>
 <body>
 
-  <div class="center"><h2><b><font color="grey"><%= raw "#{@issue_note.note_type}" if @issue_note.present?  %>
- </font></b></h2></div>
-  <div id="heading">
-   
 
-    
-    <div class align ="left">
-      <p><strong>Invoice Number:</strong>
-              <%= @issue_note.invoice_no%></p>
-              <p><strong>Date:</strong>
-                <%= @issue_note.date_of_original_invoice%></p>
-                <p> <strong>Customer Name:</strong>
-                 <%= @issue_note.customer.customer_name%></p>
-                 <p> <strong>Address:</strong>
-                   <%= @issue_note.customer.address%></p>
-                   <p> <strong>GSTIN No:</strong>
-                     <%= @issue_note.customer.gstin_no_reg%></p>
-                    
-               
+
+
+  <div id="gallery-text">
+    <div class="gallery-text">
+     <%= wicked_pdf_image_tag 'test.jpg' %>
+   </div>
+   <div class="gallery-text" align="right">
+    <p>
+      <p> <h2><strong><font color="grey"><%= raw "#{@issue_note.note_type}" if @issue_note.present?  %> </h2></font> <font size="3">(Original for Recipient)</font>
+      </p>
+    </div> 
+  </div>
+
+
+
+  <div id="gallery-text">
+
+    <div class="gallery-text">
+      <p>
+        <p><strong>Sold By:</strong>
+          <%=current_user.party.party_name%></p>
+
+          <p> <strong>Address:</strong>
+           <%=current_user.party.party_address%></p>
+           
+           <p> <strong>GSTIN No:</strong>
+             <%=current_user.party.party_gstin_no%></p>
+             <p> <strong>PAN No</strong>
+               <%=current_user.party.party_pan_no%></p>
+             </p>
+           </div>
+
+
+           <div class="gallery-text" align="right">
+            <p>
+            <p> <strong>Customer Name:</strong>
+               <%=@issue_note.customer.customer_name%></p>
+               <p> <strong>Address:</strong>
+                 <%=@issue_note.customer.address%></p>
+                 <p> <strong>GSTIN No:</strong>
+                   <%=@issue_note.customer.gstin_no_reg%></p>
+                 </p>
+               </div>
              </div>
+
              <div class align ="right">
-               <p> <strong>Customer Name:</strong>
-                 <%=@issue_note.customer.customer_name%></p>
-                 <p> <strong>Address:</strong>
-                   <%=@issue_note.customer.address%></p>
-                   <p> <strong>GSTIN No:</strong>
-                     <%=@issue_note.customer.gstin_no_reg%></p>
-                   
-                       <br>
-                       <br>
-                       
-                     </div>  
-                     <div class align="left">
-                       <p><strong>Invoice Number:</strong>
-                        <%=@issue_note.invoice_no%></p>
-                        <p><strong>Invoice Date:</strong>
-                          <%=@issue_note.date_of_original_invoice%></p><br>
-                        </div>
-                        
-                      </div>  
-                    </div>  
-                    <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
-                      <thead>
-                        <tr>
-                          <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="11"><center><%= raw "#{@issue_note.note_type}" if @issue_note.present?%></center></th>
-                        </tr>
+               <br>
+               <br>
+             </div>  
+             <div class align="left">
 
-                        <th>Sr No</th>
-                        <th>Item Description</th>
-                        <th>HSN/SAC</th>
-                        <th>UOM</th>
-                        <th>Unit Price</th>
-                        <th>Quantity</th>
-                        <th>Net Amount</th>
-                        <th>Tax Rate</th>
-                        <th>Tax Type</th>
-                        <th>Tax Amount</th>
-                        <th>Total Amount</th>
-                      </tr>
-                      <%tax_amt = 0%>
-                      <%total_amt = 0%>
-
-                      <% @issue_note.issue_note_items.each_with_index do |i,n|%>
-                      <tr>
-                        <td><%= n + 1 %></td>
-                        <td><%= i.item.dogns%></td>
-                        <td><%= i.item.item_hsn_no%></td>
-                        <td><%= i.item.unit_of_measure.name%></td>
-                        <td>&#8377;<%= i.unit_price%></td>
-                        <td><%= i.quantity%></td>
-                        <td>&#8377;<%= i.net_amt%></td>
-                        <td><%= i.tax_rate%>&#37;</td>
-                        <td>CGST+SGST</td>
-                        <td>&#8377;<%= i.tax_amt%></td>
-                        <td align="right">&#8377;<%= i.total_amt%></td>
-                      </tr>
-                      <% tax_amt += i.tax_amt.to_f%>
-                      <%total_amt += i.total_amt.to_f%>
-                      <% end %>
-
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Total Tax: &#8377;<%=tax_amt%></td>
-                        <td>Total Amount: &#8377;<%= total_amt%></td>
-                      </tr>
-
-                      
-                    </div>
-                  </div>
+              <p><strong>issue_note Date:</strong>
+                <%=@issue_note.date_of_original_invoice%></p>
+                <p><strong>issue_note no:</strong>
+                  <%=@issue_note.invoice_no%></p><br>
                 </div>
-              </div>
+              </div>  
+            </div>  
+
+
+
+            <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
+              <thead>
+                <tr>
+                  <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="11"><center><%= raw "#{@issue_note.note_type}" if @issue_note.present?%></center></th>
+                </tr>
+
+                <th>Sr No</th>
+                <th>Item Description</th>
+                <th>HSN/SAC</th>
+
+                <th>Unit Price</th>
+                <th>Quantity</th>
+                <th>Net Amount</th>
+                <th>Tax Rate</th>
+                <th>Tax Type</th>
+                <th>Tax Amount</th>
+                <th>Total Amount</th>
+              </tr>
+              <%tax_amt = 0%>
+              <%total_amt = 0%>
+
+              <% @issue_note.issue_note_items.each_with_index do |i,n|%>
+              <tr>
+                <td><%= n + 1 %></td>
+                <td><%= i.item.dogns%></td>
+                <td><%= i.item.item_hsn_no%></td>
+
+                <td>&#8377;<%= i.unit_price%></td>
+                <td><%= i.quantity%></td>
+                <td>&#8377;<%= i.net_amt%></td>
+                <td><%= i.tax_rate%>&#37;</td>
+                <td>CGST+SGST</td>
+                <td>&#8377;<%= i.tax_amt%></td>
+                <td align="right">&#8377;<%= i.total_amt%></td>
+              </tr>
+              <% tax_amt += i.tax_amt.to_f%>
+              <%total_amt += i.total_amt.to_f%>
+              <% end %>
+
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td>Total Tax: &#8377;<%=tax_amt%></td>
+                <td>Total Amount: &#8377;<%= total_amt%></td>
+              </tr>
+
+
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </thead>
+</table>
+<table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
+  <thead>
 
+    <tr>
+      <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> </th>
+    </tr>
 
-
-
-
-
-
-
-
-
-
+    <tr>
+      <th> 
+        <H2 align="right">For <%=current_user.party.party_name%></H2>
+        <h2 align="right">&nbsp;</h2>
+        <h2 align="right">Authorized Signatory</h2> 
+      </th>
+    </tr>
+  </thead>
+</table>

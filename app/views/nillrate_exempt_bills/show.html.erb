@@ -11,7 +11,9 @@
                                 </div>
                             </div>
                             <div class="panel-body">
-                            <%= link_to 'Download PDF ',show_invoice_nillrate_exempt_bill_path(@nillrate_exempt_bill_invoice, format: 'pdf'),target: '_blank', class: "btn red"%> <b> | </b>
+                                                        <div class="pull-right">
+                            <%= link_to 'Download PDF ',show_invoice_nillrate_exempt_bill_path(@nillrate_exempt_bill_invoice,format: 'pdf'),target: '_blank', class: "btn btn-primary"%> <b> | </b> <%=link_to 'Back', nillrate_exempt_bills_path, class: 'btn btn-success'%>
+                            </div>
                                 <p><strong>Invoice Number:</strong>
                                 <%=@nillrate_exempt_bill_invoice.purchase_no%></p>
                                 <p><strong>Date:</strong>

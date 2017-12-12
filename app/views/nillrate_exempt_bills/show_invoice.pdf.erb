@@ -8,8 +8,8 @@
 
    p {
      width: 250px;
-    
-}
+
+   }
    table, th, td {
      border: 1px solid black;
      border-collapse: collapse;
@@ -33,221 +33,167 @@
    display:inline;
  }
  img {
-    border: 1px solid #ddd;
-    border-radius: 1px;
-    padding: 3px;
-    width: 150px;
+  border: 1px solid #ddd;
+  border-radius: 1px;
+  padding: 3px;
+  width: 150px;
 }
 
 
-  .gallery-text {
-    float: left;
-    width: 48%;
-    margin: 1%;
+.gallery-text {
+  float: left;
+  width: 48%;
+  margin: 1%;
 }
 .gallery-text p {
-    word-break: break-all;
+  word-break: break-all;
 }
 </style>
 </head>
 <body>
 
 
- 
+
 
   <div id="gallery-text">
 
     <div class="gallery-text">
 
       <%= wicked_pdf_image_tag 'test.jpg' %>
-    
+
     </div>
 
 
     <div class="gallery-text" align="right">
 
-        <p>
-          <p> <h2><strong><font color="grey">Nill Rated excemptBill  </strong>  </h2></font> <font size="3">(Original for Recipient)</font>
-          
-
-          </p>
-    </div> 
-
-
-
-
-
-               
-  </div>
-   
-
-    
-  <div id="gallery-text">
-
-    <div class="gallery-text">
       <p>
-      <p><strong>Sold By:</strong>
+        <p> <h2><strong><font color="grey">Nill Rated Exempt Bill  </strong>  </h2></font> <font size="3">(Original for Recipient)</font>
 
-        
-        <%=current_user.party.party_name%></p>
-     
-          <p> <strong>Address:</strong>
-           <%=current_user.party.party_address%></p>
-           
-           <p> <strong>GSTIN No:</strong>
-             <%=current_user.party.party_gstin_no%></p>
-             <p> <strong>PAN No</strong>
-               <%=current_user.party.party_pan_no%></p>
+
         </p>
+      </div>                
     </div>
 
+    <div id="gallery-text">
 
-    <div class="gallery-text" align="right">
-
+      <div class="gallery-text">
         <p>
+          <p><strong>Sold By:</strong>     
+            <%=current_user.party.party_name%></p>
 
-          <p> <strong>Customer Name:</strong>
+            <p> <strong>Address:</strong>
+             <%=current_user.party.party_address%></p>
+
+             <p> <strong>GSTIN No:</strong>
+               <%=current_user.party.party_gstin_no%></p>
+               <p> <strong>PAN No</strong>
+                 <%=current_user.party.party_pan_no%></p>
+               </p>
+             </div>
+             <div class="gallery-text" align="right">
+              <p>
+                <p> <strong>Customer Name:</strong>
                  <%=@nillrate_exempt_bill_invoice.customer.customer_name%></p>
                  <p> <strong>Address:</strong>
                    <%=@nillrate_exempt_bill_invoice.customer.address%></p>
                    <p> <strong>GSTIN No:</strong>
                      <%=@nillrate_exempt_bill_invoice.customer.gstin_no_reg%></p>
+                   </p>
+                 </div>     
+               </div>
 
-          </p>
-    </div> 
+               <div class align ="right">
+                <br>
+                <br>
 
+              </div>  
+              <div class align="left">
 
+                <p><strong>Invoice Date:</strong>
+                  <%=@nillrate_exempt_bill_invoice.date%></p>
+                  <p><strong>Invoice no:</strong>
+                    <%=@nillrate_exempt_bill_invoice.purchase_no%></p><br>           
 
-
-
-               
-  </div>
-
-
-
-
-
-
-
-
-             <div class align ="right">
-           
-                    
-                       <br>
-                       <br>
-                       
-                     </div>  
-                     <div class align="left">
-                      
-                        <p><strong>Invoice Date:</strong>
-                          <%=@nillrate_exempt_bill_invoice.date%></p>
-                          <p><strong>Invoice no:</strong>
-                          <%=@nillrate_exempt_bill_invoice.purchase_no%></p><br>
-
-                        
-
-                        </div>
-                        
-                      </div>  
-                    </div>  
-                    <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px; border-color: white;">
-                      <thead>
-                        <tr>
-                          <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="11"><center>Nill Rated excempt Invoice</center></th>
-                        </tr>
-
-                        <th>Sr No</th>
-                        <th>Item Description</th>
-                        <th>HSN/SAC</th>
-                        
-                        <th>Unit Price</th>
-                        <th>Quantity</th>
-                        <th>Net Amount</th>
-                        
-                       
-                        <th>Total Amount</th>
-                      </tr>
-                      <%tax_amt = 0%>
-                      <%total_amt = 0%>
-
-                      <% @nillrate_exempt_bill_invoice.nillrate_exempt_bill_items.each_with_index do |i,n|%>
-                      <tr>
-                        <td><%= n + 1 %></td>
-                        <td><%= i.item.dogns%></td>
-                        <td><%= i.item.item_hsn_no%></td>
-                       
-                        <td>&#8377;<%= i.unit_price%></td>
-                        <td><%= i.quantity%></td>
-                        <td>&#8377;<%= i.net_amount%></td>
-                        
-                        
-                       
-                        <td align="right">&#8377;<%= i.total_amt%></td>
-                      </tr>
-                      <% tax_amt += i.tax_amt.to_f%>
-                      <%total_amt += i.total_amt.to_f%>
-                      <% end %>
-
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                       
-                        <td></td>
-                        
-                        <td></td>
-                       
-                   
-                        <td>Total Amount: &#8377;<%= total_amt%></td>
-                      </tr>
-
-
-                      
-                       
-                   
-                   
-                    
-
-                 
-
-
-                      
-                    </div>
                   </div>
-                </div>
+
+                </div>  
+              </div>  
+              <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px; border-color: white;">
+                <thead>
+                  <tr>
+                    <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="11"><center>Nill Rated Exempt Invoice</center></th>
+                  </tr>
+
+                  <th>Sr No</th>
+                  <th>Item Description</th>
+                  <th>HSN/SAC</th>
+                  <th>Unit Price</th>
+                  <th>Quantity</th>
+                  <th>Net Amount</th>       
+                  <th>Total Amount</th>
+                </tr>
+                <%tax_amt = 0%>
+                <%total_amt = 0%>
+
+                <% @nillrate_exempt_bill_invoice.nillrate_exempt_bill_items.each_with_index do |i,n|%>
+                <tr>
+                  <td><%= n + 1 %></td>
+                  <td><%= i.item.dogns%></td>
+                  <td><%= i.item.item_hsn_no%></td>
+
+                  <td>&#8377;<%= i.unit_price%></td>
+                  <td><%= i.quantity%></td>
+                  <td>&#8377;<%= i.net_amount%></td>
+
+
+
+                  <td align="right">&#8377;<%= i.total_amt%></td>
+                </tr>
+                <% tax_amt += i.tax_amt.to_f%>
+                <%total_amt += i.total_amt.to_f%>
+                <% end %>
+
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+
+                  <td></td>
+
+                  <td></td>
+
+
+                  <td>Total Amount: &#8377;<%= total_amt%></td>
+                </tr>             
               </div>
             </div>
-          </thead>
-        </table>
+          </div>
+        </div>
+      </div>
+    </thead>
+  </table>
 
 
-         <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
-                      <thead>
-                      
-                        <tr>
-                        <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> </th>
-                        </tr>
+  <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
+    <thead>
 
-                        <tr>
-                        <th> 
+      <tr>
+        <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> </th>
+      </tr>
 
-                          <H2 align="right">For <%=current_user.party.party_name%></H2>
+      <tr>
+        <th> 
 
-                           <h2 align="right">&nbsp;</h2>
+          <H2 align="right">For <%=current_user.party.party_name%></H2>
 
-                          <h2 align="right">Authorized Signatory</h2> 
+          <h2 align="right">&nbsp;</h2>
 
-
-                        </th>
-                        </tr>
-                     
-         
-
-             
-          </thead>
-        </table>
+          <h2 align="right">Authorized Signatory</h2> 
 
 
+        </th>
+      </tr>
 
- 
+    </thead>
+  </table>

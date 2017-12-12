@@ -7,8 +7,8 @@ class ExemptInvoicesController < ApplicationController
     end
   end
 
- def new
-  @exempt_invoice = ExemptInvoice.new
+  def new
+    @exempt_invoice = ExemptInvoice.new
     @exempt_invoice.exempt_invoice_items.build # build ingredient attributes, nothing new here
     @exempt_invoice.exempt_invoice_number = ExemptInvoice.set_invoice_no
     @items = Item.all
@@ -26,7 +26,7 @@ class ExemptInvoicesController < ApplicationController
 
   def edit
    @exempt_invoice = ExemptInvoice.find(params[:id])
-  end
+ end
 
  def update
   @exempt_invoice = ExemptInvoice.find(params[:id])
@@ -73,4 +73,4 @@ def show
     def export_invoice_params
       params.require(:exempt_invoice).permit(:user_id,:customer_id, :exempt_invoice_number,:exempt_invoice_date,exempt_invoice_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :tax_amt, :total_amt,:_destroy])
     end
-end
+  end

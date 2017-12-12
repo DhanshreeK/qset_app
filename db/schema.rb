@@ -184,6 +184,7 @@ ActiveRecord::Schema.define(version: 20171209041116) do
 
   create_table "export_purchase_bill_items", force: :cascade do |t|
     t.bigint "export_purchase_bill_id"
+    t.bigint "item_id"
     t.integer "quantity"
     t.float "net_amount"
     t.float "tax_rate"
@@ -194,6 +195,7 @@ ActiveRecord::Schema.define(version: 20171209041116) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["export_purchase_bill_id"], name: "index_export_purchase_bill_items_on_export_purchase_bill_id"
+    t.index ["item_id"], name: "index_export_purchase_bill_items_on_item_id"
   end
 
   create_table "export_purchase_bills", force: :cascade do |t|
@@ -455,6 +457,7 @@ ActiveRecord::Schema.define(version: 20171209041116) do
   add_foreign_key "export_invoices", "customers"
   add_foreign_key "export_invoices", "users"
   add_foreign_key "export_purchase_bill_items", "export_purchase_bills"
+  add_foreign_key "export_purchase_bill_items", "items"
   add_foreign_key "export_purchase_bills", "customers"
   add_foreign_key "invoices", "users"
   add_foreign_key "issue_note_items", "issue_notes"
