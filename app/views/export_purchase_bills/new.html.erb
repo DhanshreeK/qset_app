@@ -45,11 +45,21 @@
                                            </div>
 
 
-                                          <div class="form-group">
-                                            <div class="col-sm-3">
-                                              <label class="col-sm-10 control-label">Search Customers</label>           <%=f.select :customer_id ,Customer.all.collect{|i| [i.customer_name, i.id]}, {prompt:true},class: "form-control"%>
+                                           <%if current_user.role == 'Party'%>
+
+                                            <div class="form-group">
+                                              <div class="col-sm-3">
+                                                <label class="col-sm-10 control-label">Search Customers</label>           <%=f.select :customer_id ,current_user.customers.collect{|i| [i.customer_name, i.id]}, {prompt:true},class: "form-control"%>
+                                              </div>
                                             </div>
-                                          </div>
+                                            <%else%>
+
+                                            <div class="form-group">
+                                              <div class="col-sm-3">
+                                                <label class="col-sm-10 control-label">Search Customers</label>           <%=f.select :customer_id ,Customer.all.collect{|i| [i.customer_name, i.id]}, {prompt:true},class: "form-control"%>
+                                              </div>
+                                            </div>
+                                            <%end%>
                                           
 
                                            <div class="form-group">
@@ -118,7 +128,11 @@
                                     <tr class="fields">
                                   
                                       
-                                  <td> <%=invoice_item.select :item_id ,Item.all.collect{|i| [i.dogns,i.rate, i.id]}, {prompt:true},class: "select"%></td>
+                                  <%if current_user.role == 'Party'%>
+                                   <td> <%=invoice_item.select :item_id ,current_user.items.all.collect{|i| [i.dogns,i.rate, i.id]}, {prompt:true},class: "select"%></td>
+                                   <%else%>
+                                   <td> <%=invoice_item.select :item_id ,Item.all.collect{|i| [i.dogns,i.rate, i.id]}, {prompt:true},class: "select"%></td>
+                                   <%end%>
                                   <td><%= invoice_item.text_field :unit_price, id: :rate, class: 'form-control'%></td>
                                   <td><%= invoice_item.text_field :quantity, id: :qty, class: 'form-control'%></td>
                                   <td><%= invoice_item.text_field :net_amount, id: :net_amount, class: 'form-control'%></td>

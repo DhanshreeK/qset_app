@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  debit_acc_no: MyString
+  to_whom: MyString
+  against: MyString
+  cash_or_check: MyString
+  total_amount: MyString
+
+two:
+  debit_acc_no: MyString
+  to_whom: MyString
+  against: MyString
+  cash_or_check: MyString
+  total_amount: MyString

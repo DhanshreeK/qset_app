@@ -1,32 +1,29 @@
 class PurchaseBillsController < ApplicationController
-
-
-
   def index
-    @purchase_bill_invoices = PurchaseBill.all
+     if current_user.role == 'Party'
+      @purchase_bill_invoices= current_user.purchase_bills
+    else
+      @purchase_bill_invoices = PurchaseBill.all
+  end
   end
 
   def new
     @purchase_bill_invoice = PurchaseBill.new
     @purchase_bill_invoice.purchase_bill_items.build # build ingredient attributes, nothing new here
     @purchase_bill_invoice.purchase_no = PurchaseBill.set_purchase_no
-    
- 	
     @items = Item.all
     @general_setting = GeneralSetting.first
   end
 
 
   def edit
-    @purchase_bill_invoice = PurchaseBill.find(params[:id])
-    
+    @purchase_bill_invoice = PurchaseBill.find(params[:id]) 
   end
 
 
   def update
     @purchase_bill_invoice = PurchaseBill.find(params[:id])
     respond_to do |format|
-
       if @purchase_bill_invoice.update(purchase_bill_invoice_params)
         format.html { redirect_to @purchase_bill_invoice, notice: 'Party was successfully updated.' }
         format.json { render :show, status: :ok, location: @purchase_bill_invoice }
@@ -40,7 +37,9 @@ class PurchaseBillsController < ApplicationController
 
   def create
     @purchase_bill_invoice = PurchaseBill.new(purchase_bill_invoice_params)
-      if @purchase_bill_invoice.save
+    @user = current_user
+    if @purchase_bill_invoice.save
+       @purchase_bill_invoice.update!(user_id: @user.id)
         flash[:notice] = "Successfully Created purchase_bill_Invoice"
         redirect_to @purchase_bill_invoice and return
       end

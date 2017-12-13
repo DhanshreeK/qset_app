@@ -16,7 +16,11 @@
     <div class="col-md-12">
       <div class="panel panel-info">
         <div class="panel-heading">
-          <h3 class="panel-title">Export</h3>
+        <%if params[:param1]=="withpay"%>
+          <h3 class="panel-title">Export (with pay)</h3>
+          <%elsif params[:param1]=="withoutpay"%>
+          <h3 class="panel-title">Export (with out pay)</h3>
+          <%end%>
           <div class="actions pull-right">
            <i class="fa fa-expand"></i>
            <i class="fa fa-chevron-down"></i>
@@ -24,6 +28,11 @@
          </div>
        </div>
        <div class="panel-body">
+       <div class="pull-left">
+        <%= link_to 'With PAy', new_export_invoice_path(:param1 => "withpay"),class: 'btn btn-info'%>
+                <%= link_to 'Without PAy', new_export_invoice_path(:param1 => "withoutpay"),class: 'btn btn-info'%>
+                </div>
+                </div>
         <%= nested_form_for @export_invoice, url: {action:'create', controller: 'export_invoices'} do |f|%>
 
         <form class="form-horizontal">
@@ -81,10 +90,13 @@
               </div>
             </div>
 
+         
+              
 
 
             <br><br><br><br><br><br>
-
+ 
+             
 
 
             <div class="panel-body">
@@ -93,11 +105,25 @@
                 <table id="example"  class="table table-bordered table-striped" cellspacing="0" width="100%">
                   <thead>
                    <tr>
-                     <th width="135"><h6>Description</h6></th>
-                     <th width="185"><h6>Unit-Price</h6></th>
-                     <th width="185"><h6>Quantity</h6></th>
-                     <th width="185"><h6>Net Amt</h6></th>
-                     <th width="185"><h6>Total Amt</h6></th>
+                   <%if params[:param1]=="withoutpay"%>
+                     <th width="110"><h6>Description</h6></th>
+                     <th width="100"><h6>Unit-Price</h6></th>
+                     <th width="110"><h6>Quantity</h6></th>
+                     <th width="100"><h6>Net Amt</h6></th>
+                     <th width="80"><h6>Action<h6></th>
+                     <%end%> 
+                   <%if params[:param1]=="withpay"%>
+                     <th width="200"><h6>Description</h6></th>
+                     <th width="80"><h6>Unit-Price</h6></th>
+                     <th width="80"><h6>Quantity</h6></th>
+                     <th width="80"><h6>Net Amt</h6></th>
+                     <th width="80"><h6>Cgst</h6></th>
+                     <th width="80"><h6>Sgst</h6></th>
+                     <th width="80"><h6>Tax Rate</h6></th>
+                     <th width="80"><h6>Tax Amt&nbsp;</h6></th>
+                     <th width="80"><h6>Total Amt</h6></th>
+                       <th width="80"><h6>Action<h6></th>
+                   <%end%>
                    </tr>
                  </thead>
                  
@@ -128,11 +154,24 @@
                  <%else%>
                  <td> <%=invoice_item.select :item_id ,Item.all.collect{|i| [i.dogns,i.rate, i.id]}, {prompt:true},class: "select"%></td>
                  <%end%>
+                 <%if params[:param1]=="withoutpay"%>
                  <td><%= invoice_item.text_field :unit_price, id: :rate, class: 'form-control'%></td>
                  <td><%= invoice_item.text_field :quantity, id: :qty, class: 'form-control'%></td>
                  <td><%= invoice_item.text_field :net_amt, id: :net_amt, class: 'form-control'%></td>
-                 <td><%= invoice_item.text_field :total_amt, id: :total_amt, class: 'form-control'%></td>
                  <td><%= invoice_item.link_to_remove "Remove", class: 'btn btn-info' %></td>
+                 <%end%>
+
+                <%if params[:param1]=="withpay"%>
+                 <td><%= invoice_item.text_field :unit_price, id: :rate, class: 'form-control'%></td>
+                 <td><%= invoice_item.text_field :quantity, id: :qty, class: 'form-control'%></td>
+                 <td><%= invoice_item.text_field :net_amt, id: :net_amt, class: 'form-control'%></td>
+                 <td><%= text_field_tag :sgst, "", class: 'form-control'%></td>
+                 <td><%= text_field_tag :cgst, "", class: 'form-control'%></td>
+                 <td><%= text_field_tag :tax_rate, "",id: :tax_rate, class: 'form-control'%></td>
+                 <td><%= invoice_item.text_field :tax_amt, id: :tax_amt, class: 'form-control'%></td>
+                  <td><%= invoice_item.text_field :total_amt, id: :total_amt, class: 'form-control'%></td>
+                 <td><%= invoice_item.link_to_remove "Remove", class: 'btn btn-info' %></td>
+                 <%end%>
                </tr>
              </table>
 
@@ -232,21 +271,22 @@
   var val2 = +container.find("#qty").val();
   var sval = +container.find("#sgst").val();
   var cval = +container.find("#cgst").val();
-
+  var val3 = sval+cval;
+  +container.find("#tax_rate").val(val3);
   +container.find("#net_amt").val(val1*val2);
-  +container.find("#total_amt").val(val1*val2);
-
-  
+  +container.find('#tax_amt').val(val3*val1*val2/100);
+  var ans = (val1*val2 + val3*val1*val2/100);
+  +container.find('#total_amt').val(ans);
 });
 
-
- function deleteRow(btn) {
+function deleteRow(btn) {
   var row = btn.parentNode;
   row.parentNode.removeChild(row);
 }
 
 </script>
 <%end%>
+
 
 <% content_for :javascript do %>
 <script type="text/javascript">
