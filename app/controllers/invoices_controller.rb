@@ -74,7 +74,7 @@ def show
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def invoice_params
-      params.require(:invoice).permit(:user_id,:id,:gstr_holder,:customer_id, :invoice_no,:date,invoice_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :tax_amt, :total_amt,:_destroy])
+      params.require(:invoice).permit(:rcm,:user_id,:id,:gstr_holder,:customer_id, :invoice_no,:date,invoice_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :tax_amt, :total_amt,:_destroy])
     end
   end
     # Never trust parameters from the scary internet, only allow the white list through.

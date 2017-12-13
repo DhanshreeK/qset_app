@@ -31,7 +31,6 @@ Rails.application.routes.draw do
   end
 
 
-
   resources :purchase_bills do
     member do
       get :show_invoice
@@ -73,17 +72,20 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :refund_vouchers do
+    member do
+      get :show_refund_voucher
+    end
+  end
+
+   resources :receipt_vouchers do
+    member do
+      get :show_receipt_voucher
+    end
+  end
+
  
 
-  resources :customer_items do
-   collection do
-    post :create
-    get :index
-   end
-   member do
-    delete :destroy
-  end
-  end
 
    get 'invoices/attributes_for/:model' => 'invoices#get_attributes_for'
   

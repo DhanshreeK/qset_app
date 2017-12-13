@@ -1,22 +1,24 @@
 class NillrateExemptBillsController < ApplicationController
-
-
-
   def index
-    @nillrate_exempt_bill_invoices = NillrateExemptBill.all
+    if current_user.role == 'Party'
+        @nillrate_exempt_bill_invoices = current_user.nillrate_exempt_bills
+      else 
+        @nillrate_exempt_bill_invoices = NillrateExemptBill.all
+    end
   end
 
   def new
     @nillrate_exempt_bill_invoice = NillrateExemptBill.new
     @nillrate_exempt_bill_invoice.nillrate_exempt_bill_items.build # build ingredient attributes, nothing new here
     @nillrate_exempt_bill_invoice.purchase_no = NillrateExemptBill.set_purchase_no
- 	
     @items = Item.all
   end
 
   def create
     @nillrate_exempt_bill_invoice = NillrateExemptBill.new(nillrate_exempt_bill_invoice_params)
+    @user = current_user
       if @nillrate_exempt_bill_invoice.save
+        @nillrate_exempt_bill_invoice.update(user_id: @user.id)
         flash[:notice] = "Successfully Created nillrate_exempt_bill_Invoice"
         redirect_to @nillrate_exempt_bill_invoice and return
       end

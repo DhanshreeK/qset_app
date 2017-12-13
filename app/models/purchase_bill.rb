@@ -1,5 +1,6 @@
 class PurchaseBill < ApplicationRecord
   belongs_to :customer
+  belongs_to :user
    has_many :purchase_bill_items, inverse_of: :purchase_bill
    accepts_nested_attributes_for :purchase_bill_items, reject_if: :all_blank, allow_destroy: true
    scope :shod, ->(id) { where(id: id).take }

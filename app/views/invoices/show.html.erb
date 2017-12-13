@@ -27,8 +27,10 @@
                    <%=@invoice.customer.address%></p>
                    <p> <strong>GSTIN No:</strong>
                      <%=@invoice.customer.gstin_no_reg%></p>
-                     <p> <strong>GSTR</strong>
+                     <p> <strong>GSTR:</strong>
                        <%=@invoice.gstr_holder%></p>
+                       <p> <strong>RCM:</strong>
+                       <%=@invoice.rcm%></p>
                        <br>
                      </div></div>
 
@@ -43,7 +45,7 @@
                              <%=current_user.party.party_address%></p>
                              <p> <strong>GSTIN No:</strong>
                                <%=current_user.party.party_gstin_no%></p>
-                               <p> <strong>PAN No</strong>
+                               <p> <strong>PAN No:</strong>
                                  <%=current_user.party.party_pan_no%></p>
                                  <br>
                                </div></div></div></div>

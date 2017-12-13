@@ -1,9 +1,11 @@
 class ExportPurchaseBillsController < ApplicationController
-
-
-
+  
   def index
-    @export_export_purchase_bill_invoices = ExportPurchaseBill.all
+     if current_user.role == 'Party'
+       @export_export_purchase_bill_invoices = current_user.export_purchase_bills
+     else
+      @export_export_purchase_bill_invoices = ExportPurchaseBill.all
+    end
   end
 
   def new
@@ -15,7 +17,9 @@ class ExportPurchaseBillsController < ApplicationController
 
   def create
     @export_purchase_bill_invoice = ExportPurchaseBill.new(export_purchase_params)
+    @user = current_user
       if @export_purchase_bill_invoice.save
+        @export_purchase_bill_invoice.update(user_id: @user.id)
          # @export_purchase_bill_invoice.update!(purchase_no: params[:export_purchase_bill][:purchase_no])
         flash[:notice] = "Successfully Created export_purchase_bill_Invoice"
         redirect_to @export_purchase_bill_invoice and return

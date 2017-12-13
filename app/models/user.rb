@@ -18,7 +18,11 @@ class User < ApplicationRecord
   has_many :exempt_invoices
   has_many :credit_debit_notes
   has_many :issue_notes
-
+  has_many :purchase_bills
+  has_many :export_purchase_bills
+  has_many :nillrate_exempt_bills
+  has_many :refund_vouchers
+  has_many :receipt_vouchers
 
   def create_general_setting
     role = 'Party'
