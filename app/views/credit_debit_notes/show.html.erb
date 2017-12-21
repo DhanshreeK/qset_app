@@ -11,12 +11,15 @@
          </div>
        </div>
        <div class="panel-body">
-       <div class="pull-right">
-        <%= link_to 'Download PDF ',show_credit_debit_note_credit_debit_note_path( @credit_debit_note, format: 'pdf'),target: '_blank', class: "btn btn-primary"%> <b> | </b> <%=link_to 'Back', credit_debit_notes_path, class: 'btn btn-success'%>
-</div>
+           <div class="pull-right">
+            <%= link_to 'Download PDF ',show_credit_debit_note_credit_debit_note_path( @credit_debit_note, format: 'pdf'),target: '_blank', class: "btn btn-primary"%> <b> | </b> <%=link_to 'Back', credit_debit_notes_path, class: 'btn btn-success'%>
+          </div>
+          
            <div class="row">
              <div class="col-md-4">
              <div class="pull-left">
+             
+            <strong>Consignor</strong>
             <p><strong>Invoice Number:</strong>
               <%= @credit_debit_note.invoice_no%></p>
               <p><strong>Date:</strong>
@@ -32,8 +35,8 @@
                      </div></div>
                    <div class="col-md-4 col-sm-offset-8">
                       <div class="pull-right">
-                        <p><strong>Sold By:</strong>
-                          <%=current_user.party.party_name%></p>
+                        <strong>Consignee</strong>
+                          <p><%=current_user.party.party_name%></p>
                           <p><strong>Date:</strong>
                             <%= @credit_debit_note.date_of_original_invoice%></p>
                             <p> <strong>Address:</strong>
@@ -82,6 +85,7 @@
                                   </tr>
                                   <% tax_amt += i.tax_amt.to_f%>
                                   <%total_amt += i.total_amt.to_f%>
+                                   <%@credit_debit_note.update(invoice_value: total_amt)%>
                                   <% end %>
                                 </tbody>
                               </table>
@@ -91,12 +95,80 @@
                       </div>
                     </div>
                     <b> Total Tax </b>&#8377;<%=tax_amt%><br>
-                    <b>Total Amount </b>&#8377;<%=total_amt%><br>
-                    <b>Discount </b> <%=text_field_tag :discount%>
-
+                    <b>Total Amount</b>&#8377;<%=total_amt%><br>
+                    <b>Taxable Value</b>&#8377;<%=text_field_tag :total_amt,"",value: total_amt.to_i,id: :total_amt, readonly:true%><br>
+                    <b>Cess</b> <%=text_field_tag :cess,"",id: :cess%><br>
+                    <b>Caluclated Cess</b> <%=text_field_tag :invoice1,"",id: :invoice1, readonly:true%><br>
+                    <b>Total Invoice Value</b><%=text_field_tag :total_invoice_value,"",id: :total_invoice_value, readonly:true %><br>
+                    <%if @credit_debit_note.total_invoice_value.present?%>
+                     <b>Cess:</b><%=@credit_debit_note.cess%>&#37;<br>
+                    <b>Total:</b>&#8377;<%=@credit_debit_note.total_invoice_value%>
+                    <%end%>
                     <br>
-
+                    
                   </div>
+                  <button onclick="myFunction()", class="btn btn-success">Update Cess</button>
+
                 </div>
               </div>
             </div>
+            </div>
+       </div>
+      </div>
+     </div>
+</div>
+
+
+
+
+
+                    <% content_for :javascript do %>
+<script type="text/javascript">
+
+function refresh (timeoutPeriod){ 
+    refresh = setTimeout(function(){window.location.reload(true);},timeoutPeriod); 
+  } 
+
+  
+
+
+ $(document).on("keyup", "#cess, #total_amt", function() {
+    var a =  +$('#total_amt').val();
+    var b =  $('#cess').val();
+    var c =  a*b/100;
+    +$('#invoice1').val(c);
+    var d = +$('#total_invoice_value').val(c+a);
+
+    par = c+a;
+    par1 = b;
+ });
+ // var url = window.location.href;
+ //     if(window.location.href.indexOf("params1")) {
+ //      refresh(2400);
+ //    }
+
+ //   if (url.contains('?')) {
+ //    refresh(2400);
+ //  }
+
+ function myFunction() {
+    var test  = $('#total_invoice_value').val();
+    var test1 = $('#cess').val();
+    document.location.search += '&params1='+ test + '&params2='+ test1;
+
+
+
+
+
+}
+
+
+ function button(){
+  alert(par);
+ }
+
+
+
+
+</script>
+<%end%>

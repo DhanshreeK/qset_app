@@ -41,6 +41,7 @@
 
     
     <div class align ="left">
+    <strong>Consignor</strong>
       <p><strong>Invoice Number:</strong>
               <%= @issue_note.invoice_no%></p>
               <p><strong>Date:</strong>
@@ -55,12 +56,20 @@
                
              </div>
              <div class align ="right">
-               <p> <strong>Customer Name:</strong>
-                 <%=@issue_note.customer.customer_name%></p>
-                 <p> <strong>Address:</strong>
-                   <%=@issue_note.customer.address%></p>
-                   <p> <strong>GSTIN No:</strong>
-                     <%=@issue_note.customer.gstin_no_reg%></p>
+             <strong>Consignee</strong>
+                        <p>
+                          <%=current_user.party.party_name%></p>
+                          <p><strong>Date:</strong>
+                          <%= @issue_note.date_of_original_invoice%></p>
+                            <p> <strong>Address:</strong>
+                             <%=current_user.party.party_address%></p>
+                             
+                             <p> <strong>GSTIN No:</strong>
+                               <%=current_user.party.party_gstin_no%></p>
+                               <p> <strong>PAN No</strong>
+                                 <%=current_user.party.party_pan_no%></p>
+                                 <br>
+                               </div>
                    
                        <br>
                        <br>

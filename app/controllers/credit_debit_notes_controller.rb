@@ -50,6 +50,9 @@ end
 
 def show
   @credit_debit_note = CreditDebitNote.find(params[:id])
+   if params[:params1].present?
+    @credit_debit_note.update!(total_invoice_value: params[:params1], cess: params[:params2])
+  end
   respond_to do |format|
     format.html
     format.pdf do
@@ -71,7 +74,7 @@ def show
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def credit_debit_note_params
-      params.require(:credit_debit_note).permit(:user_id,:note_type,:id, :date_of_original_invoice, :invoice_no, :gstin_no, :e_way_bill_no, :date_of_issue_note, :issue_note_no, :pre_gst, :place_of_supply, :customer_id, :reason_for_issuing_note, :register_type, :note_typee,credit_debit_note_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :tax_amt, :total_amt,:_destroy])
+      params.require(:credit_debit_note).permit(:ur_types,:user_id,:note_type,:id, :date_of_original_invoice, :invoice_no, :gstin_no, :e_way_bill_no, :date_of_issue_note, :issue_note_no, :pre_gst, :place_of_supply, :customer_id, :reason_for_issuing_note, :register_type, :note_typee,credit_debit_note_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :tax_amt, :total_amt,:_destroy])
     end
   end
     # Never trust parameters from the scary internet, only allow the white list through.

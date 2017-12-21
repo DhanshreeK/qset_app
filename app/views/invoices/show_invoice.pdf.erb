@@ -49,8 +49,8 @@
            
            <p> <strong>GSTIN No:</strong>
              <%=current_user.party.party_gstin_no%></p>
-             <p> <strong>PAN No</strong>
-               <%=current_user.party.party_pan_no%></p>
+             <p> <strong>E-Way Bill No</strong>
+               <%=@invoice.ebay_bill_no%></p>
                
              </div>
              <div class align ="right">
@@ -78,7 +78,7 @@
                     <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
                       <thead>
                         <tr>
-                          <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="11"><center>Regular Sale Invoice</center></th>
+                          <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="13"><center>Regular Sale Invoice</center></th>
                         </tr>
 
                         <th>Sr No</th>
@@ -86,14 +86,15 @@
                         <th>Unit Price</th>
                         <th>Quantity</th>
                         <th>Net Amount</th>
+                         <th>CGST</th>
+                         <th>SGST</th>
                         <th>Tax Rate</th>
-                        <th>Tax Type</th>
                         <th>Tax Amount</th>
                         <th>Total Amount</th>
                       </tr>
                       <%tax_amt = 0%>
                       <%total_amt = 0%>
-
+                      <%ans= 0%>
                       <% @invoice.invoice_items.each_with_index do |i,n|%>
                       <tr>
                         <td><%= n + 1 %></td>
@@ -101,8 +102,9 @@
                         <td>&#8377;<%= i.unit_price%></td>
                         <td><%= i.quantity%></td>
                         <td>&#8377;<%= i.net_amt%></td>
+                         <td>&#8377;<%=ans = i.tax_amt/2%></td>
+                         <td>&#8377;<%=ans%></td>
                         <td><%= i.tax_rate%>&#37;</td>
-                        <td>CGST+SGST</td>
                         <td>&#8377;<%= i.tax_amt%></td>
                         <td align="right">&#8377;<%= i.total_amt%></td>
                       </tr>
@@ -119,9 +121,12 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
                         <td>Total Tax: &#8377;<%=tax_amt%></td>
                         <td>Total Amount: &#8377;<%= total_amt%></td>
+                        <%if @invoice.total_invoice_value.present?%>
+                       <b>Cess:</b><%=@invoice.cess%>&#37;<br>
+                       <b>Total:</b>&#8377;<%=@invoice.total_invoice_value%>
+                    <%end%>
                       </tr>
 
                       

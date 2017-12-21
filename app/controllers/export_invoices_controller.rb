@@ -72,6 +72,6 @@ def show
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def export_invoice_params
-      params.require(:export_invoice).permit(:customer_id, :export_invoice_number,:export_invoice_date,export_invoice_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :tax_amt, :total_amt,:_destroy])
+      params.require(:export_invoice).permit(:export_type,:pos,:port_code,:shipping_bill_no,:customer_id, :export_invoice_number,:export_invoice_date,export_invoice_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :tax_amt, :total_amt,:_destroy])
     end
   end

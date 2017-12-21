@@ -3896,7 +3896,7 @@ label.valid {
 }
 
 .theme-default #header {
-  background: #fff;
+  background: #556B8D;
 }
 
 .theme-default #header .logo, .theme-default #header button.sidebar-toggle, .theme-default #header button#toggle-profile, .theme-default #header button#toggle-fullscreen, .theme-default #header .nav li.profile > a {

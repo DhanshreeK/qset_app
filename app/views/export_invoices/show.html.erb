@@ -12,7 +12,7 @@
        </div>
        <div class="panel-body">
        <div class="pull-right">
-        <%= link_to 'Download PDF ',show_export_invoice_export_invoice_path(@export_invoice, format: 'pdf'),target: '_blank', class: "btn btn-primary"%> <b> | </b> <%=link_to 'Back', export_invoices_path, class: 'btn btn-success'%>
+        <%= link_to 'Download PDF ',show_export_invoice_export_invoice_path(@export_invoice, format: 'pdf'),target: '_blank', class: "btn btn-primary"%> <b> | </b> <%=link_to 'Back', new_export_invoice_path, class: 'btn btn-success'%>
         </div>
 
            <div class="row">
@@ -58,8 +58,9 @@
                                    <th>Unit Price</th>
                                    <th>Quantity</th>
                                    <th>Net Amount</th>
-                                   <th>Tax Rate</th>
-                                   <th>Tax Type</th>
+                                   <th>CGST</th>
+                                  <th>SGST</th>
+                                  <th>Tax Rate</th>
                                    <th>Tax Amount</th>
                                    <th>Total Amount</th>
                                  </tr>
@@ -68,6 +69,7 @@
                                <tbody>
                                 <%tax_amt = 0%>
                                 <%total_amt = 0%>
+                                  <%ans = 0%>
                                 <% @export_invoice.export_invoice_items.each_with_index do |i,n|%>
                                 <tr>
                                   <td><%= n + 1 %></td>
@@ -77,13 +79,26 @@
                                   <td>&#8377;<%= i.unit_price%></td>
                                   <td><%= i.quantity%></td>
                                   <td>&#8377;<%= i.net_amt%></td>
+                                  <td>&#8377;<%=ans = i.tax_amt.to_f/2%></td>
+                                 <td>&#8377;<%=ans%></td>
                                   <td><%= i.tax_rate%>&#37;</td>
-                                  <td>CGST+SGST</td>
-                                  <td>&#8377;<%= i.tax_amt%></td>
+                             
+                                  <td>&#8377;<%= i.tax_amt.to_f%></td>
                                   <td>&#8377;<%= i.total_amt%></td>
                                 </tr>
+                                <% if i.tax_rate.blank? %>
+                                <%total_amt += i.net_amt.to_f%>
+                                <%end%>
+
+                                <%if i.tax_amt.present?%>
+                                 <%total_amt += i.total_amt.to_f%>
+                                 <%@export_invoice.update(invoice_value: total_amt)%>
+
+                                <%end%>
                                 <% tax_amt += i.tax_amt.to_f%>
-                                <%total_amt += i.total_amt.to_f%>
+                               
+
+                                <%@export_invoice.update(export_invoice_value: total_amt)%>
                                 <% end %>
                               </tbody>
                             </table>

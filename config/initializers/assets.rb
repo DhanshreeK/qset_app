@@ -42,6 +42,10 @@ Rails.application.config.assets.precompile += %w( refund_vouchers.css )
 Rails.application.config.assets.precompile += %w( refund_vouchers.js )
 Rails.application.config.assets.precompile += %w( receipt_vouchers.css )
 Rails.application.config.assets.precompile += %w( receipt_vouchers.js )
+Rails.application.config.assets.precompile += %w( reports.css )
+Rails.application.config.assets.precompile += %w( reports.js )
+Rails.application.config.assets.precompile += %w( job_works.css )
+Rails.application.config.assets.precompile += %w( job_works.js )
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
