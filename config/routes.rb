@@ -1,13 +1,5 @@
 Rails.application.routes.draw do
-
-  get 'issue_notes/new'
-
-  get 'credit_debit_notes/new'
-
-  get 'exempt_invoices/new'
-
-  get 'export_invoices/new'
-
+  
   resources :unit_of_measures
   resources :business_sales
   resources :customers do 
@@ -19,6 +11,9 @@ Rails.application.routes.draw do
   end
 
   resources :invoices do
+    collection do
+      get :export
+    end
     member do
       get :show_invoice
     end
@@ -84,6 +79,15 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :reports do
+    collection do
+      get :export_excels
+      post :excel_lists
+    end
+  end
+
+  resources :job_works
+
  
 
 
@@ -94,8 +98,14 @@ Rails.application.routes.draw do
       get :load_item_data
     end
   end
+
   resources :parties
-  resources :charted_accountants
+
+  resources :charted_accountants do 
+    member do
+      get :show_parties
+    end
+  end
    devise_for :users, controllers: { registrations: 'registrations' }
    as :user do
      get '/users/sign_out' => 'devise/sessions#destroy'

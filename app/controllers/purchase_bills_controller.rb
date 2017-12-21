@@ -51,7 +51,7 @@ class PurchaseBillsController < ApplicationController
     @purchase_bill_invoice = PurchaseBill.find(params[:id])
     @purchase_bill_invoice.destroy
     flash[:notice] = "Successfully destroyed purchase_bill_Invoice"
-    redirect_to receipes_url
+    redirect_to purchase_bills_path
   end
 
   def show

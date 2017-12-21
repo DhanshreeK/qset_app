@@ -77,7 +77,7 @@
                   <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
                     <thead>
                       <tr>
-                        <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="11"><center>EXPORT/ZERO RATED Invoice</center></th>
+                        <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="12"><center>EXPORT/ZERO RATED Invoice</center></th>
                       </tr>
 
                       <th>Sr No</th>
@@ -87,13 +87,15 @@
                       <th>Unit Price</th>
                       <th>Quantity</th>
                       <th>Net Amount</th>
+                      <th>CGST</th>
+                       <th>SGST</th>
                       <th>Tax Rate</th>
-                      <th>Tax Type</th>
                       <th>Tax Amount</th>
                       <th>Total Amount</th>
                     </tr>
                     <%tax_amt = 0%>
                     <%total_amt = 0%>
+                    <%ans = 0%>
 
                     <% @export_invoice.export_invoice_items.each_with_index do |i,n|%>
                     <tr>
@@ -104,8 +106,10 @@
                       <td>&#8377;<%= i.unit_price%></td>
                       <td><%= i.quantity%></td>
                       <td>&#8377;<%= i.net_amt%></td>
+                       <td>&#8377;<%=ans = i.tax_amt.to_f/2%></td>
+                                 <td>&#8377;<%=ans%></td>
                       <td><%= i.tax_rate%>&#37;</td>
-                      <td>CGST+SGST</td>
+                    
                       <td>&#8377;<%= i.tax_amt%></td>
                       <td align="right">&#8377;<%= i.total_amt%></td>
                     </tr>
@@ -114,6 +118,7 @@
                     <% end %>
 
                     <tr>
+                    <td></td>
                       <td></td>
                       <td></td>
                       <td></td>

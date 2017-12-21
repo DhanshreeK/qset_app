@@ -1,7 +1,7 @@
 class IssueNote < ApplicationRecord
   belongs_to :customer
   belongs_to :user
-  has_many :issue_note_items, inverse_of: :issue_note
+  has_many :issue_note_items, inverse_of: :issue_note, dependent: :destroy
   accepts_nested_attributes_for :issue_note_items, reject_if: :all_blank, allow_destroy: true
   scope :shod, ->(id) { where(id: id).take }
 

@@ -14,6 +14,11 @@ class ChartedAccountantsController < ApplicationController
     @general_setting = GeneralSetting.first
   end
 
+  def show_parties
+      @charted_accountant = ChartedAccountant.find(params[:id])
+      @parties = @charted_accountant.parties
+  end
+
   # GET /charted_accountants/new
   def new
     @general_setting = GeneralSetting.first

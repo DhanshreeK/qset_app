@@ -77,6 +77,7 @@
                                 </tr>
                                 <% tax_amt += i.tax_amt.to_f%>
                                 <%total_amt += i.total_amt.to_f%>
+                                <%@exempt_invoice.update(exempt_invoice_value: total_amt)%>
                                 <% end %>
                               </tbody>
                             </table>

@@ -50,6 +50,20 @@
            <p> <strong>Cash or Check:</strong>
              <%=@refund_voucher.cash_or_check%></p>
           
+ <div class align ="right">
+                        <p><strong>Sold By:</strong>
+                          <%=current_user.party.party_name%></p>
+                          <p><strong>Date:</strong>
+                            <%=@refund_voucher.date%></p>
+                            <p> <strong>Address:</strong>
+                             <%=current_user.party.party_address%></p>
+                             
+                             <p> <strong>GSTIN No:</strong>
+                               <%=current_user.party.party_gstin_no%></p>
+                               <p> <strong>PAN No</strong>
+                                 <%=current_user.party.party_pan_no%></p>
+                                 <br>
+                               </div>
 
 
       <div class="row">

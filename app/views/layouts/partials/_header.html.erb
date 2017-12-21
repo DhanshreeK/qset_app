@@ -2,7 +2,7 @@
   <div class="brand">
      <a href="/" class="logo">
        <i class="icon-layers"></i>
-    <span>NEU</span>BOARD</a>
+    <span>GST</span>App</a>
  </div>
 <!--logo end-->
             <ul class="nav navbar-nav navbar-left">
@@ -12,14 +12,10 @@
                     </button>
                 </li>
                 <li class="toggle-profile hidden-xs">
-                    <button type="button" class="btn btn-default" id="toggle-profile">
-                        <i class="icon-user"></i>
-                    </button>
+                   
                 </li>
                <li class="hidden-xs hidden-sm">
-                    <input type="text" class="search" placeholder="Search project...">
-                    <button type="submit" class="btn btn-sm btn-search"><i class="fa fa-search"></i>
-                    </button>
+                    
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -29,7 +25,7 @@
                             <span class="avatar">
                                 <img src="<%= image_path('profile.jpg') %>" class="img-circle" alt="">
                             </span>
-                        <span class="text">Mike Adams</span>
+                        <span class="text"><%=current_user.role%></span>
                         <span class="caret"></span>
                         </span>
                     </a>
@@ -63,7 +59,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="javascript:void(0);">
+                            <a href="/users/sign_out" data-method='delete'>
                                 <span class="icon"><i class="fa fa-sign-out"></i>
                                 </span>Logout</a>
                         </li>

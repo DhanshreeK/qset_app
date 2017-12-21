@@ -1,21 +1,21 @@
              <div class="pageheader">
-              <h1>Regular Sale Bill</h1>
+              <h1>Tax Invoice</h1>
               <div class="breadcrumb-wrapper hidden-xs">
                 <span class="label">You are here:</span>
                 <ol class="breadcrumb">
                   <li><a href="/">Dashboard</a>
                   </li>
                   <li>Tables</li>
-                  <li class="active">Regular Sale Bill</li>
+                  <li class="active">Tax Invoice</li>
                 </ol>
               </div>
             </div>
             <section id="main-content" class="animated fadeInUp">
               <div class="row">
                 <div class="col-md-12">
-                  <div class="panel panel-default">
+                  <div class=" panel panel-info">
                     <div class="panel-heading">
-                      <h3 class="panel-title">Regular Sale Bill</h3>
+                      <h3 class="panel-title">Tax Invoice</h3>
                       <div class="actions pull-right">
                        <i class="fa fa-expand"></i>
                        <i class="fa fa-chevron-down"></i>
@@ -23,7 +23,14 @@
                      </div>
                    </div>
                    <div class="panel-body">
-                    <%= link_to 'Add Regular Sale Bill', new_invoice_path, class: 'btn btn-primary' %>
+                    <%= link_to 'Add Tax Invoice', new_invoice_path, class: 'btn btn-primary' %>
+                    <div class="pull-right">
+                      <font color="blue">Download:</font>
+                    <%= link_to "CSV", invoices_path(format: "csv"), class: 'btn btn-success' %> |
+                    <%= link_to "Excel", invoices_path(format: "xls"), class: 'btn btn-success' %>
+                    <%#=link_to("Export Database to Excel", export_invoices_path)  %>
+
+                    </div>
                     <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                       <thead>
                         <tr>

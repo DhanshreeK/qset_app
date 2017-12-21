@@ -13,7 +13,7 @@
             <section id="main-content" class="animated fadeInUp">
                       <div class="row">
                     <div class="col-md-12">
-                        <div class="panel panel-default">
+                        <div class=" panel panel-info">
                           <div class="panel-heading">
                             <h3 class="panel-title">Customers</h3>
                             <div class="actions pull-right">
@@ -31,7 +31,7 @@
                              <th>Sr.No</th>
                                     <th>Customer name</th>
                                     <th>Gstin no reg</th>
-                                    <th>Pan No</th>
+                                    <th>Customer Type</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -42,7 +42,7 @@
                                       <td><%= i + 1 %></td>
                                       <td><%= link_to customer.customer_name, customer, class: 'btn btn-link' %></td>
                                       <td><%= customer.gstin_no_reg %></td>
-                                      <td><%= customer.cust_pan_no %></td>
+                                      <td><%= customer.customer_type %></td>
                                        <td><%= link_to 'Destroy', customer, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn btn-link' %></td>
                                    </tr>
 

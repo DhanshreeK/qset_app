@@ -13,9 +13,9 @@
             <section id="main-content" class="animated fadeInUp">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="panel panel-default">
+                        <div class=" panel panel-info">
                             <div class="panel-heading">
-                                <h3 class="panel-title">New Customer/h3>
+                                <h3 class="panel-title">New Customer</h3>
                                 <div class="actions pull-right">
                                  <i class="fa fa-expand"></i>
                                     <i class="fa fa-chevron-down"></i>
@@ -40,7 +40,7 @@
                                 <form class="form-horizontal">
                                   <div class="form-group">
                                     <div class="col-sm-3">
-                                      <label class="col-sm-10 control-label">First Name</label>
+                                      <label class="col-sm-10 control-label">Full Name</label>
                                       <%= f.text_field :customer_name, id: :customer_customer_name, class: "form-control",placeholder: "Name."%>
                                     </div>
                                   </div>
@@ -55,28 +55,28 @@
                                   <div class="form-group">
                                     <div class="col-sm-3">
                                         <label class="col-sm-10 control-label">ARN No</label>
-                                          <%= f.text_field :arn_no, id: :customer_arn_no , class: "form-control" ,placeholder: "No."%>
+                                          <%= f.text_field :arn_no, id: :customer_arn_no , class: "form-control" ,placeholder: "ARN No"%>
                                     </div>
                                   </div>
 
                                   <div class="form-group">
                                     <div class="col-sm-3">
                                         <label class="col-sm-10 control-label">Address</label>
-                                          <%= f.text_field :address, id: :customer_address  , class: "form-control" ,placeholder: "No."%>
+                                          <%= f.text_field :address, id: :customer_address  , class: "form-control" ,placeholder: "Address"%>
                                     </div>
                                   </div>
 
                                   <div class="form-group">
                                     <div class="col-sm-3">
                                         <label class="col-sm-15 control-label">Customer Place Of Supply</label>
-                                          <%= f.text_field :cust_place_of_supply, id: :customer_cust_place_of_supply  , class: "form-control" ,placeholder: "No."%>
+                                          <%= f.text_field :cust_place_of_supply, id: :customer_cust_place_of_supply  , class: "form-control" ,placeholder: "Place of Supply"%>
                                     </div>
                                   </div>
 
                                   <div class="form-group">
                                     <div class="col-sm-3">
                                         <label class="col-sm-15 control-label">Name of Commodity</label>
-                                          <%= f.text_field :cust_name_of_commodity_supplied, id: :customer_cust_name_of_commodity_supplied, class: "form-control" ,placeholder: "No."%>
+                                          <%= f.text_field :cust_name_of_commodity_supplied, id: :customer_cust_name_of_commodity_supplied, class: "form-control" ,placeholder: "Name of Commodity"%>
                                     </div>
                                   </div>
 
@@ -104,19 +104,28 @@
                                   <div class="form-group">
                                     <div class="col-sm-3">
                                         <label class="col-sm-15 control-label">Service Acc Code</label>
-                                          <%= f.text_field :cust_serv_acc_code, id: :customer_cust_serv_acc_code, class: "form-control" ,placeholder: "Name."%>
+                                          <%= f.text_field :cust_serv_acc_code, id: :customer_cust_serv_acc_code, class: "form-control" ,placeholder: "Service Name"%>
                                     </div>
                                   </div>
 
                                   <div class="form-group">
                                     <div class="col-sm-3">
                                         <label class="col-sm-10 control-label">PAN No</label>
-                                          <%= f.text_field :cust_pan_no, id: :customer_cust_pan_no, class: "form-control" ,placeholder: "Name."%>
+                                          <%= f.text_field :cust_pan_no, id: :customer_cust_pan_no, class: "form-control" ,placeholder: "PAN No"%>
                                     </div>
                                   </div>
+
+                                   <div class="form-group">
+                                    <div class="col-sm-3">
+                                   <label class="col-sm-15 control-label">Select Customer Type</label>
+                                     <div class="radio">
+                                      <%= f.radio_button "customer_type", "E-Commerce GSTIN"%><h6><b>E-Commerce GSTIN</b></h6><br>
+                                      <%= f.radio_button "customer_type", "Regular"%><h6><b>Regular</b></h6>
+                                    </div>
+                                  </div>
+                                  </div>
                                     <p>&nbsp;</p>
-                                    <p>&nbsp;</p>
-                                    <p>&nbsp;</p>
+                                  
                                   <div class="panel-body">
                                         <div class="col-sm-offset-3 col-sm-12">
                                         <%= f.submit class: "btn btn-success"%>
