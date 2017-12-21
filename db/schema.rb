@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171209041116) do
+ActiveRecord::Schema.define(version: 20171221140644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,8 +80,13 @@ ActiveRecord::Schema.define(version: 20171209041116) do
     t.string "register_type"
     t.string "note_type"
     t.bigint "user_id"
+    t.string "invoice_value"
+    t.string "cess"
+    t.string "total_invoice_value"
+    t.string "document_type"
+    t.string "ur_type"
+    t.string "ur_types"
     t.index ["customer_id"], name: "index_credit_debit_notes_on_customer_id"
-    t.index ["user_id"], name: "index_credit_debit_notes_on_user_id"
   end
 
   create_table "customer_items", force: :cascade do |t|
@@ -119,6 +124,7 @@ ActiveRecord::Schema.define(version: 20171209041116) do
     t.integer "party_id"
     t.string "invoice_no"
     t.bigint "user_id"
+    t.string "customer_type"
     t.index ["user_id"], name: "index_customers_on_user_id"
   end
 
@@ -148,6 +154,8 @@ ActiveRecord::Schema.define(version: 20171209041116) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.string "exempt_invoice_value"
+    t.string "pos"
     t.index ["customer_id"], name: "index_exempt_invoices_on_customer_id"
     t.index ["user_id"], name: "index_exempt_invoices_on_user_id"
   end
@@ -178,8 +186,14 @@ ActiveRecord::Schema.define(version: 20171209041116) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.string "export_invoice_value"
+    t.string "invoice_value"
+    t.string "port_code"
+    t.string "shipping_bill_no"
+    t.string "shipping_bill_date"
+    t.string "pos"
+    t.string "export_type"
     t.index ["customer_id"], name: "index_export_invoices_on_customer_id"
-    t.index ["user_id"], name: "index_export_invoices_on_user_id"
   end
 
   create_table "export_purchase_bill_items", force: :cascade do |t|
@@ -204,7 +218,9 @@ ActiveRecord::Schema.define(version: 20171209041116) do
     t.bigint "customer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["customer_id"], name: "index_export_purchase_bills_on_customer_id"
+    t.index ["user_id"], name: "index_export_purchase_bills_on_user_id"
   end
 
   create_table "general_settings", force: :cascade do |t|
@@ -254,7 +270,13 @@ ActiveRecord::Schema.define(version: 20171209041116) do
     t.string "shipping_address"
     t.string "gstr_holder"
     t.bigint "user_id"
-    t.index ["user_id"], name: "index_invoices_on_user_id"
+    t.string "rcm"
+    t.string "invoice_value"
+    t.string "ebay_bill_no"
+    t.string "total_invoice_value"
+    t.string "cess"
+    t.string "tax_rate"
+    t.string "pos"
   end
 
   create_table "issue_note_items", force: :cascade do |t|
@@ -292,6 +314,12 @@ ActiveRecord::Schema.define(version: 20171209041116) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.string "invoice_value"
+    t.string "cess"
+    t.string "total_invoice_value"
+    t.string "document_type"
+    t.string "tax_rate"
+    t.string "ur_types"
     t.index ["customer_id"], name: "index_issue_notes_on_customer_id"
     t.index ["user_id"], name: "index_issue_notes_on_user_id"
   end
@@ -313,6 +341,34 @@ ActiveRecord::Schema.define(version: 20171209041116) do
     t.bigint "user_id"
     t.index ["unit_of_measure_id"], name: "index_items_on_unit_of_measure_id"
     t.index ["user_id"], name: "index_items_on_user_id"
+  end
+
+  create_table "job_work_items", force: :cascade do |t|
+    t.string "taxable_value"
+    t.string "unit_price"
+    t.string "quantity"
+    t.string "types_of_goods"
+    t.string "integrated_tax_rate"
+    t.string "central_tax_rate"
+    t.string "state_tax_rate"
+    t.string "cess"
+    t.bigint "item_id"
+    t.bigint "job_work_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_job_work_items_on_item_id"
+    t.index ["job_work_id"], name: "index_job_work_items_on_job_work_id"
+  end
+
+  create_table "job_works", force: :cascade do |t|
+    t.string "gstin_of_job_worker"
+    t.string "state"
+    t.string "challan_no"
+    t.date "challan_date"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_job_works_on_user_id"
   end
 
   create_table "nillrate_exempt_bill_items", force: :cascade do |t|
@@ -337,7 +393,9 @@ ActiveRecord::Schema.define(version: 20171209041116) do
     t.bigint "customer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["customer_id"], name: "index_nillrate_exempt_bills_on_customer_id"
+    t.index ["user_id"], name: "index_nillrate_exempt_bills_on_user_id"
   end
 
   create_table "parties", force: :cascade do |t|
@@ -393,7 +451,64 @@ ActiveRecord::Schema.define(version: 20171209041116) do
     t.bigint "customer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["customer_id"], name: "index_purchase_bills_on_customer_id"
+    t.index ["user_id"], name: "index_purchase_bills_on_user_id"
+  end
+
+  create_table "receipt_voucher_items", force: :cascade do |t|
+    t.string "details"
+    t.string "amount"
+    t.bigint "receipt_voucher_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["receipt_voucher_id"], name: "index_receipt_voucher_items_on_receipt_voucher_id"
+  end
+
+  create_table "receipt_vouchers", force: :cascade do |t|
+    t.string "debit_acc_no"
+    t.string "to_whom"
+    t.string "against"
+    t.string "cash_or_check"
+    t.string "total_amount"
+    t.string "voucher_no"
+    t.date "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_receipt_vouchers_on_user_id"
+  end
+
+  create_table "refund_voucher_items", force: :cascade do |t|
+    t.string "details"
+    t.string "amount"
+    t.string "total"
+    t.bigint "refund_voucher_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["refund_voucher_id"], name: "index_refund_voucher_items_on_refund_voucher_id"
+  end
+
+  create_table "refund_vouchers", force: :cascade do |t|
+    t.string "debit_acc_no"
+    t.string "to_whom"
+    t.string "against"
+    t.string "cash_or_check"
+    t.string "total_amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "date"
+    t.string "voucher_no"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_refund_vouchers_on_user_id"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "gstr_type"
   end
 
   create_table "unit_of_measures", force: :cascade do |t|
@@ -459,6 +574,7 @@ ActiveRecord::Schema.define(version: 20171209041116) do
   add_foreign_key "export_purchase_bill_items", "export_purchase_bills"
   add_foreign_key "export_purchase_bill_items", "items"
   add_foreign_key "export_purchase_bills", "customers"
+  add_foreign_key "export_purchase_bills", "users"
   add_foreign_key "invoices", "users"
   add_foreign_key "issue_note_items", "issue_notes"
   add_foreign_key "issue_note_items", "items"
@@ -466,13 +582,22 @@ ActiveRecord::Schema.define(version: 20171209041116) do
   add_foreign_key "issue_notes", "users"
   add_foreign_key "items", "unit_of_measures"
   add_foreign_key "items", "users"
+  add_foreign_key "job_work_items", "items"
+  add_foreign_key "job_work_items", "job_works"
+  add_foreign_key "job_works", "users"
   add_foreign_key "nillrate_exempt_bill_items", "items"
   add_foreign_key "nillrate_exempt_bill_items", "nillrate_exempt_bills"
   add_foreign_key "nillrate_exempt_bills", "customers"
+  add_foreign_key "nillrate_exempt_bills", "users"
   add_foreign_key "parties", "charted_accountants"
   add_foreign_key "purchase_bill_items", "items"
   add_foreign_key "purchase_bill_items", "purchase_bills"
   add_foreign_key "purchase_bills", "customers"
+  add_foreign_key "purchase_bills", "users"
+  add_foreign_key "receipt_voucher_items", "receipt_vouchers"
+  add_foreign_key "receipt_vouchers", "users"
+  add_foreign_key "refund_voucher_items", "refund_vouchers"
+  add_foreign_key "refund_vouchers", "users"
   add_foreign_key "unit_of_measures", "users"
   add_foreign_key "user_charted_accountants", "charted_accountants"
   add_foreign_key "user_charted_accountants", "users"

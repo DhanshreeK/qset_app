@@ -1,0 +1,124 @@
+<div class="pageheader">
+  <h1>Refund/Payment Voucher</h1>
+  <div class="breadcrumb-wrapper hidden-xs">
+    <span class="label">You are here:</span>
+    <ol class="breadcrumb">
+      <li><a href="/">Dashboard</a>
+      </li>
+      <li>Forms</li>
+      <li class="active">Refund/Payment Voucher</li>
+    </ol>
+  </div>
+</div>
+
+<section id="main-content" class="animated fadeInUp">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">Refund/Payment Voucher</h3>
+          <div class="actions pull-right">
+           <i class="fa fa-expand"></i>
+           <i class="fa fa-chevron-down"></i>
+           <i class="fa fa-times"></i>
+         </div>
+       </div>
+       <div class="panel-body">
+        <%= nested_form_for @refund_voucher, url: {action:'create', controller: 'refund_vouchers'} do |f|%>
+
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-10 control-label">Account No</label>   
+          <%= f.text_field :debit_acc_no,class: 'form-control'%>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-10 control-label">To</label>   
+          <%= f.text_field :to_whom, class: 'form-control'%>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-10 control-label">Against</label>   
+          <%= f.text_field :against, class: 'form-control'%>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-10 control-label">Check or Cash</label>   
+          <%= f.text_field :cash_or_check, class: 'form-control'%>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-10 control-label">Date</label>   
+          <%= f.date_field :date,value: Date.today, class: 'form-control'%>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-10 control-label">Voucher No</label>   
+          <%= f.text_field :voucher_no, class: 'form-control'%>
+        </div>
+      </div>
+     
+      <br><br><br><br><br><br>
+
+      <div class="panel-body">
+
+        <div class="table-responsive">
+          <table id="example"  class="table table-bordered table-striped" cellspacing="0" width="100%">
+            <thead>
+             <tr>
+                     <th width="85"><h6>Details</h6></th>
+                     <th width="50"><h6>Amount</h6></th>
+                     <th width="20"><h6>Action</h6></th>
+          
+            </tr>
+          </thead>
+          
+        </table>
+        
+
+        <%= f.fields_for :refund_voucher_items, :wrapper => false do |invoice_item| %>
+        
+        <div class="table-responsive">
+          <table id="example"  class="table table-bordered table-striped" cellspacing="0" width="100%">
+            <colgroup>
+            <col class="one"/>
+            <col class="two"/>
+          </colgroup>
+
+          
+          <tr class="fields">
+            <td><%= invoice_item.text_field :details, id: :details, class: 'form-control'%></td>
+            <td><%= invoice_item.text_field :amount, id: :amount, class: 'form-control'%></td>
+            
+            <td><%= invoice_item.link_to_remove "Remove", class: 'btn btn-info' %></td>
+          </tr>
+        </table>
+
+      </div>
+      <!--grid_table-->
+      
+      <% end %>
+      <td><%= f.link_to_add "Add Item", :refund_voucher_items , class: 'btn btn-danger' %></td>
+      <div class="pull-right">
+        <p><%= f.submit "Create Invoice", class: 'btn btn-success' %></p>
+      </div>
+      <% end %>
+
+    </section>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>

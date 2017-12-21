@@ -79,7 +79,7 @@ class CustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
-      params.require(:customer).permit(:customer_name, :gstin_no_reg, :arn_no, :address, :cust_place_of_supply, :cust_name_of_commodity_supplied,
+      params.require(:customer).permit(:customer_type,:customer_name, :gstin_no_reg, :arn_no, :address, :cust_place_of_supply, :cust_name_of_commodity_supplied,
        :cust_tarrif_no, :cust_rate_of_tax, :cust_name_of_service, :cust_serv_acc_code, :cust_pan_no,item_attributes:[:dogns, :item_hsn_no, :uom, :qty,:rate,:taxable_value])
     end
 end

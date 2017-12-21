@@ -10,15 +10,19 @@ class User < ApplicationRecord
   belongs_to :general_setting
   belongs_to :charted_accountant
   belongs_to :party
-  has_many :items
-  has_many :unit_of_measures
-  has_many :customers
-  has_many :invoices
-  has_many :export_invoices
-  has_many :exempt_invoices
-  has_many :credit_debit_notes
-  has_many :issue_notes
-
+  has_many :items, dependent: :destroy
+  has_many :unit_of_measures, dependent: :destroy
+  has_many :customers, dependent: :destroy
+  has_many :invoices, dependent: :destroy
+  has_many :export_invoices, dependent: :destroy
+  has_many :exempt_invoices, dependent: :destroy
+  has_many :credit_debit_notes, dependent: :destroy
+  has_many :issue_notes, dependent: :destroy
+  has_many :purchase_bills, dependent: :destroy
+  has_many :export_purchase_bills, dependent: :destroy
+  has_many :nillrate_exempt_bills, dependent: :destroy
+  has_many :refund_vouchers, dependent: :destroy
+  has_many :receipt_vouchers, dependent: :destroy
 
   def create_general_setting
     role = 'Party'

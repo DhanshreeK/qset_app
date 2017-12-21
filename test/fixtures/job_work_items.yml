@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  taxable_value: MyString
+  types_of_goods: MyString
+  integrated_tax_rate: MyString
+  central_tax_rate: MyString
+  state_tax_rate: MyString
+  cess: MyString
+  errors: MyString
+  item: one
+
+two:
+  taxable_value: MyString
+  types_of_goods: MyString
+  integrated_tax_rate: MyString
+  central_tax_rate: MyString
+  state_tax_rate: MyString
+  cess: MyString
+  errors: MyString
+  item: two

@@ -25,7 +25,9 @@ gem 'js-routes'
 gem "nested_form"
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
-
+gem 'roo'
+gem 'roo-xls'
+gem 'spreadsheet', '~> 1.1', '>= 1.1.5'
 # this will convert total amount
 gem 'to_words'
 # Use postgresql as the database for Active Record

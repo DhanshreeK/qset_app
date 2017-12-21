@@ -1,0 +1,94 @@
+ <div class="pageheader">
+   <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-warning">
+        <div class="panel-heading">
+          <h3 class="panel-title">Refund Voucher</h3>
+          <div class="actions pull-right">
+           <i class="fa fa-expand"></i>
+           <i class="fa fa-chevron-down"></i>
+           <i class="fa fa-times"></i>
+         </div>
+       </div>
+       <div class="panel-body">
+        <div class="pull-right">
+          <%= link_to 'Download PDF ',show_refund_voucher_refund_voucher_path(@refund_voucher, format: 'pdf'),target: '_blank', class: "btn btn-primary"%> <b> | </b> <%=link_to 'Back',refund_vouchers_path, class: 'btn btn-success'%></div>
+          <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+          
+          <div class align ="left">
+            <p><strong>Debit acc no::</strong>
+              <%=@refund_voucher.debit_acc_no%></p>
+              <p><strong>To:</strong>
+                <%=@refund_voucher.to_whom%></p>
+                <p> <strong>Against:</strong>
+                 <%=@refund_voucher.voucher_no%></p>
+                 
+                 <p> <strong>Cash or Check:</strong>
+                   <%=@refund_voucher.cash_or_check%></p>
+                   
+
+                   <div class="row">
+                     <div class="col-md-4">
+                       <div class="pull-left">
+                        <p><strong>Voucher Number:</strong>
+                          <%=@refund_voucher.voucher_no%></p>
+                          <p><strong>Date:</strong>
+                            <%=@refund_voucher.date%></p>
+                            <br>
+                          </div></div>
+
+    <div class="col-md-4 col-sm-offset-8">
+                      <div class="pull-right">
+                        <p><strong>Sold By:</strong>
+                          <%=current_user.party.party_name%></p>
+                          <p><strong>Date:</strong>
+                               <%=@refund_voucher.date%></p>
+                            <p> <strong>Address:</strong>
+                             <%=current_user.party.party_address%></p>
+                             
+                             <p> <strong>GSTIN No:</strong>
+                               <%=current_user.party.party_gstin_no%></p>
+                               <p> <strong>PAN No</strong>
+                                 <%=current_user.party.party_pan_no%></p>
+                                 <br>
+                               </div></div></div>
+                          
+
+                          <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                              <thead>
+                                <tr>
+                                 <th>Sr No</th>
+                                 <th>Item Description</th>
+                                 <th>Amount</th>
+                               </tr>
+                             </thead>
+
+                             <tbody>
+                               
+                              <%total_amt = 0%>
+                              <% @refund_voucher.refund_voucher_items.each_with_index do |i,n|%>
+                              <tr>
+                                <td><%= n + 1 %></td>
+                                <td><%= i.details%></td>
+                                <td>&#8377;<%= i.amount%></td>
+                              </tr>
+                              <%total_amt += i.amount.to_f%>
+                              <% end %>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <b>Total Amount </b>&#8377;<%=total_amt%><br>
+                
+
+                <br>
+
+              </div>
+            </div>
+          </div>
+        </div>

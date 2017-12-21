@@ -1,0 +1,96 @@
+<section class="main-content-wrapper">
+            <div class="pageheader">
+                <h1>Dashboard</h1>
+                <p class="description">Welcome to GST Application</p>
+                <div class="breadcrumb-wrapper hidden-xs">
+                    <span class="label">You are here:</span>
+                    <ol class="breadcrumb">
+                        <li class="active">Dashboard</li>
+                    </ol>
+                </div>
+            </div>
+            <section id="main-content" class="animated fadeInUp">
+                <div class="row">
+                    <div class="col-md-12 col-lg-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="panel panel-solid-success widget-mini">
+                                    <div class="panel-body">
+                                        <i class="icon-bar-chart"></i>
+                                        <span class="total text-center"><%=Invoice.count%></span>
+                                        <span class="title text-center"><%= link_to "Sale Bill GSTR1", invoices_path%></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel widget-mini">
+                                    <div class="panel-body">
+                                        <i class="icon-support"></i>
+                                        <span class="total text-center"><%=PurchaseBill.count%></span>
+                                        <span class="title text-center"><%= link_to "Purchase Bill", purchase_bills_path%></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel widget-mini">
+                                    <div class="panel-body">
+                                        <i class="icon-envelope-open"></i>
+                                        <span class="total text-center"><%= CreditDebitNote.count%></span>
+                                        <span class="title text-center"><%= link_to "Credit Debit Note", credit_debit_notes_path%></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel panel-solid-info widget-mini">
+                                    <div class="panel-body">
+                                        <i class="icon-user"></i>
+                                        <span class="total text-center"><%=ExportInvoice.count%></span>
+                                        <span class="title text-center"><%= link_to "Export Invoice GSTR1", export_invoices_path%></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                          <!--   <div class="row">
+                    <div class="col-md-12 col-lg-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="panel panel-solid-success widget-mini">
+                                    <div class="panel-body">
+                                        <i class="icon-bar-chart"></i>
+                                        <span class="total text-center"><%=ExemptInvoice.count%></span>
+                                        <span class="title text-center"><%= link_to "Exempt/Nill Rated GSTR1", exempt_invoices_path%></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel widget-mini">
+                                    <div class="panel-body">
+                                        <i class="icon-support"></i>
+                                        <span class="total text-center"><%=ReceiptVoucher.count%></span>
+                                        <span class="title text-center"><%= link_to "Receipt Vouchers", receipt_vouchers_path%></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel widget-mini">
+                                    <div class="panel-body">
+                                        <i class="icon-envelope-open"></i>
+                                        <span class="total text-center"><%= RefundVoucher.count%></span>
+                                        <span class="title text-center"><%= link_to "Refund Vouchers", refund_vouchers_path%></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel panel-solid-info widget-mini">
+                                    <div class="panel-body">
+                                        <i class="icon-user"></i>
+                                        <span class="total text-center"><%=Customer.count%></span>
+                                        <span class="title text-center"><%= link_to "Customers", customers_path%></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                -->

@@ -12,8 +12,10 @@
                             </div>
                             <div class="panel-body">
                             <div class="pull-right">
-                            <%= link_to 'Download PDF ',show_invoice_purchase_bill_path(@purchase_bill_invoice, format: 'pdf'),target: '_blank', class: "btn btn-primary"%> <b> | </b> <%=link_to 'Back', purchase_bills_path, class: 'btn btn-success'%>
+
+                            <%= link_to 'Download PDF ',show_invoice_purchase_bill_path(@purchase_bill_invoice, format: 'pdf'),target: '_blank', class: "btn btn-primary"%> <b> | </b> <%= link_to 'Back ',purchase_bills_path, class: "btn btn-success"%>
                             </div>
+                            <p>&nbsp;</p><p>&nbsp;</p>
                                 <p><strong>Invoice Number:</strong>
                                 <%=@purchase_bill_invoice.purchase_no%></p>
                                 <p><strong>Date:</strong>

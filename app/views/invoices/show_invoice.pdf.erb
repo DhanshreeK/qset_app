@@ -83,6 +83,7 @@
            
            <p> <strong>GSTIN No:</strong>
              <%=current_user.party.party_gstin_no%></p>
+
              <p> <strong>PAN No</strong>
                <%=current_user.party.party_pan_no%></p>
              </p>
@@ -99,9 +100,12 @@
                    <%=@invoice.customer.gstin_no_reg%></p>
                  </p>
                </div>
+             <p> <strong>E-Way Bill No</strong>
+               <%=@invoice.ebay_bill_no%></p>
              </div>
 
              <div class align ="right">
+
                <br>
                <br>
              </div>  
