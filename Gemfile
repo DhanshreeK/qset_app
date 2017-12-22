@@ -28,6 +28,7 @@ gem 'wkhtmltopdf-binary'
 gem 'roo'
 gem 'roo-xls'
 gem 'spreadsheet', '~> 1.1', '>= 1.1.5'
+gem "font-awesome-rails"
 # this will convert total amount
 gem 'to_words'
 # Use postgresql as the database for Active Record
