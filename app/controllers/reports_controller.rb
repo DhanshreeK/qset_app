@@ -108,10 +108,6 @@ class ReportsController < ApplicationController
 
 
 
-
-
-
-
       spreadsheet = StringIO.new
       book.write spreadsheet
       file = "Excelsheet"
@@ -120,6 +116,7 @@ class ReportsController < ApplicationController
 	end
 
 	def excel_lists
+
 	    @start_date = params[:report][:start_date].to_date
 	    @end_date = params[:report][:end_date].to_date
 	    @gstr_type = params[:report][:gstr_type]

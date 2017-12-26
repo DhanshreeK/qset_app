@@ -23,6 +23,10 @@ class User < ApplicationRecord
   has_many :nillrate_exempt_bills, dependent: :destroy
   has_many :refund_vouchers, dependent: :destroy
   has_many :receipt_vouchers, dependent: :destroy
+  has_many :job_works, dependent: :destroy
+  has_many :job_work_inwards, dependent: :destroy
+  has_many :other_challans, dependent: :destroy
+
 
   def create_general_setting
     role = 'Party'

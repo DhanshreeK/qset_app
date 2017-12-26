@@ -85,7 +85,7 @@
                                 </a>
                             </li>
                             
-                       <%elsif current_user.role == 'ChartedAccountant'%>
+                       <%elsif current_user.role == 'ChartedAccountant' && current_user.charted_accountant.ca_status == true%>
                     
                      <li class="nav-dropdown <%= 'active open' if controller?('forms')%>">
                         <a href="#">
@@ -110,7 +110,8 @@
                          
                         </ul>
                     </li>
-                    <%else current_user.role == 'Party'%>
+                   
+                    <%elsif current_user.role == 'Party' && current_user.party.party_status == true%>
 
                     
                 
@@ -297,12 +298,12 @@
                        
                                     <ul class="nav-sub">
                                         <li>
-                                            <a href="/job_works/new" title="Level 3.1">
+                                            <a href="/job_works" title="Level 3.1">
                                                 <i class="fa fa-fw fa-file"></i>Job work (outward)
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="javascript:;" title="Level 3.2">
+                                            <a href="/job_work_inwards" title="Level 3.2">
                                                 <i class="fa fa-fw fa-file"></i> Job work (inward)
                                             </a>
                                         </li>

@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  taxable_value: MyString
+  unit_price: MyString
+  quantity: MyString
+  types_of_goods: MyString
+  integrated_tax_rate: MyString
+  string: MyString
+  central_tax_rate: MyString
+  state_tax_rate: MyString
+  cess: MyString
+  item_id: MyString
+  integer: MyString
+  job_work_inward_id: 1
+  total_amt: MyString
+
+two:
+  taxable_value: MyString
+  unit_price: MyString
+  quantity: MyString
+  types_of_goods: MyString
+  integrated_tax_rate: MyString
+  string: MyString
+  central_tax_rate: MyString
+  state_tax_rate: MyString
+  cess: MyString
+  item_id: MyString
+  integer: MyString
+  job_work_inward_id: 1
+  total_amt: MyString

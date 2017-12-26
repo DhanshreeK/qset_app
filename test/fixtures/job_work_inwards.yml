@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gstin_of_job_worker: MyString
+  state: MyString
+  challan_no: MyString
+  challan_date: 2017-12-26
+  user_id: 1
+  e_way_bill_no: MyString
+  transportation_mode: MyString
+  vehicle_no: MyString
+
+two:
+  gstin_of_job_worker: MyString
+  state: MyString
+  challan_no: MyString
+  challan_date: 2017-12-26
+  user_id: 1
+  e_way_bill_no: MyString
+  transportation_mode: MyString
+  vehicle_no: MyString

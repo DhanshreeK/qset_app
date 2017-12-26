@@ -9,6 +9,13 @@ class PartiesController < ApplicationController
    elsif current_user.role == "SuperAdmin"
      @parties = Party.all
      @general_setting = GeneralSetting.first
+     if params[:param1].present? && params[:param1] == 'false'
+      party = Party.load(params[:id])
+      party.update!(party_status: 'true')
+    elsif params[:param1].present? && params[:param1] == 'true'
+       party = Party.load(params[:id])
+      party.update!(party_status: 'false')  
+    end
    else
      @parties = current_user.party
    end

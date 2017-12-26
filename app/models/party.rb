@@ -1,8 +1,9 @@
 class Party < ApplicationRecord
-	after_save :create_user_account
+	after_create :create_user_account
   has_attached_file :image
   has_many :users, dependent: :destroy
   has_many :customers, dependent: :destroy
+  scope :load, ->(id) { where(id: id).take }
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
     def create_user_account

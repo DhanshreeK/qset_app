@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171221140644) do
+ActiveRecord::Schema.define(version: 20171226115135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20171221140644) do
     t.string "image_content_type"
     t.integer "image_file_size"
     t.datetime "image_updated_at"
+    t.boolean "ca_status", default: false
   end
 
   create_table "credit_debit_note_items", force: :cascade do |t|
@@ -87,6 +88,7 @@ ActiveRecord::Schema.define(version: 20171221140644) do
     t.string "ur_type"
     t.string "ur_types"
     t.index ["customer_id"], name: "index_credit_debit_notes_on_customer_id"
+    t.index ["user_id"], name: "index_credit_debit_notes_on_user_id"
   end
 
   create_table "customer_items", force: :cascade do |t|
@@ -194,11 +196,12 @@ ActiveRecord::Schema.define(version: 20171221140644) do
     t.string "pos"
     t.string "export_type"
     t.index ["customer_id"], name: "index_export_invoices_on_customer_id"
+    t.index ["user_id"], name: "index_export_invoices_on_user_id"
   end
 
   create_table "export_purchase_bill_items", force: :cascade do |t|
-    t.bigint "export_purchase_bill_id"
     t.bigint "item_id"
+    t.bigint "export_purchase_bill_id"
     t.integer "quantity"
     t.float "net_amount"
     t.float "tax_rate"
@@ -277,6 +280,7 @@ ActiveRecord::Schema.define(version: 20171221140644) do
     t.string "cess"
     t.string "tax_rate"
     t.string "pos"
+    t.index ["user_id"], name: "index_invoices_on_user_id"
   end
 
   create_table "issue_note_items", force: :cascade do |t|
@@ -343,6 +347,39 @@ ActiveRecord::Schema.define(version: 20171221140644) do
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
+  create_table "job_work_inward_items", force: :cascade do |t|
+    t.string "taxable_value"
+    t.string "unit_price"
+    t.string "quantity"
+    t.string "types_of_goods"
+    t.string "integrated_tax_rate"
+    t.string "string"
+    t.string "central_tax_rate"
+    t.string "state_tax_rate"
+    t.string "cess"
+    t.string "item_id"
+    t.string "integer"
+    t.integer "job_work_inward_id"
+    t.string "total_amt"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "job_work_inwards", force: :cascade do |t|
+    t.string "gstin_of_job_worker"
+    t.string "state"
+    t.string "challan_no"
+    t.date "challan_date"
+    t.integer "user_id"
+    t.string "e_way_bill_no"
+    t.string "transportation_mode"
+    t.string "vehicle_no"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "nature_of_transaction"
+    t.string "nature_of_processing"
+  end
+
   create_table "job_work_items", force: :cascade do |t|
     t.string "taxable_value"
     t.string "unit_price"
@@ -356,6 +393,7 @@ ActiveRecord::Schema.define(version: 20171221140644) do
     t.bigint "job_work_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "total_amt"
     t.index ["item_id"], name: "index_job_work_items_on_item_id"
     t.index ["job_work_id"], name: "index_job_work_items_on_job_work_id"
   end
@@ -368,6 +406,11 @@ ActiveRecord::Schema.define(version: 20171221140644) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "e_way_bill_no"
+    t.string "transportation_mode"
+    t.string "vehicle_no"
+    t.string "total_amt"
+    t.string "nature_of_processing"
     t.index ["user_id"], name: "index_job_works_on_user_id"
   end
 
@@ -398,6 +441,36 @@ ActiveRecord::Schema.define(version: 20171221140644) do
     t.index ["user_id"], name: "index_nillrate_exempt_bills_on_user_id"
   end
 
+  create_table "other_challan_items", force: :cascade do |t|
+    t.string "taxable_value"
+    t.string "unit_price"
+    t.string "quantity"
+    t.string "integrated_tax_rate"
+    t.string "string"
+    t.string "central_tax_rate"
+    t.string "state_tax_rate"
+    t.string "cess"
+    t.string "item_id"
+    t.string "integer"
+    t.string "job_work_inward_id"
+    t.string "total_amt"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "other_challan_id"
+  end
+
+  create_table "other_challans", force: :cascade do |t|
+    t.string "state"
+    t.string "string"
+    t.string "challan_no"
+    t.date "challan_date"
+    t.integer "user_id"
+    t.string "to_whom"
+    t.string "nature_of_processing"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "parties", force: :cascade do |t|
     t.string "party_name"
     t.string "party_gstin_no"
@@ -426,6 +499,7 @@ ActiveRecord::Schema.define(version: 20171221140644) do
     t.bigint "charted_accountant_id"
     t.string "composite"
     t.string "regular"
+    t.boolean "party_status", default: false
     t.index ["charted_accountant_id"], name: "index_parties_on_charted_accountant_id"
   end
 

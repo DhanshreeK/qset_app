@@ -46,6 +46,10 @@ Rails.application.config.assets.precompile += %w( reports.css )
 Rails.application.config.assets.precompile += %w( reports.js )
 Rails.application.config.assets.precompile += %w( job_works.css )
 Rails.application.config.assets.precompile += %w( job_works.js )
+Rails.application.config.assets.precompile += %w( job_work_inwards.css )
+Rails.application.config.assets.precompile += %w( job_work_inwards.js )
+Rails.application.config.assets.precompile += %w( other_challans.css )
+Rails.application.config.assets.precompile += %w( other_challans.js )
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )

@@ -1,12 +1,12 @@
              <div class="pageheader">
-              <h1>Charted Accountant</h1>
+              <h1>Other Challan</h1>
               <div class="breadcrumb-wrapper hidden-xs">
                 <span class="label">You are here:</span>
                 <ol class="breadcrumb">
                   <li><a href="/">Dashboard</a>
                   </li>
                   <li>Tables</li>
-                  <li class="active">View Details</li>
+                  <li class="active">Other Challan</li>
                 </ol>
               </div>
             </div>
@@ -15,7 +15,7 @@
                 <div class="col-md-12">
                   <div class=" panel panel-info">
                     <div class="panel-heading">
-                      <h3 class="panel-title">Charted Accountant</h3>
+                      <h3 class="panel-title">Other Challan</h3>
                       <div class="actions pull-right">
                        <i class="fa fa-expand"></i>
                        <i class="fa fa-chevron-down"></i>
@@ -23,34 +23,25 @@
                      </div>
                    </div>
                    <div class="panel-body">
-                     <%= link_to 'New Charted Accountant', new_charted_accountant_path, class: 'btn btn-primary' %>
+                    <%= link_to 'Add Other Challan', new_other_challan_path, class: 'btn btn-primary' %>
                     <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                       <thead>
                         <tr>
                           <th>SR NO</th>
-                          <th>Name</th>
-                          <th>Phn no</th>
-                          <th>Email</th>
-                           <th>Status</th>
+                          <th>Challan Number</th>
+                          <th>Challan Date</th>
                           <th>Action</th>
                         </tr>
                       </thead>
 
                       <tbody>
-                        <% @charted_accountants.each_with_index do |charted_accountant,i| %>
-                        <tr>
-                          <td><%=i+1%></td>
-                         <td><%=link_to charted_accountant.name, show_parties_charted_accountant_path(charted_accountant) , class: 'btn btn-link'%></td>
-                          <td><%= charted_accountant.phn_no %></td>
-                           <td><%= link_to charted_accountant.email,charted_accountant_path(charted_accountant) , class: 'btn btn-link'%></td>
-                            <td><%if charted_accountant.ca_status == false %>
-                              <%=link_to 'Deactivate', charted_accountants_path(:param1 => false, :id => charted_accountant.id),style: 'color: red'%>
-                              <%elsif charted_accountant.ca_status == true %>
-                              <%=link_to 'Activate', charted_accountants_path(:param1 => true, :id => charted_accountant.id),style: 'color: green'%>
-                              <%end%>
-                            </td>
-
-                           <td><%= link_to 'Destroy', charted_accountant, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link' %></td>
+                       <% @other_challans.each_with_index do |a,i| %>
+                       <tr>
+                        <td><%=i+1%></td>
+                        <td><%=link_to a.challan_no, other_challan_path(a), class: 'btn btn-link'%></td>
+                        <td><%=a.challan_date %></td>
+                        
+                        <td><%= link_to 'Destroy',other_challan_path(a), method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn btn-link'%></td>
                       </tr>
                       <% end %>
                     </tbody>

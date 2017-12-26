@@ -1,0 +1,72 @@
+ <div class="pageheader">
+ <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Other Challan</h3>
+                                <div class="actions pull-right">
+                                 <i class="fa fa-expand"></i>
+                                    <i class="fa fa-chevron-down"></i>
+                                    <i class="fa fa-times"></i>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                            <div class="pull-right">
+                            <%= link_to 'Download PDF ',show_other_challan_other_challan_path(@other_challan, format: 'pdf'),target: '_blank', class: "btn btn-primary"%> <b> | </b> <%=link_to 'Back', other_challans_path,class: 'btn btn-success'%>
+                            </div>
+                            <p>&nbsp;</p><p>&nbsp;</p>
+                              
+                              
+                              <p> <strong>Place of Supply:</strong>
+                               <%=@other_challan.state%></p>
+
+                               <p> <strong>Challan No:</strong>
+                               <%=@other_challan.challan_no%></p>
+
+                               <p> <strong>Challan Date:</strong>
+                               <%=@other_challan.challan_date%></p>
+
+                               <p> <strong>Nature of Processing:</strong>
+                               <%=@other_challan.nature_of_processing%></p>
+                              
+                             <br>
+  
+                            <div class="table-responsive">
+                              <table class="table table-bordered table-striped">
+                                <thead>
+                                  <tr>
+                                   <th>Sr No</th>
+                                    <th>Item Description</th>
+                                    <th>Unit Price</th>
+                                    <th>Quantity</th>
+                                    <th>Net Amount</th>
+                           
+                                    <th>Total Amount</th>
+                                  </tr>
+                                </thead>
+
+                                <tbody>
+                                  <% @other_challan.other_challan_items.each_with_index do |i,n|%>
+                                    <tr>
+                                      <td><%= n + 1 %></td>
+                                       <td><%= i.item.dogns%></td>
+                                       <td>&#8377;<%= i.unit_price%></td>
+                                      <td><%= i.quantity%></td>
+                                      <td>&#8377;<%= i.taxable_value%></td>
+                                     <td>&#8377;<%= i.total_amt%></td>
+                                    </tr>
+                                  <% end %>
+                                </tbody>
+                              </table>
+                              </div>
+                              </div>
+                              </div>
+                              </div>
+                              </div>
+
+                              <br>
+
+                            </div>
+                        </div>
+                    </div>
+</div>
