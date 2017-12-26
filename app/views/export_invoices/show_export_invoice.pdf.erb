@@ -107,21 +107,7 @@
              </div>  
              <div class align="left">
 
-              <p><strong>Invoice Date:</strong>
-                <%=@export_invoice.export_invoice_date%></p>
-                <p><strong>Invoice no:</strong>
-                  <%=@export_invoice.export_invoice_number%></p><br>
-
-               <p> <strong>Customer Name:</strong>
-                 <%=@export_invoice.customer.customer_name%></p>
-                 <p> <strong>Address:</strong>
-                   <%=@export_invoice.customer.address%></p>
-                   <p> <strong>GSTIN No:</strong>
-                     <%=@export_invoice.customer.gstin_no_reg%></p>
-                     
-                     <br>
-                     <br>
-                     
+              
                    </div>  
                    <div class align="left">
                      <p><strong>Invoice Number:</strong>
@@ -132,70 +118,7 @@
                       
                     </div>  
                   </div>  
-                  <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
-                    <thead>
-                      <tr>
-                        <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="12"><center>EXPORT/ZERO RATED Invoice</center></th>
-                      </tr>
-
-                      <th>Sr No</th>
-                      <th>Item Description</th>
-                      <th>HSN/SAC</th>
-                      <th>UOM</th>
-                      <th>Unit Price</th>
-                      <th>Quantity</th>
-                      <th>Net Amount</th>
-                      <th>CGST</th>
-                       <th>SGST</th>
-                      <th>Tax Rate</th>
-                      <th>Tax Amount</th>
-                      <th>Total Amount</th>
-                    </tr>
-                    <%tax_amt = 0%>
-                    <%total_amt = 0%>
-                    <%ans = 0%>
-
-                    <% @export_invoice.export_invoice_items.each_with_index do |i,n|%>
-                    <tr>
-                      <td><%= n + 1 %></td>
-                      <td><%= i.item.dogns%></td>
-                      <td><%= i.item.item_hsn_no%></td>
-                      <td><%= i.item.unit_of_measure.name%></td>
-                      <td>&#8377;<%= i.unit_price%></td>
-                      <td><%= i.quantity%></td>
-                      <td>&#8377;<%= i.net_amt%></td>
-                       <td>&#8377;<%=ans = i.tax_amt.to_f/2%></td>
-                                 <td>&#8377;<%=ans%></td>
-                      <td><%= i.tax_rate%>&#37;</td>
-                    
-                      <td>&#8377;<%= i.tax_amt%></td>
-                      <td align="right">&#8377;<%= i.total_amt%></td>
-                    </tr>
-                    <% tax_amt += i.tax_amt.to_f%>
-                    <%total_amt += i.total_amt.to_f%>
-                    <% end %>
-
-                    <tr>
-                    <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>Total Tax: &#8377;<%=tax_amt%></td>
-                      <td>Total Amount: &#8377;<%= total_amt%></td>
-                    </tr>
-
-                    
-                  </div>
->>>>>>> a5584d2d5de17b0c7f3389546082a20939d78a56
-                </div>
-              </div>  
-            </div>  
+       
 
 
 

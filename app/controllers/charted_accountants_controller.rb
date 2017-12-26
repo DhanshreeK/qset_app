@@ -6,6 +6,15 @@ class ChartedAccountantsController < ApplicationController
   def index
     @charted_accountants = ChartedAccountant.all
     @general_setting = GeneralSetting.first
+    ca_id = params[:id]
+    ca_status = params[:param1]
+    if params[:param1].present? && params[:param1] == 'false'
+      @charted_accountant = ChartedAccountant.load(params[:id])
+      @charted_accountant.update!(ca_status: 'true')
+    elsif params[:param1].present? && params[:param1] == 'true'
+       @charted_accountant = ChartedAccountant.load(params[:id])
+      @charted_accountant.update!(ca_status: 'false')  
+    end
   end
 
   # GET /charted_accountants/1
@@ -80,6 +89,6 @@ class ChartedAccountantsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def charted_accountant_params
-      params.require(:charted_accountant).permit(:image,:name, :phn_no, :address, :email, :firm_name, :ca_no)
+      params.require(:charted_accountant).permit(:ca_status,:image,:name, :phn_no, :address, :email, :firm_name, :ca_no)
     end
 end

@@ -1,0 +1,2 @@
+module OtherChallansHelper
+end

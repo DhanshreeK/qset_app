@@ -1,0 +1,212 @@
+<div class="pageheader">
+  <h1>Job Worker(Mfg to JW)</h1>
+  <div class="breadcrumb-wrapper hidden-xs">
+    <span class="label">You are here:</span>
+    <ol class="breadcrumb">
+      <li><a href="/">Dashboard</a>
+      </li>
+      <li>Forms</li>
+      <li class="active">Job Worker(Mfg to JW)</li>
+    </ol>
+  </div>
+</div>
+
+<section id="main-content" class="animated fadeInUp">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">Job Worker(Mfg to JW)</h3>
+          <div class="actions pull-right">
+           <i class="fa fa-expand"></i>
+           <i class="fa fa-chevron-down"></i>
+           <i class="fa fa-times"></i>
+         </div>
+       </div>
+       <div class="panel-body">
+        <%= nested_form_for @other_challan, url: {action:'create', controller: 'other_challans'} do |f|%>
+
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-15 control-label">To</label>   
+          <%= f.text_field :to_whom,class: 'form-control'%>
+        </div>
+      </div>
+
+
+    
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-20 control-label">Nature of Processing<font color="red">*</font></label>   
+          <%= f.text_field :nature_of_processing, class: 'form-control'%>
+        </div>
+      </div>
+
+      
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-15 control-label">State</label>   
+         <%= f.select :state,options_for_select(["01-Jammu & Kashmir", "02-Himachal Pradesh","03-Punjab","04-Chandigarh","05-Uttarakhand","06-Haryana","07-Delhi","08-Rajasthan","09-Uttar Pradesh","10-Bihar","11-Sikkim","12-Arunachal Pradesh","13-Nagaland","14-Manipur","15-Mizoram","16-Tripura","17-Meghalaya","18-Assam","19-West Bengal","20-Jharkhand","21-Odisha", "22-Chhattisgarh","23-Madhya Pradesh","24-Gujarat","25-Daman & Diu","26-Dadra & Nagar Haveli","27-Maharashtra","29-Karnataka","30-Goa","31-Lakshdweep","32-Kerala","33-Tamil Nadu","34-Pondicherry","35-Andaman & Nicobar Islands","36-Telangana","37-Andhra Pradesh","97-Other Territory"]),{prompt:true},class: 'form-control'%>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-10 control-label">Challan Number</label>   
+          <%= f.text_field :challan_no, class: 'form-control'%>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-10 control-label">Challan Date</label>   
+          <%= f.date_field :challan_date,value: Date.today, class: 'form-control'%>
+        </div>
+      </div>
+
+
+      
+     
+      <br><br><br><br><br><br>
+
+      <div class="panel-body">
+
+       <div class="col-sm-12">
+        <div class="table-responsive">
+          <table id="example"  class="table table-bordered table-striped" cellspacing="0" width="100%">
+            <thead>
+             <tr>
+             <th width="155"><h6>Item Detail</h6></th>
+             <th width="115"><h6>Unit Price</h6></th>
+             <th width="115"><h6>Quantity</h6></th>
+                     <th width="115"><h6>Taxable Value</h6></th>
+                      <th width="110"><h6>CGST</h6></th>
+                       <th width="110"><h6>SGST</h6></th>
+                        <th width="110"><h6>Total</h6></th>
+                         <th><h6></h6></th>
+                        </tr>
+                      </thead>
+                    </table>
+        <%= f.fields_for :other_challan_items, :wrapper => false do |invoice_item| %>
+        <div class="table-responsive">
+          <table id="example"  class="table table-bordered table-striped" cellspacing="0" width="100%">
+          <colgroup>
+            <col class="one"/>
+            <col class="two"/>
+            <col class="three"/>
+            <col class="four"/>
+            <col class="five"/>
+            <col class="six"/>
+            <col class="seven"/>
+          </colgroup>
+
+        <tr class="fields">
+         <%if current_user.role == 'Party'%>
+            <td> <%=invoice_item.select :item_id ,current_user.items.all.collect{|i| [i.dogns,i.rate, i.id]}, {prompt:true},class: "select"%></td>
+          <%else%>
+            <td> <%=invoice_item.select :item_id ,Item.all.collect{|i| [i.dogns,i.rate, i.id]}, {prompt:true},class: "select"%></td>
+          <%end%>
+              <td><%= invoice_item.text_field :unit_price, id: :rate,placeholder: 'Unit Price', class: 'form-control'%></td>
+           <td><%= invoice_item.text_field :quantity, id: :qty, placeholder: 'Enter Qty', class: 'form-control'%></td>
+            <td><%= invoice_item.text_field :taxable_value, id: :net_amount,placeholder: 'Taxable Value', class: 'form-control'%></td>
+              <td><%= invoice_item.text_field :central_tax_rate, id: :cgst, placeholder: 'CGST', class: 'form-control'%></td>
+              <td><%= invoice_item.text_field :state_tax_rate, id: :sgst,placeholder: 'SGST', class: 'form-control'%></td>
+              <td><%= invoice_item.text_field :total_amt, id: :total_amt,placeholder: 'Total' ,class: 'form-control'%></td>
+
+              <td><%= invoice_item.link_to_remove "Remove", class: 'btn btn-info' %></td>
+          </tr>
+        </table>
+      </div>
+      <!--grid_table-->
+      <% end %>
+      <td><%= f.link_to_add "Add Item", :other_challan_items , class: 'btn btn-danger' %></td>
+      <div class="pull-right">
+        <p><%= f.submit "Create Invoice", class: 'btn btn-success' %></p>
+      </div>
+      <% end %>
+
+    </section>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+$(document).on("change", ".select", function () {
+    var item_id = $(this);
+    elem = jQuery(this);
+    $.ajax({
+        url: "/items/load_item_data",
+        type: 'GET',
+        dataType: 'html',
+        data: {item_id: $(this).val()},
+        success: function (data) {
+              console.log(data);
+              item = JSON.parse(data);
+              container = elem.parents("tr.fields");
+              container1 = elem.parents("th.fields");
+              container.find("#rate").val(item[0]);
+              container.find("#cgst").val(item[1]);
+              container.find("#sgst").val(item[2]);
+
+        }
+    });
+
+});
+</script>
+<% end %>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+ $(document).on("keyup", "#rate, #qty", function() {
+  container = elem.parents("tr.fields");
+   var val1 = +container.find("#rate").val();
+   var val2 = +container.find("#qty").val();
+   +container.find("#net_amount").val(val1*val2);
+   +container.find("#total_amt").val(val1*val2);
+
+  });
+
+
+ function deleteRow(btn) {
+        var row = btn.parentNode;
+        row.parentNode.removeChild(row);
+ }
+
+</script>
+<%end%>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+$(document).on('nested:fieldAdded', function(event){
+  // this field was just inserted into your form
+  var field = event.field; 
+  var selectField = field.find('.select');
+     selectField.select2();
+  // and activate datepicker on it
+//  dateField.datepicker();
+})
+</script>
+<% end %>
+
+
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('select#other_challan_other_challan_items_attributes_0_item_id').select2({
+  });
+});
+</script>
+<% end %>

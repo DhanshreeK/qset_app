@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get 'job_work_inwards/new'
+
   resources :unit_of_measures
   resources :business_sales
   resources :customers do 
@@ -86,7 +88,23 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :job_works
+  resources :job_works do 
+    member do
+     get :show_job_work
+    end
+  end
+
+  resources :job_work_inwards do 
+    member do
+     get :show_job_work_inward
+    end
+  end
+
+  resources :other_challans do 
+    member do
+     get :show_other_challan
+    end
+  end
 
  
 

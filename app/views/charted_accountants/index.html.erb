@@ -31,6 +31,7 @@
                           <th>Name</th>
                           <th>Phn no</th>
                           <th>Email</th>
+                           <th>Status</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -41,7 +42,14 @@
                           <td><%=i+1%></td>
                          <td><%=link_to charted_accountant.name, show_parties_charted_accountant_path(charted_accountant) , class: 'btn btn-link'%></td>
                           <td><%= charted_accountant.phn_no %></td>
-                           <td><%= charted_accountant.email %></td>
+                           <td><%= link_to charted_accountant.email,charted_accountant_path(charted_accountant) , class: 'btn btn-link'%></td>
+                            <td><%if charted_accountant.ca_status == false %>
+                              <%=link_to 'Deactivate', charted_accountants_path(:param1 => false, :id => charted_accountant.id),style: 'color: red'%>
+                              <%elsif charted_accountant.ca_status == true %>
+                              <%=link_to 'Activate', charted_accountants_path(:param1 => true, :id => charted_accountant.id),style: 'color: green'%>
+                              <%end%>
+                            </td>
+
                            <td><%= link_to 'Destroy', charted_accountant, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link' %></td>
                       </tr>
                       <% end %>
