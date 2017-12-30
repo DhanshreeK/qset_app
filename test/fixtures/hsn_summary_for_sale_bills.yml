@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  hsn_no: MyString
+  description: MyString
+  uqc: MyString
+  total_value: MyString
+  taxable_value: MyString
+  igst: MyString
+  cgst: MyString
+  sgst: MyString
+  cess: MyString
+
+two:
+  hsn_no: MyString
+  description: MyString
+  uqc: MyString
+  total_value: MyString
+  taxable_value: MyString
+  igst: MyString
+  cgst: MyString
+  sgst: MyString
+  cess: MyString

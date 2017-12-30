@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171226115135) do
+ActiveRecord::Schema.define(version: 20171230132155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,7 +85,6 @@ ActiveRecord::Schema.define(version: 20171226115135) do
     t.string "cess"
     t.string "total_invoice_value"
     t.string "document_type"
-    t.string "ur_type"
     t.string "ur_types"
     t.index ["customer_id"], name: "index_credit_debit_notes_on_customer_id"
     t.index ["user_id"], name: "index_credit_debit_notes_on_user_id"
@@ -200,8 +199,8 @@ ActiveRecord::Schema.define(version: 20171226115135) do
   end
 
   create_table "export_purchase_bill_items", force: :cascade do |t|
-    t.bigint "item_id"
     t.bigint "export_purchase_bill_id"
+    t.bigint "item_id"
     t.integer "quantity"
     t.float "net_amount"
     t.float "tax_rate"
@@ -246,6 +245,38 @@ ActiveRecord::Schema.define(version: 20171226115135) do
     t.string "image_content_type"
     t.integer "image_file_size"
     t.datetime "image_updated_at"
+  end
+
+  create_table "hsn_summary_for_purchase_bills", force: :cascade do |t|
+    t.string "hsn_no"
+    t.string "description"
+    t.string "uqc"
+    t.string "total_value"
+    t.string "taxable_value"
+    t.string "igst"
+    t.string "cgst"
+    t.string "sgst"
+    t.string "cess"
+    t.string "total_quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "hsn_summary_for_sale_bills", force: :cascade do |t|
+    t.string "hsn_no"
+    t.string "description"
+    t.string "uqc"
+    t.string "total_value"
+    t.string "taxable_value"
+    t.string "igst"
+    t.string "cgst"
+    t.string "sgst"
+    t.string "cess"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "invoice_id"
+    t.string "total_quantity"
+    t.index ["invoice_id"], name: "index_hsn_summary_for_sale_bills_on_invoice_id"
   end
 
   create_table "invoice_items", force: :cascade do |t|
@@ -526,6 +557,9 @@ ActiveRecord::Schema.define(version: 20171226115135) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.string "type"
+    t.string "pos"
+    t.string "bill_type"
     t.index ["customer_id"], name: "index_purchase_bills_on_customer_id"
     t.index ["user_id"], name: "index_purchase_bills_on_user_id"
   end
@@ -649,6 +683,7 @@ ActiveRecord::Schema.define(version: 20171226115135) do
   add_foreign_key "export_purchase_bill_items", "items"
   add_foreign_key "export_purchase_bills", "customers"
   add_foreign_key "export_purchase_bills", "users"
+  add_foreign_key "hsn_summary_for_sale_bills", "invoices"
   add_foreign_key "invoices", "users"
   add_foreign_key "issue_note_items", "issue_notes"
   add_foreign_key "issue_note_items", "items"
