@@ -30,9 +30,18 @@
  h5 {
    display:inline;
  }
+
+ img {
+  border: 1px solid #ddd;
+  border-radius: 1px;
+  padding: 3px;
+  width: 150px;
+}
 </style>
 </head>
 <body>
+<%= wicked_pdf_image_tag 'test.jpg' %>
+
 
   <div class="center"><h2><b><font color="grey">Job Worker(Mfg to JW)</font></b></h2></div>
   <div id="heading">
@@ -90,6 +99,9 @@
                                     <tr>
                                      <th>Sr No</th>
                                      <th>Item Description</th>
+                                     <th>CGST</th>
+                                     <th>SGST</th>
+                                      <th>Tax rate</th>
                                      <th>Total Amount</th>
                                    </tr>
                                  </thead>
@@ -97,10 +109,20 @@
                                  <tbody>
                                  
                                   <%total_amt = 0%>
+                                  <% rate = 0 %>
+                                  <% cgst = 0 %>
+                                  <% sgst = 0 %>
                                   <% @job_work.job_work_items.each_with_index do |i,n|%>
                                   <tr>
                                     <td><%= n + 1 %></td>
                                     <td><%= i.item.dogns%></td>
+                                    <td>&#8377;<%=ans = i.taxable_value.to_f/2%></td>
+                                    <td>&#8377;<%=ans%></td>
+                                    <td><%= i.state_tax_rate%>&#37;</td>
+                                    <% rate = rate + i.state_tax_rate.to_f %>
+                                    <% sgst = sgst + ans.to_f %>
+
+                                   
                                     <td>&#8377;<%= i.total_amt%></td>
                                   </tr>
                                   <%total_amt += i.total_amt.to_f%>
@@ -108,6 +130,9 @@
                                   <tr>
                                     <td></td>
                                     <td></td>
+                                    <td>CGST: &#8377;<%= sgst %></td>
+                                    <td>SGST: &#8377;<%= sgst %></td>
+                                    <td>Tax Rate: &#8377;<%= rate %></td>
                                     <td><b>Total Amount </b>&#8377;<%=total_amt%></td>
                                   </tr>
                                 </tbody>

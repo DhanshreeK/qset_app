@@ -76,7 +76,7 @@
 
     <div class="gallery-text">
       <p>
-        <p><strong>Sold By:</strong>
+        <p><strong>Consignee:</strong>
 
           
           <%=current_user.party.party_name%></p>
@@ -96,7 +96,7 @@
 
             <p>
 
-              <p> <strong>Customer Name:</strong>
+              <p> <strong>Consigner:</strong>
                <%=@purchase_bill_invoice.customer.customer_name%></p>
                <p> <strong>Address:</strong>
                  <%=@purchase_bill_invoice.customer.address%></p>
@@ -136,13 +136,16 @@
                 <th>Unit Price</th>
                 <th>Quantity</th>
                 <th>Net Amount</th>
+                <th>CGST</th>
+                <th>SGST</th>
                 <th>Tax Rate</th>
-                <th>Tax Type</th>
+                
                 <th>Tax Amount</th>
                 <th>Total Amount</th>
               </tr>
               <%tax_amt = 0%>
               <%total_amt = 0%>
+              <% rate = 0 %>
 
               <% @purchase_bill_invoice.purchase_bill_items.each_with_index do |i,n|%>
               <tr>
@@ -153,8 +156,10 @@
                 <td>&#8377;<%= i.unit_price%></td>
                 <td><%= i.quantity%></td>
                 <td>&#8377;<%= i.net_amount%></td>
+                <td>&#8377;<%=ans = i.tax_amt/2%></td>
+                <td>&#8377;<%=ans%></td>
                 <td><%= i.tax_rate%>&#37;</td>
-                <td>CGST+SGST</td>
+                <% rate = rate + i.tax_rate.to_f %>
                 <td>&#8377;<%= i.tax_amt%></td>
                 <td align="right">&#8377;<%= i.total_amt%></td>
               </tr>
@@ -169,10 +174,11 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td>CGST: &#8377;<%=tax_amt.round(2)/2%></td>
+                <td>SGST: &#8377;<%=tax_amt.round(2)/2%></td>
+                <td>Tax Rate: &#8377;<%= rate %></td>
                 
-                <td>Total Tax: &#8377;<%=tax_amt%></td>
+                <td>Total Tax: &#8377;<%=tax_amt.round(2)%></td>
                 <td>Total Amount: &#8377;<%= total_amt%></td>
               </tr>
 
@@ -188,7 +194,7 @@
   <thead>
     
     <tr>
-      <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> </th>
+      <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> Only</th>
     </tr>
 
     <tr>

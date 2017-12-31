@@ -111,9 +111,13 @@
                         </ul>
                     </li>
                    
-                    <%elsif current_user.role == 'Party' && current_user.party.party_status == true%>
+                    <%elsif current_user.role == 'Party' && current_user.party.nil?%>
 
-                    
+
+                     
+
+                     <%elsif current_user.role == 'Party' && current_user.party.party_status == true%>
+
                 
                     <li class="nav-dropdown">
                         <a href="#" title="Menu Levels">
@@ -150,6 +154,11 @@
                         <li class="<%= 'active' if controller?('ui') && action?('buttons') %>">
                                 <a href="/customers">
                                    <i class="fa fa-fw fa-file"></i>  Customer Creation
+                                </a>
+                        </li>
+                        <li class="<%= 'active' if controller?('ui') && action?('buttons') %>">
+                                <a href="/settings/new">
+                                   <i class="fa fa-fw fa-file"></i>  Series Setting
                                 </a>
                         </li>
                         <!-- <li class="<%= 'active' if controller?('ui') && action?('buttons') %>">
@@ -351,3 +360,5 @@
                 </div>
             </div>
  -->            <%end%>
+
+

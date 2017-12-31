@@ -78,7 +78,7 @@
 
       <div class="gallery-text">
         <p>
-          <p><strong>Sold By:</strong>     
+          <p><strong>Consignee:</strong>     
             <%=current_user.party.party_name%></p>
 
             <p> <strong>Address:</strong>
@@ -92,7 +92,7 @@
              </div>
              <div class="gallery-text" align="right">
               <p>
-                <p> <strong>Customer Name:</strong>
+                <p> <strong>Consigner:</strong>
                  <%=@nillrate_exempt_bill_invoice.customer.customer_name%></p>
                  <p> <strong>Address:</strong>
                    <%=@nillrate_exempt_bill_invoice.customer.address%></p>
@@ -134,6 +134,7 @@
                 </tr>
                 <%tax_amt = 0%>
                 <%total_amt = 0%>
+                 <%tnet = 0%>
 
                 <% @nillrate_exempt_bill_invoice.nillrate_exempt_bill_items.each_with_index do |i,n|%>
                 <tr>
@@ -145,7 +146,7 @@
                   <td><%= i.quantity%></td>
                   <td>&#8377;<%= i.net_amount%></td>
 
-
+                   <% tnet = tnet.to_f + i.net_amount.to_f %>
 
                   <td align="right">&#8377;<%= i.total_amt%></td>
                 </tr>
@@ -161,7 +162,7 @@
 
                   <td></td>
 
-                  <td></td>
+                  <td>Total net_amount:<%= tnet  %></td>
 
 
                   <td>Total Amount: &#8377;<%= total_amt%></td>
@@ -179,7 +180,7 @@
     <thead>
 
       <tr>
-        <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> </th>
+        <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> Only </th>
       </tr>
 
       <tr>
