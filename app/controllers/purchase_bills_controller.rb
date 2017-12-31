@@ -77,7 +77,7 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def purchase_bill_invoice_params
-      params.require(:purchase_bill).permit(:customer_id, :purchase_no, :purchase_bill_invoice_no,:date,purchase_bill_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :item_description, :sgst, :cgst, :tax_rate, :net_amount, :tax_amt, :total_amt,:_destroy])
+      params.require(:purchase_bill).permit(:bill_type,:pos,:customer_id, :purchase_no, :purchase_bill_invoice_no,:date,purchase_bill_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :item_description, :sgst, :cgst, :tax_rate, :net_amount, :tax_amt, :total_amt,:_destroy])
     end
 end
     # Never trust parameters from the scary internet, only allow the white list through.

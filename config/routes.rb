@@ -155,6 +155,8 @@ Rails.application.routes.draw do
   
 
   resources :general_settings
+  resources :hsn_summary_for_sale_bills
+  resources :hsn_summary_for_purchase_bills
   # view routes
   # get '/dashboard' => 'dashboard#index'
 
