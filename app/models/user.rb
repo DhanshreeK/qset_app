@@ -10,6 +10,7 @@ class User < ApplicationRecord
   belongs_to :general_setting
   belongs_to :charted_accountant
   belongs_to :party
+  belongs_to :setting
   has_many :items, dependent: :destroy
   has_many :unit_of_measures, dependent: :destroy
   has_many :customers, dependent: :destroy

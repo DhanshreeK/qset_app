@@ -22,11 +22,11 @@
               <p><strong>Date:</strong>
                 <%=@invoice.date%></p>
                 <p> <strong>Customer Name:</strong>
-                 <%=@invoice.customer.customer_name%></p>
+                 <%=@invoice.customer.customer_name  if @invoice.customer.present? %></p>
                  <p> <strong>Address:</strong>
-                   <%=@invoice.customer.address%></p>
+                   <%=@invoice.customer.address if @invoice.customer.present? %></p>
                    <p> <strong>GSTIN No:</strong>
-                     <%=@invoice.customer.gstin_no_reg%></p>
+                     <%=@invoice.customer.gstin_no_reg if @invoice.customer.present? %></p>
                      <p> <strong>GSTR:</strong>
                        <%=@invoice.gstr_holder%></p>
                        <p> <strong>E-Way Bill No:</strong>

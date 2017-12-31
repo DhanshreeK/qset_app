@@ -87,7 +87,7 @@
 
     <div class="gallery-text">
       <p>
-      <p><strong>Sold By:</strong>
+      <p><strong>Consignee:</strong>
 
         
         <%=current_user.party.party_name%></p>
@@ -107,7 +107,7 @@
 
         <p>
 
-          <p> <strong>Customer Name:</strong>
+          <p> <strong>Consigner:</strong>
                  <%=@exempt_invoice.customer.customer_name%></p>
                  <p> <strong>Address:</strong>
                    <%=@exempt_invoice.customer.address%></p>
@@ -171,7 +171,7 @@
                         <th>Quantity</th>
                         <th>Net Amount</th>
                         <th>Tax Rate</th>
-                        <th>Tax Type</th>
+                      
                         <th>Tax Amount</th>
                         <th>Total Amount</th>
                       </tr>
@@ -188,7 +188,6 @@
                         <td><%= i.quantity%></td>
                         <td>&#8377;<%= i.net_amt%></td>
                         <td><%= i.tax_rate%>&#37;</td>
-                        <td>CGST+SGST</td>
                         <td>&#8377;<%= i.tax_amt%></td>
                         <td align="right">&#8377;<%= i.total_amt%></td>
                       </tr>
@@ -197,7 +196,7 @@
                       <% end %>
 
                       <tr>
-                        <td></td>
+                      
                         <td></td>
                         <td></td>
                         <td></td>
@@ -222,7 +221,7 @@
                       <thead>
                       
                         <tr>
-                        <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> </th>
+                        <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> Only</th>
                         </tr>
 
                         <tr>

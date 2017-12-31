@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get 'settings/new'
+
   get 'job_work_inwards/new'
 
   resources :unit_of_measures
@@ -148,6 +150,9 @@ Rails.application.routes.draw do
     get :dashboard
     end
   end
+
+  resources :settings
+  
 
   resources :general_settings
   resources :hsn_summary_for_sale_bills

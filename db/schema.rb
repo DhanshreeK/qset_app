@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20171230132155) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -619,6 +621,15 @@ ActiveRecord::Schema.define(version: 20171230132155) do
     t.string "gstr_type"
   end
 
+  create_table "settings", force: :cascade do |t|
+    t.string "p_series"
+    t.string "s_series"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "ExpPurchase"
+    t.string "Exempt"
+  end
+
   create_table "unit_of_measures", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -659,11 +670,13 @@ ActiveRecord::Schema.define(version: 20171230132155) do
     t.string "image_content_type"
     t.integer "image_file_size"
     t.datetime "image_updated_at"
+    t.bigint "setting_id"
     t.index ["charted_accountant_id"], name: "index_users_on_charted_accountant_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["general_setting_id"], name: "index_users_on_general_setting_id"
     t.index ["party_id"], name: "index_users_on_party_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["setting_id"], name: "index_users_on_setting_id"
   end
 
   add_foreign_key "credit_debit_note_items", "credit_debit_notes"
@@ -713,4 +726,5 @@ ActiveRecord::Schema.define(version: 20171230132155) do
   add_foreign_key "users", "charted_accountants"
   add_foreign_key "users", "general_settings"
   add_foreign_key "users", "parties"
+  add_foreign_key "users", "settings"
 end

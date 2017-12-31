@@ -27,6 +27,14 @@
    background-color: black;
    color: white;
  }
+ 
+ img {
+  border: 1px solid #ddd;
+  border-radius: 1px;
+  padding: 3px;
+  width: 150px;
+}
+
  h5 {
    display:inline;
  }
@@ -34,6 +42,9 @@
 </head>
 <body>
 
+
+
+<%= wicked_pdf_image_tag 'test.jpg' %>
   <div class="center"><h2><b><font color="grey">Receipt Voucher</font></b></h2></div>
   <div id="heading">
    
@@ -51,7 +62,7 @@
              <%=@receipt_voucher.cash_or_check%></p>
              
               <div class align ="right">
-                        <p><strong>Sold By:</strong>
+                        <p><strong>Consignee:</strong>
                           <%=current_user.party.party_name%></p>
                           <p><strong>Date:</strong>
                             <%=@receipt_voucher.date%></p>

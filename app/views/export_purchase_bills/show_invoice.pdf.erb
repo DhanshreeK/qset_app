@@ -88,7 +88,7 @@
 
     <div class="gallery-text">
       <p>
-      <p><strong>Sold By:</strong>
+      <p><strong>Consignee:</strong>
 
         
         <%=current_user.party.party_name%></p>
@@ -107,7 +107,7 @@
     <div class="gallery-text" align="right">
 
         <p>
-          <p> <strong>Customer Name:</strong>
+          <p> <strong>Consigner:</strong>
                  <%=@export_purchase_bill_invoice.customer.customer_name%></p>
                  <p> <strong>Address:</strong>
                    <%=@export_purchase_bill_invoice.customer.address%></p>
@@ -170,6 +170,7 @@
                       </tr>
                       <%tax_amt = 0%>
                       <%total_amt = 0%>
+                      <%tnet = 0%>
 
                       <% @export_purchase_bill_invoice.export_purchase_bill_items.each_with_index do |i,n|%>
                       <tr>
@@ -180,6 +181,8 @@
                         <td>&#8377;<%= i.unit_price%></td>
                         <td><%= i.quantity%></td>
                         <td>&#8377;<%= i.net_amount%></td>
+
+                        <% tnet = tnet + i.net_amount.to_f %>
                         
                         
                        
@@ -197,7 +200,7 @@
                        
                         <td></td>
                         
-                        <td></td>
+                        <td>Total Net Amount: &#8377;<%=tnet%></td>
                        
                    
                         <td>Total Amount: &#8377;<%= total_amt%></td>
@@ -227,7 +230,7 @@
                       <thead>
                       
                         <tr>
-                        <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> </th>
+                        <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ') Only%> </th>
                         </tr>
 
                         <tr>
