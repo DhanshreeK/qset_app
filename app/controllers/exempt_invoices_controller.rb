@@ -53,7 +53,8 @@ def show
   respond_to do |format|
     format.html
     format.pdf do
-        render pdf: "show_exempt_invoice.pdf.erb"   # Excluding ".pdf" extension.
+        render pdf: "show_exempt_invoice.pdf.erb",
+        orientation: 'Landscape'  # Excluding ".pdf" extension.
       end
     end
   end
@@ -63,7 +64,8 @@ def show
    respond_to do |format|
     format.html
     format.pdf do
-        render pdf: "show_exempt_invoice.pdf.erb"   # Excluding ".pdf" extension.
+        render pdf: "show_exempt_invoice.pdf.erb" ,
+        orientation: 'Landscape'  # Excluding ".pdf" extension.
       end
     end
   end
@@ -72,6 +74,6 @@ def show
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def export_invoice_params
-      params.require(:exempt_invoice).permit(:pos,:user_id,:customer_id, :exempt_invoice_number,:exempt_invoice_date,exempt_invoice_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :tax_amt, :total_amt,:_destroy])
+      params.require(:exempt_invoice).permit(:terms_and_conditions,:narration,:vehicle_number,:transportation_mode,:pos,:user_id,:customer_id, :exempt_invoice_number,:exempt_invoice_date,exempt_invoice_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :tax_amt, :total_amt,:_destroy])
     end
   end

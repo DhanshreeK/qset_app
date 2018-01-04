@@ -9,10 +9,10 @@ class ExportInvoice < ApplicationRecord
     def self.set_invoice_no
     date = Date.today.strftime('%d')
     if ExportInvoice.first.nil?
-      Setting.first.ExpPurchase + date.to_s + '1'
+      Setting.first.export_sale_series+ date.to_s + '1'
     else
       last_id = ExportInvoice.last.id.next
-      Setting.first.ExpPurchase + date.to_s + last_id.to_s
+      Setting.first.export_sale_series + date.to_s + last_id.to_s
     end
   end
 

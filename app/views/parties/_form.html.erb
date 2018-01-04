@@ -43,6 +43,21 @@
                                       </div>
                                     </div>
 
+                                     <div class="form-group">
+                                      <div class="col-sm-3">
+                                        <label class="col-sm-10 control-label">Joining Date</label>
+                                          <%= f.date_field :joining_date,class: "form-control"%>
+                                      </div>
+                                    </div>
+
+
+                                     <div class="form-group">
+                                      <div class="col-sm-3">
+                                        <label class="col-sm-10 control-label">Due date</label>
+                                         <%= f.date_field :due_date,class: "form-control"%>
+                                      </div>
+                                    </div>
+
                                   <%if current_user.role == 'Party'%>
                                      <div class="form-group">
                                        <div class="col-sm-3">
@@ -130,21 +145,21 @@
                                     <div class="form-group">
                                       <div class="col-sm-3">
                                         <label class="col-sm-10 control-label">Commodity Name</label>
-                                          <%= f.text_field :commodity_name, class: "form-control" ,placeholder: "No."%>
+                                          <%= f.text_field :commodity_name, class: "form-control" ,placeholder: "Commodity Name"%>
                                       </div>
                                     </div>
 
                                     <div class="form-group">
                                       <div class="col-sm-3">
                                         <label class="col-sm-6 control-label">Tarrif No</label>
-                                          <%= f.text_field :tarrif_no, class: "form-control" ,placeholder: "No."%>
+                                          <%= f.text_field :tarrif_no, class: "form-control" ,placeholder: "Tarrif No."%>
                                       </div>
                                     </div>
 
                                     <div class="form-group">
                                       <div class="col-sm-3">
                                         <label class="col-sm-6 control-label">HSN No</label>
-                                         <%= f.text_field :hsn_no, class: "form-control" ,placeholder: "No."%>
+                                         <%= f.text_field :hsn_no, class: "form-control" ,placeholder: "HSN No."%>
                                       </div>
                                     </div>
 
@@ -172,8 +187,16 @@
 
                                      <div class="form-group">
                                        <div class="col-sm-3">
-                                        <label class="col-sm-6 control-label">PAN NO</label>
-                                          <%= f.text_field :party_pan_no, class: "form-control" ,placeholder: "PAN No."%>
+                                        <label class="col-sm-15 control-label">Contact No</label>
+                                          <%= f.text_field :contact_no, class: "form-control" ,placeholder: "Contact No."%>
+                                       </div>
+                                    </div>
+
+
+                                     <div class="form-group">
+                                       <div class="col-sm-3">
+                                        <label class="col-sm-15 control-label">Alternate Contact No</label>
+                                          <%= f.text_field :alternate_contact_no, class: "form-control" ,placeholder: "Alternate Contact No."%>
                                        </div>
                                     </div>
 
@@ -198,7 +221,7 @@
                                     <div class="form-group">
                                       <div class="col-sm-3">
                                         <label class="col-sm-10 control-label">CA Contact</label>
-                                            <%= f.text_field :ca_contact , class: "form-control" ,placeholder: "Conatct."%>
+                                            <%= f.text_field :ca_contact , class: "form-control" ,placeholder: "Contact."%>
                                         </div>
                                     </div>
 

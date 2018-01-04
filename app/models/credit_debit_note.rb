@@ -9,10 +9,10 @@ class CreditDebitNote < ApplicationRecord
    def self.set_credit_debit_note_no
     date = Date.today.strftime('%d')
     if CreditDebitNote.first.nil?
-      'CDN' + date.to_s + '1'
+      Setting.first.cd_series + date.to_s + '1'
     else
       last_id = CreditDebitNote.last.id.next
-      'CDN' + date.to_s + last_id.to_s
+      Setting.first.cd_series + date.to_s + last_id.to_s
     end
   end
 

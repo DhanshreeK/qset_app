@@ -9,10 +9,10 @@ class ExemptInvoice < ApplicationRecord
   def self.set_invoice_no
     date = Date.today.strftime('%d')
     if ExemptInvoice.first.nil?
-      Setting.first.Exempt + date.to_s + '1'
+      Setting.first.nillrated_sale_series + date.to_s + '1'
     else
       last_id = ExemptInvoice.last.id.next
-      Setting.first.Exempt + date.to_s + last_id.to_s
+      Setting.first.nillrated_sale_series + date.to_s + last_id.to_s
     end
   end
 

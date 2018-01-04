@@ -41,7 +41,11 @@
 }
 
 
-
+ address{
+    display: block;
+    width: 300px;
+    
+   }
 
 .gallery-text {
   float: left;
@@ -63,28 +67,29 @@
    </div>
    <div class="gallery-text" align="right">
     <p>
-      <p> <h2><strong><font color="grey"><%= raw "#{@credit_debit_note.note_type}" if @credit_debit_note.present?%></center></th></strong>  </h2></font> <font size="3">(Original for Recipient)</font>
+      <p> <h2><strong><font color="black"><%=current_user.party.party_name%><br><%= raw "#{@credit_debit_note.note_type}" if @credit_debit_note.present?%></center></th></strong>  </h2></font> <font size="3">(Original for Recipient)</font>
       </p>
     </div> 
   </div>
 
 
 
-  <div id="gallery-text">
+ <div id="gallery-text">
 
     <div class="gallery-text">
       <p>
-        <p><strong>Consignee</strong>
-          <%=current_user.party.party_name%></p>
+        <p><strong>Consignee GSTIN No:</strong>
+           <%=current_user.party.party_gstin_no%></p>
 
-          <p> <strong>Address:</strong>
-           <%=current_user.party.party_address%></p>
+
+          <address> <strong>Address:</strong>
+           <%=current_user.party.party_address%></address>
+
+             <p> <strong>Contact Details:</strong>
+           <%=current_user.party.contact_no%></p>
            
-           <p> <strong>GSTIN No:</strong>
-             <%=current_user.party.party_gstin_no%></p>
-             <p> <strong>PAN No</strong>
-               <%=current_user.party.party_pan_no%></p>
-             </p>
+           
+            
            </div>
 
 
@@ -92,8 +97,8 @@
             <p>
             <p> <strong>Consigner:</strong>
                <%=@credit_debit_note.customer.customer_name%></p>
-               <p> <strong>Address:</strong>
-                 <%=@credit_debit_note.customer.address%></p>
+               <address> <strong>Address:</strong>
+                 <%=@credit_debit_note.customer.address%></address>
                  <p> <strong>GSTIN No:</strong>
                    <%=@credit_debit_note.customer.gstin_no_reg%></p>
                  </p>
@@ -106,9 +111,9 @@
              </div>  
              <div class align="left">
 
-              <p><strong>credit_debit_note Date:</strong>
+              <p><strong> Date:</strong>
                 <%=@credit_debit_note.date_of_original_invoice%></p>
-                <p><strong>credit_debit_note no:</strong>
+                <p><strong>Number:</strong>
                   <%=@credit_debit_note.invoice_no%></p><br>
                 </div>
               </div>  
@@ -129,9 +134,10 @@
                 <th>Unit Price</th>
                 <th>Quantity</th>
                 <th>Net Amount</th>
+                <th>Tax Rate</th>
                 <th>CGST</th>
                 <th>SGST</th>
-                <th>Tax Rate</th>
+                
 
                 
                 <th>Tax Amount</th>
@@ -150,10 +156,10 @@
                 <td>&#8377;<%= i.unit_price%></td>
                 <td><%= i.quantity%></td>
                 <td>&#8377;<%= i.net_amt%></td>
-
+                <td><%= i.tax_rate%>&#37;</td>
                 <td>&#8377;<%=ans = i.tax_amt.to_f/2%></td>
                 <td>&#8377;<%=ans%></td>
-                <td><%= i.tax_rate%>&#37;</td>
+               
                 <% rate = rate + i.tax_rate.to_f %>
              
                 <td>&#8377;<%= i.tax_amt%></td>
@@ -170,9 +176,11 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td>CGST: &#8377;<%=tax_amt/2%></td>
-                <td>SGST: &#8377;<%=tax_amt/2%></td>
                 <td>Tax Rate: &#8377;<%= rate %></td>
+                <td></td>
+
+                <td></td>
+                
 
                 <td>Total Tax: &#8377;<%=tax_amt%></td>
                 <td>Total Amount: &#8377;<%= total_amt%></td>

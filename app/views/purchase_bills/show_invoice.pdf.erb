@@ -33,6 +33,13 @@
    display:inline;
  }
 
+  address{
+    display: block;
+    width: 300px;
+    
+   }
+
+
  img {
   border: 1px solid #ddd;
   border-radius: 1px;
@@ -81,8 +88,8 @@
           
           <%=current_user.party.party_name%></p>
           
-          <p> <strong>Address:</strong>
-           <%=current_user.party.party_address%></p>
+          <address> <strong>Address:</strong>
+           <%=current_user.party.party_address%></address>
            
            <p> <strong>GSTIN No:</strong>
              <%=current_user.party.party_gstin_no%></p>
@@ -98,8 +105,8 @@
 
               <p> <strong>Consigner:</strong>
                <%=@purchase_bill_invoice.customer.customer_name%></p>
-               <p> <strong>Address:</strong>
-                 <%=@purchase_bill_invoice.customer.address%></p>
+               <address>  <strong>Address:</strong>
+                 <%=@purchase_bill_invoice.customer.address%></address>
                  <p> <strong>GSTIN No:</strong>
                    <%=@purchase_bill_invoice.customer.gstin_no_reg%></p>
 

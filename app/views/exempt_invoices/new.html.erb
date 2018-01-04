@@ -29,21 +29,6 @@
         <form class="form-horizontal">
           <div class="form-group">
 
-            <div class="form-group">
-              <div class="col-sm-3">
-                <label class="col-sm-10 control-label">Invoice Number</label>   
-                <%= f.text_field :exempt_invoice_number,class: 'form-control', readonly:true%>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="col-sm-3">
-                <label class="col-sm-10 control-label">Date</label>   
-                <%= f.date_field :exempt_invoice_date,value: Date.today, class: 'form-control'%>
-              </div>
-            </div>
-
-
          <%if current_user.role == 'Party'%>
 
             <div class="form-group">
@@ -74,12 +59,56 @@
               </div>
             </div>
 
+
+             <div class="form-group">
+              <div class="col-sm-3">
+                <label class="col-sm-15 control-label">Place of Supply</label>   
+                <input type="cust_place_of_supply" name="cust_place_of_supply" id="cust_place_of_supply" class="form-control"></td>
+              </div>
+            </div>
             <div class="form-group">
-          <div class="col-sm-3">
-            <label class="col-sm-10 control-label">Place of Supply</label>   
-            <%= f.select :pos,options_for_select(["01-Jammu & Kashmir", "02-Himachal Pradesh","03-Punjab","04-Chandigarh","05-Uttarakhand","06-Haryana","07-Delhi","08-Rajasthan","09-Uttar Pradesh","10-Bihar","11-Sikkim","12-Arunachal Pradesh","13-Nagaland","14-Manipur","15-Mizoram","16-Tripura","17-Meghalaya","18-Assam","19-West Bengal","20-Jharkhand","21-Odisha", "22-Chhattisgarh","23-Madhya Pradesh","24-Gujarat","25-Daman & Diu","26-Dadra & Nagar Haveli","27-Maharashtra","29-Karnataka","30-Goa","31-Lakshdweep","32-Kerala","33-Tamil Nadu","34-Pondicherry","35-Andaman & Nicobar Islands","36-Telangana","37-Andhra Pradesh","97-Other Territory"]),{prompt:true},class: 'form-control'%>
-          </div>
-        </div>
+              <div class="col-sm-3">
+                <label class="col-sm-10 control-label">Invoice Number</label>   
+                <%= f.text_field :exempt_invoice_number,class: 'form-control', readonly:true%>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-3">
+                <label class="col-sm-10 control-label">Date</label>   
+                <%= f.date_field :exempt_invoice_date,value: Date.today, class: 'form-control'%>
+              </div>
+            </div>
+
+               <div class="form-group">
+              <div class="col-sm-3">
+                <label class="col-sm-15 control-label">Transportation Mode</label>   
+                <%= f.text_field :transportation_mode,class: 'form-control'%>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-3">
+                <label class="col-sm-15 control-label">Vehicle No</label>   
+                <%= f.text_field :vehicle_number,class: 'form-control'%>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-3">
+                <label class="col-sm-15 control-label">Note</label>   
+                <%= f.text_area :narration,class: 'form-control'%>
+              </div>
+            </div>
+
+             <div class="form-group">
+              <div class="col-sm-3">
+                <label class="col-sm-20 control-label">Terms and Conditions</label>   
+                <%= f.text_area :terms_and_conditions,class: 'form-control'%>
+              </div>
+              <br><br><br>
+            </div>
+
 
 
 
@@ -190,6 +219,7 @@
      $("#address").val(data[0]);
      $("#gstin_no_reg").val(data[1]);
      $("#cust_pan_no").val(data[2]);
+     $("#cust_place_of_supply").val(data[3]);
       // $("#uom").val(data[1]);
       // $("#rate").val(data[2]);
       

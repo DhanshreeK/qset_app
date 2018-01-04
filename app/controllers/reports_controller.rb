@@ -48,7 +48,7 @@ class ReportsController < ApplicationController
      	sheet2.row(0).default_format = format
       @results.each_with_index do |r, i|
           	if r.date.between?(params[:start_date].to_date, params[:end_date].to_date) && params[:gstr_type] == 'GSTR1'
-                if r.gstr_holder == 'GST HOLDER(OUT OF STATE)'
+                if r.gstr_holder == 'NON GST HOLDER(OUT OF STATE)'
                   sheet2.insert_row(sheet2.last_row_index + 1,["#{r.invoice_no}", "#{r.date}","#{r.invoice_value}", "#{r.customer.address}","#{r.tax_rate}","#{r.invoice_value}","#{r.total_invoice_value}"])
       	        end
             end

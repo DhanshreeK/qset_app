@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <style>
+ <style>
     table {
      width:100%;
    }
@@ -40,61 +37,59 @@
 </style>
 </head>
 <body>
-<%= wicked_pdf_image_tag 'test.jpg' %>
 
+  <div id="gallery-text">
+    <div class="gallery-text">
+     <%= wicked_pdf_image_tag 'test.jpg' %>
+   </div>
+   <div class="gallery-text" align="right">
+    <p>
+      <p> <h2><strong><font color="black"><%=current_user.party.party_name%><br>Job Worker(Mfg to JW)</strong>  </h2></font> 
+      </p>
+    </div> 
+  </div>
 
-  <div class="center"><h2><b><font color="grey">Job Worker(Mfg to JW)</font></b></h2></div>
-  <div id="heading">
-   
-
-      
-    <div class align ="left">
-    <p><strong>Consignee</strong>
-      <p><strong>GSTIN of Job Worker</strong>
-        <%=@job_work.gstin_of_job_worker%></p>
-        <p><strong>E-Way Bill No:</strong>
-          <%=@job_work.e_way_bill_no%></p>
-          <p> <strong>Tranportation Mode:</strong>
-           <%=@job_work.transportation_mode%></p>
-           
-           <p> <strong>Vehicle Number</strong>
-             <%=@job_work.vehicle_no%></p>
-              <p> <strong>Place of Supply</strong>
-             <%=@job_work.state%></p>
-             <p> <strong>Nature of Processing:</strong>
-                               <%=@job_work.nature_of_processing%></p>
- 
-             
-              <div class align ="right">
-                        <p><strong>Consigner:</strong>
-                          <%=current_user.party.party_name%></p>
+<div class align ="left">
+                        <p><strong>Consigner GSTIN No:</strong>
+                          <%=current_user.party.party_gstin_no%></p>
                           <p><strong>Date:</strong>
                             <%=@job_work.challan_date%></p>
                             <p> <strong>Address:</strong>
                              <%=current_user.party.party_address%></p>
+                              <p> <strong>Contact No:</strong>
+                             <%=current_user.party.contact_no%></p>
                              
-                             <p> <strong>GSTIN No:</strong>
-                               <%=current_user.party.party_gstin_no%></p>
-                               <p> <strong>PAN No</strong>
-                                 <%=current_user.party.party_pan_no%></p>
-                                 <br>
-                               </div>
+                           </div>
+      
+    <div class align ="right">
+    <p><strong>Consignee GSTIN NO</strong>
+       <%=@job_work.customer.gstin_no_reg if @job_work.customer.present? %></p>
+       <p> <strong>Address:</strong>
+         <%=@job_work.customer.address if @job_work.customer.present? %></p>
+         <p> <strong>GSTIN No:</strong>
+           <%=@job_work.customer.gstin_no_reg if @job_work.customer.present? %></p>
+        <p><strong>E-Way Bill No:</strong>
+          <%=@job_work.e_way_bill_no%></p>
+          <p> <strong>Tranportation Mode:</strong>
+           <%=@job_work.transportation_mode%></p>
 
+ <div class align ="left">
 
-      <div class="row">
-             <div class="col-md-4">
-             <div class="pull-left">
-                <p> <strong>Challan Number</strong>
-             <%=@job_work.challan_no%></p>
-              <p> <strong>Challan Date</strong>
-             <%=@job_work.challan_date%></p>
-                       <br>
-                     </div></div>
+                               <p> <strong>Challan No:</strong>
+                               <%=@job_work.challan_no%></p>
 
+                               <p> <strong>Challan Date:</strong>
+                               <%=@job_work.challan_date%></p></div>
+
+                  
+                              
+           
                     
-
-                               <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
+  <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
+              <thead>
+                <tr>
+                  <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="11"><center>Job Worker</center></th>
+                </tr>
                                   <thead>
                                     <tr>
                                      <th>Sr No</th>
@@ -137,13 +132,13 @@
                                   </tr>
                                 </tbody>
                               </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <br>
-                  </div>
-                </div>
+              </thead>
+              </table>
               </div>
-            </div>
+              </strong>
+              </h2>
+              </p>
+              </p>
+              </div>
+              </div>
+        

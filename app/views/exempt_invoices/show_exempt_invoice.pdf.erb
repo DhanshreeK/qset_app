@@ -32,6 +32,11 @@
  h5 {
    display:inline;
  }
+   address{
+    display: block;
+    width: 300px;
+    
+   }
 
   img {
     border: 1px solid #ddd;
@@ -68,7 +73,7 @@
     <div class="gallery-text" align="right">
 
         <p>
-          <p> <h2><strong><font color="grey">Exempt Invoice  </strong>  </h2></font> <font size="3">(Original for Recipient)</font>
+          <p> <h2><strong><font color="black"><%=current_user.party.party_name%><br>Exempt Invoice  </strong>  </h2></font> <font size="3">(Original for Recipient)</font>
           
 
           </p>
@@ -87,49 +92,40 @@
 
     <div class="gallery-text">
       <p>
-      <p><strong>Consignee:</strong>
+        <p><strong>Consignee GSTIN Number:</strong>
+          <%=current_user.party.party_gstin_no%></p>
 
-        
-        <%=current_user.party.party_name%></p>
-     
-          <p> <strong>Address:</strong>
-           <%=current_user.party.party_address%></p>
+          <address> <strong>Address:</strong>
+           <%=current_user.party.party_address%></address>
+             <p><strong>Contact Details:</strong>
+          <%=current_user.party.contact_no%></p>
+
+            <p> <strong>Vehicle Number:</strong>
+               <%=@exempt_invoice.vehicle_number%></p>
+
+                <p> <strong>Transportation Mode:</strong>
+               <%=@exempt_invoice.transportation_mode%></p>
            
-           <p> <strong>GSTIN No:</strong>
-             <%=current_user.party.party_gstin_no%></p>
-             <p> <strong>PAN No</strong>
-               <%=current_user.party.party_pan_no%></p>
-        </p>
-    </div>
+           </div>
+
 
 
     <div class="gallery-text" align="right">
-
-        <p>
-
-          <p> <strong>Consigner:</strong>
-                 <%=@exempt_invoice.customer.customer_name%></p>
-                 <p> <strong>Address:</strong>
-                   <%=@exempt_invoice.customer.address%></p>
-                   <p> <strong>GSTIN No:</strong>
-                     <%=@exempt_invoice.customer.gstin_no_reg%></p>
-
-          </p>
-    </div> 
-
-
-
-
-
+            <p>
+            <p> <strong>Consigner:</strong>
+               <%=@exempt_invoice.customer.customer_name%></p>
+               <address> <strong>Address:</strong>
+                 <%=@exempt_invoice.customer.address%></address>
+                 <p> <strong>GSTIN No:</strong>
+                   <%=@exempt_invoice.customer.gstin_no_reg%></p>
+                 </p>
+                  <p> <strong>Place of Supply:</strong>
+                   <%=@exempt_invoice.customer.cust_place_of_supply%></p>
+                 </p>
+               </div>
+             </div>
                
   </div>
-
-
-
-
-
-
-
 
              <div class align ="right">
            
@@ -217,31 +213,33 @@
             </div>
           </thead>
         </table>
-        <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
-                      <thead>
-                      
-                        <tr>
-                        <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> Only</th>
-                        </tr>
+            <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
+    <thead>
 
-                        <tr>
-                        <th> 
+      <tr>
+        <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> Only </th>
+      </tr>
 
-                          <H2 align="right">For <%=current_user.party.party_name%></H2>
+      <tr>
+        <th> 
 
-                           <h2 align="right">&nbsp;</h2>
+          <H4 align="right">Note <%=@exempt_invoice.narration%></H4>
+          <H4 align="left">Terms and Conditions <%=@exempt_invoice.terms_and_conditions%></H4>
+          <h4 align="right">&nbsp;</h4>
 
-                          <h2 align="right">Authorized Signatory</h2> 
+          <h4 align="right">Authorized Signatory</h4> 
 
 
-                        </th>
-                        </tr>
-                     
-         
+        </th>
+      </tr>
 
-             
-          </thead>
-        </table>
+    </thead>
+  </table>
+
+
+ 
+
+
 
 
 
