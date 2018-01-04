@@ -4,7 +4,7 @@ class Invoice < ApplicationRecord
   accepts_nested_attributes_for :invoice_items, reject_if: :all_blank, allow_destroy: true
   scope :shod, ->(id) { where(id: id).take }
   validates :gstr_holder, presence:true
-  has_many :hsn_summary_for_sale_bills
+  has_many :hsn_summary_for_sale_bills, dependent: :destroy
   after_create :add_hsn_summary
 
   def self.set_invoice_no
