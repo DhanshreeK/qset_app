@@ -38,7 +38,8 @@ class ExportPurchaseBillsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "show_invoice.pdf.erb"   # Excluding ".pdf" extension.
+        render pdf: "show_invoice.pdf.erb" ,
+        orientation: 'Landscape'  # Excluding ".pdf" extension.
       end
     end
   end
@@ -48,7 +49,8 @@ def show_invoice
       respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "show_invoice.pdf.erb"   # Excluding ".pdf" extension.
+        render pdf: "show_invoice.pdf.erb",
+        orientation: 'Landscape'   # Excluding ".pdf" extension.
       end
     end
 end

@@ -53,7 +53,8 @@ class ReceiptVouchersController < ApplicationController
 		respond_to do |format|
 			format.html
 			format.pdf do
-	        render pdf: "show_receipt_voucher.pdf.erb"   # Excluding ".pdf" extension.
+	        render pdf: "show_receipt_voucher.pdf.erb" ,
+	        orientation: 'Landscape'  # Excluding ".pdf" extension.
 	    end
 	end
 	end
@@ -64,7 +65,8 @@ class ReceiptVouchersController < ApplicationController
 		respond_to do |format|
 			format.html
 			format.pdf do
-	        render pdf: "show_receipt_voucher.pdf.erb"   # Excluding ".pdf" extension.
+	        render pdf: "show_receipt_voucher.pdf.erb" ,  
+	        orientation: 'Landscape'# Excluding ".pdf" extension.
 	    end
 	end
 	end
@@ -73,6 +75,6 @@ class ReceiptVouchersController < ApplicationController
 	private
 
 	def receipt_voucher_params
-		params.require(:receipt_voucher).permit(:debit_acc_no,:to_whom,:against,:date,:voucher_no,:cash_or_check,receipt_voucher_items_attributes:[:details,:amount])
+		params.require(:receipt_voucher).permit( :check_no,:customer_id,:debit_acc_no,:to_whom,:against,:date,:voucher_no,:cash_or_check,receipt_voucher_items_attributes:[:details,:amount])
 	end
 end

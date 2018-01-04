@@ -10,6 +10,7 @@ class JobWorksController < ApplicationController
   def new
     @job_work = JobWork.new
     @job_work.job_work_items.build # build ingredient attributes, nothing new here
+    @job_work.challan_no = JobWork.set_invoice_no
     @items = Item.all
   end
 
@@ -52,7 +53,8 @@ def show
   respond_to do |format|
     format.html
     format.pdf do
-        render pdf: "show_job_work.pdf.erb"   # Excluding ".pdf" extension.
+        render pdf: "show_job_work.pdf.erb",
+        orientation: 'Landscape'   # Excluding ".pdf" extension.
       end
     end
   end
@@ -62,7 +64,8 @@ def show
    respond_to do |format|
     format.html
     format.pdf do
-        render pdf: "show_job_work.pdf.erb"   # Excluding ".pdf" extension.
+        render pdf: "show_job_work.pdf.erb",
+        orientation: 'Landscape'  # Excluding ".pdf" extension.
       end
     end
   end
@@ -70,6 +73,6 @@ def show
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_work_params
-      params.require(:job_work).permit(:nature_of_processing,:gstin_of_job_worker,:e_way_bill_no, :transportation_mode, :vehicle_no,:gstin_of_job_worker, :state, :challan_no, :challan_date,job_work_items_attributes:[ :item_id, :taxable_value, :types_of_goods, :integrated_tax_rate, :central_tax_rate, :state_tax_rate, :cess, :unit_price,:total_amt, :quantity, :_destroy])
+      params.require(:job_work).permit(:customer_id, :nature_of_processing,:gstin_of_job_worker,:e_way_bill_no, :transportation_mode, :vehicle_no,:gstin_of_job_worker, :state, :challan_no, :challan_date,job_work_items_attributes:[ :item_id, :taxable_value, :types_of_goods, :integrated_tax_rate, :central_tax_rate, :state_tax_rate, :cess, :unit_price,:total_amt, :quantity, :_destroy])
     end
 end

@@ -26,6 +26,45 @@
        <div class="panel-body">
         <%= nested_form_for @refund_voucher, url: {action:'create', controller: 'refund_vouchers'} do |f|%>
 
+                                       <%if current_user.role == 'Party'%>
+
+                                            <div class="form-group">
+                                              <div class="col-sm-3">
+                                                <label class="col-sm-10 control-label">Search Customers</label>           <%=f.select :customer_id ,current_user.customers.collect{|i| [i.customer_name, i.id]}, {prompt:true},class: "form-control"%>
+                                              </div>
+                                            </div>
+                                            <%else%>
+
+                                            <div class="form-group">
+                                              <div class="col-sm-3">
+                                                <label class="col-sm-10 control-label">Search Customers</label>           <%=f.select :customer_id ,Customer.all.collect{|i| [i.customer_name, i.id]}, {prompt:true},class: "form-control"%>
+                                              </div>
+                                            </div>
+                                            <%end%>
+                                          
+
+                                           <div class="form-group">
+                                            <div class="col-sm-3">
+                                              <label class="col-sm-6 control-label">Address</label>   
+                                                                           <input type="address" name="address" id="address" class="form-control"></td> </div>
+
+                                            </div>
+                                           
+
+                                           <div class="form-group">
+                                            <div class="col-sm-3">
+                                              <label class="col-sm-6 control-label">GST No</label>   
+                                                <input type="gstin_no_reg" name="gstin_no_reg" id="gstin_no_reg" class="form-control"></td>
+                                            </div>
+                                           </div>
+
+                                           <div class="form-group">
+                                            <div class="col-sm-3">
+                                              <label class="col-sm-6 control-label">PAN No</label>   
+                                                <input type="cust_pan_no" name="cust_pan_no" id="cust_pan_no" class="form-control"></td>
+                                            </div>
+                                           </div>
+
 
       <div class="form-group">
         <div class="col-sm-3">
@@ -50,14 +89,21 @@
 
       <div class="form-group">
         <div class="col-sm-3">
-          <label class="col-sm-10 control-label">Check or Cash</label>   
-          <%= f.text_field :cash_or_check, class: 'form-control'%>
+          <label class="col-sm-10 control-label">Cheque or Cash</label>   
+          <%= f.select :cash_or_check, options_for_select(["Cash","Check"]),{prompt:true}, class: 'form-control'%>
         </div>
       </div>
 
       <div class="form-group">
         <div class="col-sm-3">
-          <label class="col-sm-10 control-label">Date</label>   
+          <label class="col-sm-35 control-label">Cheque Number</label>   
+          <%= f.text_field :check_n, class: 'form-control'%>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-35 control-label">Againt Invoice Number</label>   
           <%= f.date_field :date,value: Date.today, class: 'form-control'%>
         </div>
       </div>
@@ -67,7 +113,9 @@
           <label class="col-sm-10 control-label">Voucher No</label>   
           <%= f.text_field :voucher_no, class: 'form-control'%>
         </div>
+        <br><br><br>
       </div>
+
      
       <br><br><br><br><br><br>
 
@@ -122,3 +170,40 @@
 </div>
 </div>
 </div>
+
+
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+
+$(document).ready(function() {
+  $('select#refund_voucher_customer_id').select2({
+    placeholder: "Choose a customers",
+    allowClear: true
+  });
+});
+</script>
+<% end %>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+  $("#refund_voucher_customer_id").on("change", function() {
+    var customer_id;
+    Item = $(this).val();
+    $.ajax({
+      url: "/customers/load_customer_data",
+      type: "GET",
+      data: {customer_id: Item },
+      dataType: "json"
+     }).done(function (data) {
+     console.log(data);
+      $("#address").val(data[0]);
+      $("#gstin_no_reg").val(data[1]);
+      $("#cust_pan_no").val(data[2]);
+      // $("#uom").val(data[1]);
+      // $("#rate").val(data[2]);
+     
+    });
+  });
+</script>
+<% end %>

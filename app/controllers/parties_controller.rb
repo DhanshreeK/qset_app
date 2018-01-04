@@ -92,6 +92,6 @@ class PartiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def party_params
-      params.require(:party).permit(:composite, :regular,:image,:email,:party_no,:party_name, :party_gstin_no, :party_arn_no, :party_address, :place_of_supply, :commodity_name, :tarrif_no, :hsn_no, :rate_of_tax, :name_service, :service_acc_code, :party_pan_no, :state_name, :state_code, :ca_name, :ca_contact)
+      params.require(:party).permit(:joining_date,:due_date,:contact_no ,:alternate_contact_no ,:composite, :regular,:image,:email,:party_no,:party_name, :party_gstin_no, :party_arn_no, :party_address, :place_of_supply, :commodity_name, :tarrif_no, :hsn_no, :rate_of_tax, :name_service, :service_acc_code, :party_pan_no, :state_name, :state_code, :ca_name, :ca_contact)
     end
 end

@@ -10,7 +10,7 @@ class CreditDebitNotesController < ApplicationController
   def new
     @credit_debit_note = CreditDebitNote.new
     @credit_debit_note.credit_debit_note_items.build # build ingredient attributes, nothing new here
-    @credit_debit_note.invoice_no = CreditDebitNote.set_credit_debit_note_no
+     @credit_debit_note.invoice_no = CreditDebitNote.set_credit_debit_note_no
     @items = Item.all
   end
 
@@ -56,7 +56,8 @@ def show
   respond_to do |format|
     format.html
     format.pdf do
-        render pdf: "show_credit_debit_note.pdf.erb"   # Excluding ".pdf" extension.
+        render pdf: "show_credit_debit_note.pdf.erb",
+        orientation: 'Landscape'   
       end
     end
   end
@@ -66,7 +67,8 @@ def show
    respond_to do |format|
     format.html
     format.pdf do
-        render pdf: "show_credit_debit_note.pdf.erb"   # Excluding ".pdf" extension.
+        render pdf: "show_credit_debit_note.pdf.erb",
+        orientation: 'Landscape'  # Excluding ".pdf" extension.
       end
     end
   end

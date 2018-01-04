@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20171230132155) do
-
+ActiveRecord::Schema.define(version: 20180104125925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -159,6 +157,10 @@ ActiveRecord::Schema.define(version: 20171230132155) do
     t.bigint "user_id"
     t.string "exempt_invoice_value"
     t.string "pos"
+    t.string "transportation_mode"
+    t.string "vehicle_number"
+    t.string "narration"
+    t.string "terms_and_conditions"
     t.index ["customer_id"], name: "index_exempt_invoices_on_customer_id"
     t.index ["user_id"], name: "index_exempt_invoices_on_user_id"
   end
@@ -196,6 +198,10 @@ ActiveRecord::Schema.define(version: 20171230132155) do
     t.string "shipping_bill_date"
     t.string "pos"
     t.string "export_type"
+    t.string "transportation_mode"
+    t.string "vehicle_number"
+    t.string "narration"
+    t.string "terms_and_conditions"
     t.index ["customer_id"], name: "index_export_invoices_on_customer_id"
     t.index ["user_id"], name: "index_export_invoices_on_user_id"
   end
@@ -313,6 +319,10 @@ ActiveRecord::Schema.define(version: 20171230132155) do
     t.string "cess"
     t.string "tax_rate"
     t.string "pos"
+    t.string "narration"
+    t.string "terms_and_conditions"
+    t.string "transportation_mode"
+    t.string "vehicle_number"
     t.index ["user_id"], name: "index_invoices_on_user_id"
   end
 
@@ -444,6 +454,8 @@ ActiveRecord::Schema.define(version: 20171230132155) do
     t.string "vehicle_no"
     t.string "total_amt"
     t.string "nature_of_processing"
+    t.bigint "customer_id"
+    t.index ["customer_id"], name: "index_job_works_on_customer_id"
     t.index ["user_id"], name: "index_job_works_on_user_id"
   end
 
@@ -533,6 +545,10 @@ ActiveRecord::Schema.define(version: 20171230132155) do
     t.string "composite"
     t.string "regular"
     t.boolean "party_status", default: false
+    t.string "contact_no"
+    t.string "alternate_contact_no"
+    t.date "joining_date"
+    t.date "due_date"
     t.index ["charted_accountant_id"], name: "index_parties_on_charted_accountant_id"
   end
 
@@ -586,6 +602,9 @@ ActiveRecord::Schema.define(version: 20171230132155) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.bigint "customer_id"
+    t.string "check_no"
+    t.index ["customer_id"], name: "index_receipt_vouchers_on_customer_id"
     t.index ["user_id"], name: "index_receipt_vouchers_on_user_id"
   end
 
@@ -610,6 +629,9 @@ ActiveRecord::Schema.define(version: 20171230132155) do
     t.string "date"
     t.string "voucher_no"
     t.bigint "user_id"
+    t.bigint "customer_id"
+    t.string "check_n"
+    t.index ["customer_id"], name: "index_refund_vouchers_on_customer_id"
     t.index ["user_id"], name: "index_refund_vouchers_on_user_id"
   end
 
@@ -628,6 +650,11 @@ ActiveRecord::Schema.define(version: 20171230132155) do
     t.datetime "updated_at", null: false
     t.string "ExpPurchase"
     t.string "Exempt"
+    t.string "export_sale_series"
+    t.string "nillrated_sale_series"
+    t.string "cd_series"
+    t.string "rv_series"
+    t.string "jw_series"
   end
 
   create_table "unit_of_measures", force: :cascade do |t|
@@ -706,6 +733,7 @@ ActiveRecord::Schema.define(version: 20171230132155) do
   add_foreign_key "items", "users"
   add_foreign_key "job_work_items", "items"
   add_foreign_key "job_work_items", "job_works"
+  add_foreign_key "job_works", "customers"
   add_foreign_key "job_works", "users"
   add_foreign_key "nillrate_exempt_bill_items", "items"
   add_foreign_key "nillrate_exempt_bill_items", "nillrate_exempt_bills"
@@ -717,8 +745,10 @@ ActiveRecord::Schema.define(version: 20171230132155) do
   add_foreign_key "purchase_bills", "customers"
   add_foreign_key "purchase_bills", "users"
   add_foreign_key "receipt_voucher_items", "receipt_vouchers"
+  add_foreign_key "receipt_vouchers", "customers"
   add_foreign_key "receipt_vouchers", "users"
   add_foreign_key "refund_voucher_items", "refund_vouchers"
+  add_foreign_key "refund_vouchers", "customers"
   add_foreign_key "refund_vouchers", "users"
   add_foreign_key "unit_of_measures", "users"
   add_foreign_key "user_charted_accountants", "charted_accountants"

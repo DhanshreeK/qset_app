@@ -11,7 +11,7 @@ class RefundVouchersController < ApplicationController
 	def new
 	    @refund_voucher = RefundVoucher.new
 	    @refund_voucher.refund_voucher_items.build # build ingredient attributes, nothing new here
-	    @refund_voucher.voucher_no = RefundVoucher.set_refund_voucher_no
+	    # @refund_voucher.voucher_no = RefundVoucher.set_refund_voucher_no
 	    @items = Item.all
 	end
 
@@ -54,7 +54,8 @@ class RefundVouchersController < ApplicationController
 		respond_to do |format|
 			format.html
 			format.pdf do
-	        render pdf: "show_refund_voucher.pdf.erb"   # Excluding ".pdf" extension.
+	        render pdf: "show_refund_voucher.pdf.erb", 
+	        orientation: 'Landscape' # Excluding ".pdf" extension.
 	    end
 	end
 	end
@@ -65,7 +66,8 @@ class RefundVouchersController < ApplicationController
 		respond_to do |format|
 			format.html
 			format.pdf do
-	        render pdf: "show_refund_voucher.pdf.erb"   # Excluding ".pdf" extension.
+	        render pdf: "show_refund_voucher.pdf.erb",  
+	        orientation: 'Landscape' # Excluding ".pdf" extension.
 	    end
 	end
 	end
@@ -74,6 +76,6 @@ class RefundVouchersController < ApplicationController
 	private
 
 	def refund_voucher_params
-		params.require(:refund_voucher).permit(:debit_acc_no,:to_whom,:against,:date,:voucher_no,:cash_or_check,refund_voucher_items_attributes:[:details,:amount])
+		params.require(:refund_voucher).permit(:customer_id,:check_n ,:debit_acc_no,:to_whom,:against,:date,:voucher_no,:cash_or_check,refund_voucher_items_attributes:[:details,:amount])
 	end
 end

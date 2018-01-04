@@ -32,6 +32,11 @@
  h5 {
    display:inline;
  }
+  address{
+    display: block;
+    width: 300px;
+    
+   }
  img {
   border: 1px solid #ddd;
   border-radius: 1px;
@@ -81,8 +86,8 @@
           <p><strong>Consignee:</strong>     
             <%=current_user.party.party_name%></p>
 
-            <p> <strong>Address:</strong>
-             <%=current_user.party.party_address%></p>
+            <address> <strong>Address:</strong>
+             <%=current_user.party.party_address%></address>
 
              <p> <strong>GSTIN No:</strong>
                <%=current_user.party.party_gstin_no%></p>
@@ -94,8 +99,8 @@
               <p>
                 <p> <strong>Consigner:</strong>
                  <%=@nillrate_exempt_bill_invoice.customer.customer_name%></p>
-                 <p> <strong>Address:</strong>
-                   <%=@nillrate_exempt_bill_invoice.customer.address%></p>
+                 <address> <strong>Address:</strong>
+                   <%=@nillrate_exempt_bill_invoice.customer.address%></address>
                    <p> <strong>GSTIN No:</strong>
                      <%=@nillrate_exempt_bill_invoice.customer.gstin_no_reg%></p>
                    </p>

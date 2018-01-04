@@ -9,10 +9,10 @@ class IssueNote < ApplicationRecord
   def self.set_issue_note_no
     date = Date.today.strftime('%d')
     if IssueNote.first.nil?
-      'IN' + date.to_s + '1'
+      Setting.first.cd_series + date.to_s + '1'
     else
       last_id = IssueNote.last.id.next
-      'IN' + date.to_s + last_id.to_s
+      Setting.first.cd_series + date.to_s + last_id.to_s
     end
   end
 

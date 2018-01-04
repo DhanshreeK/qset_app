@@ -20,7 +20,7 @@ class SettingsController < ApplicationController
   # this private methods tell us exactly which parameters are allowed
   # into our controller actions.
   def setting_params
-    params.require(:setting).permit(:p_series, :s_series,:ExpPurchase, :Exempt)
+    params.require(:setting).permit!
   end
 
 

@@ -52,7 +52,8 @@ def show
   respond_to do |format|
     format.html
     format.pdf do
-        render pdf: "show_job_work_inward.pdf.erb"   # Excluding ".pdf" extension.
+        render pdf: "show_job_work_inward.pdf.erb",
+        orientation: 'Landscape'   # Excluding ".pdf" extension.
       end
     end
   end
@@ -62,7 +63,8 @@ def show
    respond_to do |format|
     format.html
     format.pdf do
-        render pdf: "show_job_work_inward.pdf.erb"   # Excluding ".pdf" extension.
+        render pdf: "show_job_work_inward.pdf.erb",
+        orientation: 'Landscape'   # Excluding ".pdf" extension.
       end
     end
   end

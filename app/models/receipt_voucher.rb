@@ -6,10 +6,10 @@ class ReceiptVoucher < ApplicationRecord
     def self.set_receipt_voucher_no
     date = Date.today.strftime('%d')
     if ReceiptVoucher.first.nil?
-      'RV' + date.to_s + '1'
+      Setting.first.rv_series + date.to_s + '1'
     else
       last_id = ReceiptVoucher.last.id.next
-      'RV' + date.to_s + last_id.to_s
+      Setting.first.rv_series + date.to_s + last_id.to_s
     end
   end
 end

@@ -13,7 +13,7 @@ class CustomersController < ApplicationController
 
   def load_customer_data
     @customer = Customer.find_by_id(params[:customer_id]).present? ? Customer.find(params[:customer_id]) : Customer.unscoped.find_by_id(params[:customer_id])
-    render :json => [ @customer.address, @customer.gstin_no_reg, @customer.cust_pan_no]
+    render :json => [ @customer.address, @customer.gstin_no_reg, @customer.cust_pan_no,@customer.cust_place_of_supply]
   end
 
   # GET /customers/1
