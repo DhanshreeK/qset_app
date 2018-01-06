@@ -32,6 +32,8 @@
                           <th>Date of Invoice</th>
                           <th>Customer Name</th>
                           <th>Action</th>
+                          <th>Action</th>
+
                         </tr>
                       </thead>
 
@@ -42,6 +44,7 @@
                           <td><%=link_to a.exempt_invoice_number, exempt_invoice_path(a), class: 'btn btn-link' %></td>
                           <td><%=a.exempt_invoice_date %></td>
                         <td><%=a.customer.customer_name%></td>
+                         <td><%= link_to 'Edit',edit_exempt_invoice_path(a), class: 'btn btn-link'%></td>
                         <td><%= link_to 'Destroy',exempt_invoice_path(a), method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn btn-link'%></td>
                       </tr>
                       <% end %>

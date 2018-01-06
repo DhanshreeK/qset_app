@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180104125925) do
+ActiveRecord::Schema.define(version: 20180106043145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -284,7 +284,9 @@ ActiveRecord::Schema.define(version: 20180104125925) do
     t.datetime "updated_at", null: false
     t.bigint "invoice_id"
     t.string "total_quantity"
+    t.bigint "issue_note_id"
     t.index ["invoice_id"], name: "index_hsn_summary_for_sale_bills_on_invoice_id"
+    t.index ["issue_note_id"], name: "index_hsn_summary_for_sale_bills_on_issue_note_id"
   end
 
   create_table "invoice_items", force: :cascade do |t|
@@ -386,6 +388,7 @@ ActiveRecord::Schema.define(version: 20180104125925) do
     t.decimal "igst"
     t.bigint "unit_of_measure_id"
     t.bigint "user_id"
+    t.string "item_code"
     t.index ["unit_of_measure_id"], name: "index_items_on_unit_of_measure_id"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
@@ -578,6 +581,11 @@ ActiveRecord::Schema.define(version: 20180104125925) do
     t.string "type"
     t.string "pos"
     t.string "bill_type"
+    t.string "transportation_mode"
+    t.string "vehicle_number"
+    t.string "rcm"
+    t.string "narration"
+    t.string "terms_and_conditions"
     t.index ["customer_id"], name: "index_purchase_bills_on_customer_id"
     t.index ["user_id"], name: "index_purchase_bills_on_user_id"
   end
@@ -724,6 +732,7 @@ ActiveRecord::Schema.define(version: 20180104125925) do
   add_foreign_key "export_purchase_bills", "customers"
   add_foreign_key "export_purchase_bills", "users"
   add_foreign_key "hsn_summary_for_sale_bills", "invoices"
+  add_foreign_key "hsn_summary_for_sale_bills", "issue_notes"
   add_foreign_key "invoices", "users"
   add_foreign_key "issue_note_items", "issue_notes"
   add_foreign_key "issue_note_items", "items"

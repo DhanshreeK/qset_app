@@ -31,6 +31,7 @@
                           <th>Voucher Number</th>
                           <th>Date of Voucher</th>
                           <th>Action</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
 
@@ -40,7 +41,7 @@
                         <td><%=i+1%></td>
                         <td><%=link_to a.voucher_no, refund_voucher_path(a), class: 'btn btn-link'%></td>
                         <td><%=a.date %></td>
-                        
+                         <td><%= link_to 'Edit',edit_refund_voucher_path(a) , class: 'btn btn-link'%></td>
                         <td><%= link_to 'Destroy',refund_voucher_path(a), method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn btn-link'%></td>
                       </tr>
                       <% end %>

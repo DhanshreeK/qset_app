@@ -32,6 +32,7 @@ class ReceiptVouchersController < ApplicationController
 		@receipt_voucher = ReceiptVoucher.find(params[:id])
 		respond_to do |format|
 			if @receipt_voucher.update(receipt_voucher_params)
+			    @receipt_voucher.assign_attributes(id: params[:id])
 				format.html { redirect_to receipt_voucher_path, notice: 'receipt_voucher was successfully updated.' }
 				format.json { render :index, status: :ok, location: @receipt_voucher }
 			else
@@ -75,6 +76,6 @@ class ReceiptVouchersController < ApplicationController
 	private
 
 	def receipt_voucher_params
-		params.require(:receipt_voucher).permit( :check_no,:customer_id,:debit_acc_no,:to_whom,:against,:date,:voucher_no,:cash_or_check,receipt_voucher_items_attributes:[:details,:amount])
+		params.require(:receipt_voucher).permit( :check_no,:customer_id,:debit_acc_no,:to_whom,:against,:date,:voucher_no,:cash_or_check,receipt_voucher_items_attributes:[:id,:details,:amount])
 	end
 end

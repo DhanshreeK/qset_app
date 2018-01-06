@@ -2,7 +2,7 @@ class NillrateExemptBill < ApplicationRecord
   belongs_to :customer
   belongs_to :user
   has_many :nillrate_exempt_bill_items, inverse_of: :nillrate_exempt_bill, dependent: :destroy
-  accepts_nested_attributes_for :nillrate_exempt_bill_items, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :nillrate_exempt_bill_items, reject_if: :all_blank, allow_destroy: true, :update_only => true
   scope :shod, ->(id) { where(id: id).take }
   after_create :add_hsn_summary
 

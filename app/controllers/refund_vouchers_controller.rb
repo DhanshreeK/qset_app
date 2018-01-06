@@ -33,6 +33,7 @@ class RefundVouchersController < ApplicationController
 		@refund_voucher = RefundVoucher.find(params[:id])
 		respond_to do |format|
 			if @refund_voucher.update(refund_voucher_params)
+				@refund_voucher.assign_attributes(id: params[:id])
 				format.html { redirect_to refund_voucher_path, notice: 'refund_voucher was successfully updated.' }
 				format.json { render :index, status: :ok, location: @refund_voucher }
 			else
@@ -76,6 +77,6 @@ class RefundVouchersController < ApplicationController
 	private
 
 	def refund_voucher_params
-		params.require(:refund_voucher).permit(:customer_id,:check_n ,:debit_acc_no,:to_whom,:against,:date,:voucher_no,:cash_or_check,refund_voucher_items_attributes:[:details,:amount])
+		params.require(:refund_voucher).permit(:customer_id,:check_n ,:debit_acc_no,:to_whom,:against,:date,:voucher_no,:cash_or_check,refund_voucher_items_attributes:[:id,:details,:amount])
 	end
 end

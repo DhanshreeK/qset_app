@@ -1,5 +1,6 @@
 class HsnSummaryForSaleBill < ApplicationRecord
 	belongs_to :invoice
+  belongs_to :issue_note
 	scope :shod, ->(id) { where(id: id).take }
 	  def self.to_csv(options = {})
     CSV.generate(options) do |csv|

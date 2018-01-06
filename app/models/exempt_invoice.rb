@@ -2,7 +2,7 @@ class ExemptInvoice < ApplicationRecord
   belongs_to :customer
   belongs_to :user
   has_many :exempt_invoice_items, inverse_of: :exempt_invoice, dependent: :destroy
-  accepts_nested_attributes_for :exempt_invoice_items, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :exempt_invoice_items, reject_if: :all_blank, allow_destroy: true, :update_only => true
   scope :shod, ->(id) { where(id: id).take }
   after_create :add_hsn_summary
 

@@ -51,16 +51,14 @@
 
       
     <div class align ="left">
-      <p><strong>Debit acc no::</strong>
-        <%=@receipt_voucher.debit_acc_no%></p>
-        <p><strong>To:</strong>
-          <%=@receipt_voucher.to_whom%></p>
+      <p><strong>Voucher Number:</strong>
+        <%=@receipt_voucher.voucher_no%></p>
           <p> <strong>Against:</strong>
-           <%=@receipt_voucher.voucher_no%></p>
-           
+          <%=@receipt_voucher.against%></p>
            <p> <strong>Cash or Check:</strong>
              <%=@receipt_voucher.cash_or_check%></p>
-             
+                 <p> <strong>Check Number:</strong>
+             <%=@receipt_voucher.check_no%></p>             
               <div class align ="right">
                         <p><strong>Consignee:</strong>
                           <%=current_user.party.party_name%></p>

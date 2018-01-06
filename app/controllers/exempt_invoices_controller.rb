@@ -32,7 +32,8 @@ class ExemptInvoicesController < ApplicationController
   @exempt_invoice = ExemptInvoice.find(params[:id])
   respond_to do |format|
     if @exempt_invoice.update(export_invoice_params)
-      format.html { redirect_to invoice_path, notice: 'invoice was successfully updated.' }
+      @exempt_invoice.assign_attributes(id: params[:id])
+      format.html { redirect_to exempt_invoice_path, notice: 'invoice was successfully updated.' }
       format.json { render :index, status: :ok, location: @exempt_invoice }
     else
       format.html { render :edit }
@@ -74,6 +75,6 @@ def show
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def export_invoice_params
-      params.require(:exempt_invoice).permit(:terms_and_conditions,:narration,:vehicle_number,:transportation_mode,:pos,:user_id,:customer_id, :exempt_invoice_number,:exempt_invoice_date,exempt_invoice_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :tax_amt, :total_amt,:_destroy])
+      params.require(:exempt_invoice).permit(:terms_and_conditions,:narration,:vehicle_number,:transportation_mode,:pos,:user_id,:customer_id, :exempt_invoice_number,:exempt_invoice_date,exempt_invoice_items_attributes:[:id, :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :tax_amt, :total_amt,:_destroy])
     end
   end
