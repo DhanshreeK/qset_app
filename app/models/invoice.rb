@@ -1,10 +1,10 @@
 class Invoice < ApplicationRecord
 	belongs_to :customer 
   has_many :invoice_items, inverse_of: :invoice, dependent: :destroy
-  accepts_nested_attributes_for :invoice_items, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :invoice_items, reject_if: :all_blank, allow_destroy: true, :update_only => true
   scope :shod, ->(id) { where(id: id).take }
   validates :gstr_holder, presence:true
-  has_many :hsn_summary_for_sale_bills
+  has_many :hsn_summary_for_sale_bills, dependent: :destroy
   after_create :add_hsn_summary
 
   def self.set_invoice_no
@@ -32,6 +32,15 @@ class Invoice < ApplicationRecord
   end
 end
 
+ filterrific(
+   default_filter_params: { sorted_by: 'created_at_desc' },
+   available_filters: [
+     :sorted_by,
+     :search_query,
+     :with_item_id,
+     :with_created_at
+   ]
+ )
 
 end
 

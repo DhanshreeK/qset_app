@@ -16,22 +16,20 @@
           <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
           
           <div class align ="left">
-            <p><strong>Acc no::</strong>
-              <%=@refund_voucher.debit_acc_no%></p>
-              <p><strong>To:</strong>
-                <%=@refund_voucher.to_whom%></p>
-                <p> <strong>Against:</strong>
-                 <%=@refund_voucher.voucher_no%></p>
-                 
-                 <p> <strong>Cash or Check:</strong>
-                   <%=@refund_voucher.cash_or_check%></p>
+              <p><strong>Voucher Number:</strong>
+        <%=@refund_voucher.voucher_no%></p>
+          <p> <strong>Against:</strong>
+          <%=@refund_voucher.against%></p>
+           <p> <strong>Cash or Check:</strong>
+             <%=@refund_voucher.cash_or_check%></p>
+                 <p> <strong>Check Number:</strong>
+             <%=@refund_voucher.check_n%></p> 
                    
 
                    <div class="row">
                      <div class="col-md-4">
                        <div class="pull-left">
-                        <p><strong>Voucher Number:</strong>
-                          <%=@refund_voucher.voucher_no%></p>
+                      
                           <p><strong>Date:</strong>
                             <%=@refund_voucher.date%></p>
                             <br>

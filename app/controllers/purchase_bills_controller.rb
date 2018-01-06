@@ -25,6 +25,7 @@ class PurchaseBillsController < ApplicationController
     @purchase_bill_invoice = PurchaseBill.find(params[:id])
     respond_to do |format|
       if @purchase_bill_invoice.update(purchase_bill_invoice_params)
+       @purchase_bill_invoice.assign_attributes(id: params[:id])
         format.html { redirect_to @purchase_bill_invoice, notice: 'Party was successfully updated.' }
         format.json { render :show, status: :ok, location: @purchase_bill_invoice }
       else
@@ -79,7 +80,7 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def purchase_bill_invoice_params
-      params.require(:purchase_bill).permit(:bill_type,:pos,:customer_id, :purchase_no, :purchase_bill_invoice_no,:date,purchase_bill_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :item_description, :sgst, :cgst, :tax_rate, :net_amount, :tax_amt, :total_amt,:_destroy])
+      params.require(:purchase_bill).permit( :transportation_mode, :vehicle_number,:rcm,:narration,:terms_and_conditions,:bill_type,:pos,:customer_id, :purchase_no, :purchase_bill_invoice_no,:date,purchase_bill_items_attributes:[:id, :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :item_description, :sgst, :cgst, :tax_rate, :net_amount, :tax_amt, :total_amt,:_destroy])
     end
 end
     # Never trust parameters from the scary internet, only allow the white list through.

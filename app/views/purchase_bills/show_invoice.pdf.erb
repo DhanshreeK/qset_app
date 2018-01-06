@@ -81,40 +81,43 @@
   </div>  
   <div id="gallery-text">
 
+    <div id="gallery-text">
+
     <div class="gallery-text">
       <p>
-        <p><strong>Consignee:</strong>
+        <p><strong>Consignee GSTIN Number:</strong>
+          <%=current_user.party.party_gstin_no%></p>
 
-          
-          <%=current_user.party.party_name%></p>
-          
           <address> <strong>Address:</strong>
            <%=current_user.party.party_address%></address>
+
+           <p><strong>Contact Details:</strong>
+          <%=current_user.party.contact_no%></p>
+
+            <p> <strong>Vehicle Number:</strong>
+               <%=@purchase_bill_invoice.vehicle_number%></p>
+
+                <p> <strong>Transportation Mode:</strong>
+               <%=@purchase_bill_invoice.transportation_mode%></p>
            
-           <p> <strong>GSTIN No:</strong>
-             <%=current_user.party.party_gstin_no%></p>
-             <p> <strong>PAN No</strong>
-               <%=current_user.party.party_pan_no%></p>
-             </p>
            </div>
 
 
            <div class="gallery-text" align="right">
-
             <p>
 
-              <p> <strong>Consigner:</strong>
+            <p> <strong>Consigner:</strong>
                <%=@purchase_bill_invoice.customer.customer_name%></p>
-               <address>  <strong>Address:</strong>
+              <address> <strong>Address:</strong>
                  <%=@purchase_bill_invoice.customer.address%></address>
                  <p> <strong>GSTIN No:</strong>
                    <%=@purchase_bill_invoice.customer.gstin_no_reg%></p>
-
                  </p>
-               </div> 
-               
-             </div>
-
+                 <p> <strong>Place of Supply:</strong>
+                   <%=@purchase_bill_invoice.customer.cust_place_of_supply%></p>
+                 </p>
+               </div>
+           
              <div class align ="right">
               
                <br>
@@ -197,33 +200,28 @@
     </div>
   </thead>
 </table>
-<table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
-  <thead>
-    
-    <tr>
-      <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> Only</th>
-    </tr>
+           <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
+    <thead>
 
-    <tr>
-      <th> 
+      <tr>
+        <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> Only </th>
+      </tr>
 
-        <H2 align="right">For <%=current_user.party.party_name%></H2>
+      <tr>
+        <th> 
 
-        <h2 align="right">&nbsp;</h2>
+          <H4 align="right">Note <%=@purchase_bill_invoice.narration%></H4>
+          <H4 align="left">Terms and Conditions <%=@purchase_bill_invoice.terms_and_conditions%></H4>
+          <h4 align="right">&nbsp;</h4>
 
-        <h2 align="right">Authorized Signatory</h2> 
-
-
-      </th>
-    </tr>
-    
-  </thead>
-</table>
+          <h4 align="right">Authorized Signatory</h4> 
 
 
+        </th>
+      </tr>
 
-
-
+    </thead>
+  </table>
 
 
 

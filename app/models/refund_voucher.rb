@@ -1,6 +1,6 @@
 class RefundVoucher < ApplicationRecord
 	has_many :refund_voucher_items, inverse_of: :refund_voucher, dependent: :destroy
-  accepts_nested_attributes_for :refund_voucher_items, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :refund_voucher_items, reject_if: :all_blank, allow_destroy: true, :update_only => true
   belongs_to :user
 
     def self.set_refund_voucher_no

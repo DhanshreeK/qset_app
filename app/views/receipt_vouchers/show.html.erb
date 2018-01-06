@@ -16,22 +16,20 @@
           <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
           
           <div class align ="left">
-            <p><strong>Debit acc no::</strong>
-              <%=@receipt_voucher.debit_acc_no%></p>
-              <p><strong>To:</strong>
-                <%=@receipt_voucher.to_whom%></p>
-                <p> <strong>Against:</strong>
-                 <%=@receipt_voucher.voucher_no%></p>
-                 
-                 <p> <strong>Cash or Check:</strong>
-                   <%=@receipt_voucher.cash_or_check%></p>
+           <p><strong>Voucher Number:</strong>
+        <%=@receipt_voucher.voucher_no%></p>
+          <p> <strong>Against:</strong>
+          <%=@receipt_voucher.against%></p>
+           <p> <strong>Cash or Check:</strong>
+             <%=@receipt_voucher.cash_or_check%></p>
+                 <p> <strong>Check Number:</strong>
+             <%=@receipt_voucher.check_no%></p>     
                    
 
                    <div class="row">
                      <div class="col-md-4">
                        <div class="pull-left">
-                        <p><strong>Voucher Number:</strong>
-                          <%=@receipt_voucher.voucher_no%></p>
+                
                           <p><strong>Date:</strong>
                             <%=@receipt_voucher.date%></p>
                             <br>
@@ -39,7 +37,7 @@
 
                           <div class="col-md-4 col-sm-offset-8">
                       <div class="pull-right">
-                        <p><strong>Sold By:</strong>
+                        <p><strong>Consigner:</strong>
                           <%=current_user.party.party_name%></p>
                           <p><strong>Date:</strong>
                             <%=@receipt_voucher.date%></p>

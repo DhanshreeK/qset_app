@@ -47,6 +47,7 @@ class InvoicesController < ApplicationController
   def update
     respond_to do |format|
       if @invoice.update(invoice_params)
+        @invoice.assign_attributes(id: params[:id])
         format.html { redirect_to invoice_path, notice: 'invoice was successfully updated.' }
         format.json { render :index, status: :ok, location: @invoice }
       else
@@ -95,7 +96,7 @@ class InvoicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def invoice_params
-      params.require(:invoice).permit(:vehicle_number ,:transportation_mode,:terms_and_conditions, :narration,:pos,:tax_rate,:ebay_bill_no,:rcm,:user_id,:id,:gstr_holder,:customer_id, :invoice_no,:date,invoice_items_attributes:[ :unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :tax_amt, :total_amt,:_destroy])
+      params.require(:invoice).permit(:vehicle_number ,:transportation_mode,:terms_and_conditions, :narration,:pos,:tax_rate,:ebay_bill_no,:rcm,:user_id,:id,:gstr_holder,:customer_id, :invoice_no,:date,invoice_items_attributes:[:id ,:unit_price, :quantity,:item_id,:rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :tax_amt, :total_amt,:_destroy])
     end
 end
     # Never trust parameters from the scary internet, only allow the white list through.

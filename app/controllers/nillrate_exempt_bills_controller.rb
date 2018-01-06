@@ -42,6 +42,24 @@ class NillrateExemptBillsController < ApplicationController
     end
   end
 
+  def edit
+    @nillrate_exempt_bill_invoice = NillrateExemptBill.find(params[:id])
+  end
+
+  def update
+    @nillrate_exempt_bill_invoice = NillrateExemptBill.find(params[:id])
+    respond_to do |format|
+      if @nillrate_exempt_bill_invoice.update(nillrate_exempt_bill_invoice_params)
+        @nillrate_exempt_bill_invoice.assign_attributes(id: params[:id])
+        format.html { redirect_to nillrate_exempt_bill_path, notice: 'nillrate_exempt_bill_invoice was successfully updated.' }
+        format.json { render :index, status: :ok, location: @nillrate_exempt_bill_invoice }
+      else
+        format.html { render :edit }
+        format.json { render json: @nillrate_exempt_bill_invoice.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 def show_invoice
        @nillrate_exempt_bill_invoice = NillrateExemptBill.find(params[:id])
       respond_to do |format|
@@ -56,7 +74,7 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def nillrate_exempt_bill_invoice_params
-      params.require(:nillrate_exempt_bill).permit(:customer_id, :purchase_no, :date,nillrate_exempt_bill_items_attributes:[ :unit_price, :item_id, :quantity, :rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :net_amount, :tax_amt, :total_amt,:_destroy])
+      params.require(:nillrate_exempt_bill).permit(:customer_id, :purchase_no, :date,nillrate_exempt_bill_items_attributes:[:id,:unit_price, :item_id, :quantity, :rate, :qty, :net_amt, :sgst, :cgst, :tax_rate, :net_amount, :tax_amt, :total_amt,:_destroy])
     end
 end
     # Never trust parameters from the scary internet, only allow the white list through.

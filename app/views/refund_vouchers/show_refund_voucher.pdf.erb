@@ -80,18 +80,17 @@
     </div>
 
       
+      
     <div class align ="left">
-      <p><strong>Acc no::</strong>
-        <%=@refund_voucher.debit_acc_no%></p>
-        <p><strong>To:</strong>
-          <%=@refund_voucher.to_whom%></p>
+      <p><strong>Voucher Number:</strong>
+        <%=@refund_voucher.voucher_no%></p>
           <p> <strong>Against:</strong>
-           <%=@refund_voucher.voucher_no%></p>
-           
+          <%=@refund_voucher.against%></p>
            <p> <strong>Cash or Check:</strong>
              <%=@refund_voucher.cash_or_check%></p>
-          
-<!--  <div class align ="right">
+                 <p> <strong>Check Number:</strong>
+             <%=@refund_voucher.check_n%></p>             
+              <div class align ="right">
                         <p><strong>Consignee:</strong>
                           <%=current_user.party.party_name%></p>
                           <p><strong>Date:</strong>
@@ -104,14 +103,12 @@
                                <p> <strong>PAN No</strong>
                                  <%=current_user.party.party_pan_no%></p>
                                  <br>
-                               </div> -->
-
+                               </div>
 
       <div class="row">
              <div class="col-md-4">
              <div class="pull-left">
-            <p><strong>Voucher Number:</strong>
-              <%=@refund_voucher.voucher_no%></p>
+        
               <p><strong>Date:</strong>
                 <%=@refund_voucher.date%></p>
 
