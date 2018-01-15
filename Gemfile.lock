@@ -286,7 +286,7 @@ DEPENDENCIES
   momentjs-rails
   nested_form
   paperclip
-  pg
+  pg (~> 1.0)
   puma
   rails (~> 5.1.4)
   rails_12factor
