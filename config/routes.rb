@@ -4,6 +4,18 @@ Rails.application.routes.draw do
 
   get 'job_work_inwards/new'
 
+  resources :b2b_composites do 
+    member do
+      get :print_pdf
+      end
+    end
+
+  resources :composite_cd_notes do 
+    member do
+      get :print_pdf
+      end
+    end
+
   resources :unit_of_measures
   resources :business_sales
   resources :customers do 
@@ -17,6 +29,7 @@ Rails.application.routes.draw do
   resources :invoices do
     collection do
       get :export
+      get :load_item_data
     end
     member do
       get :show_invoice

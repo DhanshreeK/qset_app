@@ -1,0 +1,341 @@
+<div class="pageheader">
+  <h1>Credit/DebitNote Invoice</h1>
+  <div class="breadcrumb-wrapper hidden-xs">
+    <span class="label">You are here:</span>
+    <ol class="breadcrumb">
+      <li><a href="/">Dashboard</a>
+      </li>
+      <li>Forms</li>
+      <li class="active">New Credit/DebitNote Invoice</li>
+    </ol>
+  </div>
+</div>
+
+<section id="main-content" class="animated fadeInUp">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">New Invoice</h3>
+          <div class="actions pull-right">
+           <i class="fa fa-expand"></i>
+           <i class="fa fa-chevron-down"></i>
+           <i class="fa fa-times"></i>
+         </div>
+       </div>
+       <div class="panel-body">
+        <%= nested_form_for @composite_cd_note do |f|%>
+
+        <form class="form-horizontal">
+          <div class="form-group">
+    <div class="col-sm-12">
+     <%if current_user.role == 'Party'%>
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-10 control-label">Search Customers</label>           <%=f.select :customer_id ,current_user.customers.collect{|i| [i.customer_name, i.id]}, {prompt:true},class: "form-control"%>
+        </div>
+      </div>
+      <%else%>
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-10 control-label">Search Customers</label>           <%=f.select :customer_id ,Customer.all.collect{|i| [i.customer_name, i.id]}, {prompt:true},class: "form-control"%>
+        </div>
+      </div>
+      <%end%>  
+
+       <div class="form-group">
+          <div class="col-sm-3">
+            <label class="col-sm-15 control-label">Place of Supply</label>   
+          <input type="cust_place_of_supply" name="cust_place_of_supply" id="cust_place_of_supply" class="form-control">
+          </div>
+        </div>
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-15 control-label">GSTIN No of Supplier</label>   
+          <input type="gstin_no_reg" name="gstin_no_reg" id="gstin_no_reg" class="form-control"></td>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-15 control-label">Address</label>   
+          <input type="address" name="address" id="address" class="form-control"></td>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-15 control-label">Refund Voucher Number</label>   
+          <%= f.text_field :refund_voucher_number,placeholder: 'Refund Voucher Number',class: 'form-control'%>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-15 control-label">Refund Voucher Date</label>   
+          <%= f.date_field :refund_voucher_date,value: Date.today, class: 'form-control'%>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-20 control-label">Voucher Number</label>   
+          <%= f.text_field :payment_voucher_number,placeholder:'Payment Voucher Number', class: 'form-control'%>
+        </div>
+      </div>
+
+
+
+      <div class="form-group">
+          <div class="col-sm-3">
+            <label class="col-sm-15 control-label">PreGST</label>   
+            <%= f.select :pregst,options_for_select(['Y','N']),{prompt:true},class: 'form-control'%>
+          </div>
+        </div>
+
+      <div class="form-group">
+          <div class="col-sm-3">
+            <label class="col-sm-15 control-label">Supply Type</label>   
+            <%= f.select :supply_type,options_for_select(['Inter-State','Intra-State']),{prompt:true},class: 'form-control'%>
+          </div>
+        </div>
+
+         <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-15 control-label"><b>RCM</b></label>   
+          <%= f.select :reverse_charge,options_for_select(['Y','N']),{prompt:true},class: 'form-control'%>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-15 control-label">Refund Voucher Value</label>   
+          <%= f.text_field :refund_voucher_value,placeholder:'Refund Voucher Value', class: 'form-control'%>
+        </div>
+      </div>
+
+       <div class="form-group">
+            <div class="col-sm-3">
+
+             <div class="radio">
+              <%= f.radio_button "register_type", "Registered"%><h6><b>Registered</b></h6>
+              <%= f.radio_button "register_type", "Non-Registered"%><h6><b>Non-Registered</b></h6><br>
+              <%= f.radio_button "document_type", "Credit-Note"%><h6><b>Credit-Note</b></h6>
+              <%= f.radio_button "document_type", "Debit-Note"%><h6><b>Debit-Note</b></h6>
+
+            </div>
+
+          </div>
+        </div>
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-35 control-label">Reason For Issuing Document</label>   
+          <%= f.text_field :reason_for_issuing_document,placeholder:'Reason For Issuing Document', class: 'form-control'%>
+        </div>
+      </div>
+
+      
+</div>
+<p>&nbsp;</p>
+      <div class="panel-body">
+
+           <div class="col-sm-12">
+          <div class="table-responsive">
+            <table id="example"  class="table table-bordered table-striped" cellspacing="0" width="100%">
+              <thead>
+               <tr>
+                <th><h6>Description&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></th>
+                <th><h6>Unit-Price</h6></th>
+                <th><h6>Quantity</h6></th>
+                <th><h6>Net Amt</h6></th>
+                <th><h6>SGST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></th>
+                <th><h6>CGST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></th>
+                <th><h6>Tax Rate</h6></th>
+                <th><h6>Tax Amt&nbsp;</h6></th>
+                <th><h6>Total Amt</h6></th>
+                <th><h6>Action&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></th>
+              </tr>
+            </thead>
+            
+          </table>
+        </div>
+
+        <%= f.fields_for :composite_cd_note_items, :wrapper => false do |invoice_item| %>
+        
+        <div class="table-responsive">
+          <table id="example"  class="table table-bordered table-striped" cellspacing="0" width="100%">
+            <colgroup>
+            <col class="one"/>
+            <col class="two"/>
+            <col class="three"/>
+            <col class="four"/>
+            <col class="five"/>
+            <col class="six"/>
+            <col class="seven"/>
+            <col class="eight"/>
+          </colgroup>
+
+          
+          <tr class="fields">
+
+            <%if current_user.role == 'Party'%>
+            <td> <%=invoice_item.select :item_id ,current_user.items.all.collect{|i| [i.dogns,i.rate, i.id]}, {prompt:true},class: "select"%></td>
+            <%else%>
+            <td> <%=invoice_item.select :item_id ,Item.all.collect{|i| [i.dogns,i.rate, i.id]}, {prompt:true},class: "select"%></td>
+            <%end%>
+
+            <td><%= invoice_item.text_field :unit_price, id: :rate,class: 'form-control'%></td>
+            <td><%= invoice_item.text_field :quantity, id: :qty,placeholder: 'Add qty', class: 'form-control'%></td>
+            <td><%= invoice_item.text_field :net_amt, id: :net_amt, class: 'form-control'%></td>
+            <td><%= text_field_tag :sgst, "", class: 'form-control'%></td>
+            <td><%= text_field_tag :cgst, "", class: 'form-control'%></td>
+            <td><%= invoice_item.text_field :tax_rate, id: :tax_rate, class: 'form-control'%></td>
+            <td><%= invoice_item.text_field :tax_amt, id: :tax_amt, class: 'form-control'%></td>
+            <td><%= invoice_item.text_field :total_amt, id: :total_amt, class: 'form-control'%></td>
+            
+            <td><%= invoice_item.link_to_remove "Remove", class: 'btn btn-info' %></td>
+          </tr>
+        </table>
+
+      </div>
+      <!--grid_table-->
+      
+
+
+      <% end %>
+      <td><%= f.link_to_add "Add Item", :composite_cd_note_items , class: 'btn btn-danger' %></td>
+      <div class="pull-right">
+        <p><%= f.submit "Create Invoice", class: 'btn btn-success' %></p>
+      </div>
+       <% end %>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+  
+
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+
+  $(document).ready(function() {
+    $('select#composite_cd_note_customer_id').select2({
+      placeholder: "Choose a customers",
+      allowClear: true
+    });
+  });
+</script>
+<% end %>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+  $("#composite_cd_note_customer_id").on("change", function() {
+    var customer_id;
+    Item = $(this).val();
+    $.ajax({
+      url: "/customers/load_customer_data",
+      type: "GET",
+      data: {customer_id: Item },
+      dataType: "json"
+    }).done(function (data) {
+     console.log(data);
+     $("#address").val(data[0]);
+     $("#gstin_no_reg").val(data[1]);
+     $("#cust_pan_no").val(data[2]);
+    $("#cust_place_of_supply").val(data[3]);
+      // $("#uom").val(data[1]);
+      // $("#rate").val(data[2]);
+      
+    });
+  });
+</script>
+<% end %>
+
+
+
+
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+  $(document).on("change", ".select", function () {
+    var item_id = $(this);
+    elem = jQuery(this);
+    $.ajax({
+      url: "/items/load_item_data",
+      type: 'GET',
+      dataType: 'html',
+      data: {item_id: $(this).val()},
+      success: function (data) {
+        console.log(data);
+        item = JSON.parse(data);
+        container = elem.parents("tr.fields");
+        container1 = elem.parents("th.fields");
+        container.find("#rate").val(item[0]);
+        container.find("#cgst").val(item[1]);
+        container.find("#sgst").val(item[2]);
+
+      }
+    });
+
+  });
+</script>
+<% end %>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+ $(document).on("keyup", "#rate, #qty", function() {
+  container = elem.parents("tr.fields");
+  var val1 = +container.find("#rate").val();
+  var val2 = +container.find("#qty").val();
+  var sval = +container.find("#sgst").val();
+  var cval = +container.find("#cgst").val();
+  var val3 = sval+cval;
+  +container.find("#tax_rate").val(val3);
+  +container.find("#net_amt").val(val1*val2);
+  +container.find('#tax_amt').val(val3*val1*val2/100);
+  var ans = (val1*val2 + val3*val1*val2/100);
+  +container.find('#total_amt').val(ans);
+});
+
+
+ function deleteRow(btn) {
+  var row = btn.parentNode;
+  row.parentNode.removeChild(row);
+}
+
+</script>
+<%end%>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+  $(document).on('nested:fieldAdded', function(event){
+  // this field was just inserted into your form
+  var field = event.field; 
+  var selectField = field.find('.select');
+  selectField.select2();
+  // and activate datepicker on it
+//  dateField.datepicker();
+})
+</script>
+<% end %>
+
+
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('select#composite_cd_note_composite_cd_note_items_attributes_0_item_id').select2({
+    });
+  });
+</script>
+<% end %>

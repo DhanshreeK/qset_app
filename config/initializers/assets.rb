@@ -56,6 +56,10 @@ Rails.application.config.assets.precompile += %w( hsn_summary_for_sale_bills.css
 Rails.application.config.assets.precompile += %w( hsn_summary_for_sale_bills.js )
 Rails.application.config.assets.precompile += %w( hsn_summary_for_purchase_bills.css )
 Rails.application.config.assets.precompile += %w( hsn_summary_for_purchase_bills.js )
+Rails.application.config.assets.precompile += %w( b2b_composites.css )
+Rails.application.config.assets.precompile += %w( b2b_composites.js )
+Rails.application.config.assets.precompile += %w( composite_cd_notes.css )
+Rails.application.config.assets.precompile += %w( composite_cd_notes.js )
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.

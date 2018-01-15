@@ -1,12 +1,12 @@
 <div class="pageheader">
-  <h1>New Invoice</h1>
+  <h1>Composite</h1>
   <div class="breadcrumb-wrapper hidden-xs">
     <span class="label">You are here:</span>
     <ol class="breadcrumb">
       <li><a href="/">Dashboard</a>
       </li>
       <li>Forms</li>
-      <li class="active">New Invoice</li>
+      <li class="active">New Composite Invoice</li>
     </ol>
   </div>
 </div>
@@ -24,7 +24,7 @@
          </div>
        </div>
        <div class="panel-body">
-        <%= nested_form_for @invoice, method: :patch do |f|%>
+        <%= nested_form_for @b2b_composite do |f|%>
 
         <form class="form-horizontal">
           <div class="form-group">
@@ -53,8 +53,15 @@
 
       <div class="form-group">
         <div class="col-sm-3">
-          <label class="col-sm-6 control-label">GST No</label>   
+          <label class="col-sm-15 control-label">GSTIN No of Supplier</label>   
           <input type="gstin_no_reg" name="gstin_no_reg" id="gstin_no_reg" class="form-control"></td>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-3">
+          <label class="col-sm-15 control-label">Address</label>   
+          <input type="address" name="address" id="address" class="form-control"></td>
         </div>
       </div>
 
@@ -62,37 +69,35 @@
       <div class="form-group">
         <div class="col-sm-3">
           <label class="col-sm-10 control-label">Invoice Number</label>   
-          <%= f.text_field :invoice_no,class: 'form-control', readonly:true%>
+          <%= f.text_field :invoice_number,placeholder: 'Invoice Number',class: 'form-control'%>
         </div>
       </div>
 
-      <div class="form-group">
-        <div class="col-sm-3">
-          <label class="col-sm-10 control-label">E-Way Bill No </label>   
-          <%= f.text_field :ebay_bill_no, class: 'form-control'%>
-        </div>
-      </div>
 
       <div class="form-group">
         <div class="col-sm-3">
           <label class="col-sm-10 control-label">Date</label>   
-          <%= f.date_field :date,value: Date.today, class: 'form-control'%>
+          <%= f.date_field :invoice_date,value: Date.today, class: 'form-control'%>
         </div>
       </div>
+
 
       <div class="form-group">
         <div class="col-sm-3">
-          <label class="col-sm-15 control-label">Transportation Mode</label>   
-          <%= f.text_field :transportation_mode, class: 'form-control'%>
+          <label class="col-sm-10 control-label">Invoice Type</label>   
+         <div class="form-group">
+            <div class="col-sm-3">
+
+             <div class="radio">
+              <%= f.radio_button "invoice_type", "4B(B2B)",checked: true%><h6><b>4B(B2B)</b></h6>
+              <%= f.radio_button "invoice_type", "4C(B2BUR)"%><h6><b>4C(B2BUR)</b></h6>
+              <%= f.radio_button "invoice_type", "4D(IMPS)"%><h6><b>4D(IMPS)</b></h6>
+              
+            </div>
+          </div>
         </div>
       </div>
 
-       <div class="form-group">
-        <div class="col-sm-3">
-          <label class="col-sm-10 control-label">Vehicle Number</label>   
-          <%= f.text_field :vehicle_number, class: 'form-control'%>
-        </div>
-      </div>
 
 
       <div class="form-group">
@@ -102,47 +107,76 @@
         </div>
       </div>
 
-
-        <div class="form-group">
-                <div class="col-sm-3">
-                  <label class="col-sm-10 control-label"><b>Narration</b></label>   
-                  <%= f.text_area :narration, placeholder: 'Narration',class: 'form-control'%>
-                </div>
-              </div>
-
-               <div class="form-group">
-                <div class="col-sm-3">
-                  <label class="col-sm-15 control-label"><b>Terms And Conditions</b></label>   
-                  <%= f.text_area :terms_and_conditions, placeholder: 'Terms And Conditions',class: 'form-control'%>
-                </div>
-              </div>
-
-        </div>
-      </div>
-
-      
-           <div class="form-group">
-            <div class="col-sm-3">
-
-             <div class="radio">
-              <%= f.radio_button "gstr_holder", "GST HOLDER(B2B SUPPLY)",checked: true%><h6><b>GST HOLDER(B2B SUPPLY)</b></h6>
-              <%= f.radio_button "gstr_holder", "NON GST HOLDER(OUT OF STATE)"%><h6><b>NON GST HOLDER(OUT OF STATE)</b></h6>
-              <%= f.radio_button "gstr_holder", "NON GST HOLDER(WITHIN STATE)"%><h6><b>NON GST HOLDER(WITHIN STATE)</b></h6>
-              
-            </div>
-          </div>
-
    <br><br><br><br><br><br>
 
 </div>
+      <div class="panel-body">
+
+           <div class="col-sm-12">
+          <div class="table-responsive">
+            <table id="example"  class="table table-bordered table-striped" cellspacing="0" width="100%">
+              <thead>
+               <tr>
+                <th><h6>Description&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></th>
+                <th><h6>Unit-Price</h6></th>
+                <th><h6>Quantity</h6></th>
+                <th><h6>Net Amt</h6></th>
+                <th><h6>SGST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></th>
+                <th><h6>CGST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></th>
+                <th><h6>Tax Rate</h6></th>
+                <th><h6>Tax Amt&nbsp;</h6></th>
+                <th><h6>Total Amt</h6></th>
+                <th><h6>Action&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></th>
+              </tr>
+            </thead>
+            
+          </table>
+        </div>
+
+        <%= f.fields_for :b2b_composite_items, :wrapper => false do |invoice_item| %>
+        
+        <div class="table-responsive">
+          <table id="example"  class="table table-bordered table-striped" cellspacing="0" width="100%">
+            <colgroup>
+            <col class="one"/>
+            <col class="two"/>
+            <col class="three"/>
+            <col class="four"/>
+            <col class="five"/>
+            <col class="six"/>
+            <col class="seven"/>
+            <col class="eight"/>
+          </colgroup>
+
+          
+          <tr class="fields">
+
+            <%if current_user.role == 'Party'%>
+            <td> <%=invoice_item.select :item_id ,current_user.items.all.collect{|i| [i.dogns,i.rate, i.id]}, {prompt:true},class: "select"%></td>
+            <%else%>
+            <td> <%=invoice_item.select :item_id ,Item.all.collect{|i| [i.dogns,i.rate, i.id]}, {prompt:true},class: "select"%></td>
+            <%end%>
+
+            <td><%= invoice_item.text_field :unit_price, id: :rate,class: 'form-control'%></td>
+            <td><%= invoice_item.text_field :quantity, id: :qty,placeholder: 'Add qty', class: 'form-control'%></td>
+            <td><%= invoice_item.text_field :net_amt, id: :net_amt, class: 'form-control'%></td>
+            <td><%= text_field_tag :sgst, "", class: 'form-control'%></td>
+            <td><%= text_field_tag :cgst, "", class: 'form-control'%></td>
+            <td><%= invoice_item.text_field :tax_rate, id: :tax_rate, class: 'form-control'%></td>
+            <td><%= invoice_item.text_field :tax_amt, id: :tax_amt, class: 'form-control'%></td>
+            <td><%= invoice_item.text_field :total_amt, id: :total_amt, class: 'form-control'%></td>
+            
+            <td><%= invoice_item.link_to_remove "Remove", class: 'btn btn-info' %></td>
+          </tr>
+        </table>
+
+      </div>
+      <!--grid_table-->
+      
 
 
-      <br><br><br><br><br><br>
-
-
-
-
-
+      <% end %>
+      <td><%= f.link_to_add "Add Item", :b2b_composite_items , class: 'btn btn-danger' %></td>
       <div class="pull-right">
         <p><%= f.submit "Create Invoice", class: 'btn btn-success' %></p>
       </div>
@@ -158,19 +192,12 @@
 
   
 
-     
-
-
-
-
-
-
 
 <% content_for :javascript do %>
 <script type="text/javascript">
 
   $(document).ready(function() {
-    $('select#invoice_customer_id').select2({
+    $('select#b2b_composite_customer_id').select2({
       placeholder: "Choose a customers",
       allowClear: true
     });
@@ -180,7 +207,7 @@
 
 <% content_for :javascript do %>
 <script type="text/javascript">
-  $("#invoice_customer_id").on("change", function() {
+  $("#b2b_composite_customer_id").on("change", function() {
     var customer_id;
     Item = $(this).val();
     $.ajax({
@@ -275,7 +302,7 @@
 <% content_for :javascript do %>
 <script type="text/javascript">
   $(document).ready(function() {
-    $('select#invoice_invoice_items_attributes_0_item_id').select2({
+    $('select#b2b_composite_b2b_composite_items_attributes_0_item_id').select2({
     });
   });
 </script>

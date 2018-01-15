@@ -32,15 +32,5 @@ class Invoice < ApplicationRecord
   end
 end
 
- filterrific(
-   default_filter_params: { sorted_by: 'created_at_desc' },
-   available_filters: [
-     :sorted_by,
-     :search_query,
-     :with_item_id,
-     :with_created_at
-   ]
- )
-
 end
 

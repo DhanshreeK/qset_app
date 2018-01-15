@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer: one
+  refund_voucher_number: MyString
+  refund_voucher_date: MyString
+  payment_voucher_number: MyString
+  pregst: MyString
+  document_type: MyString
+  reason_for_issuing_document: MyString
+  supply_type: MyString
+  reverse_charge: MyString
+  refund_voucher_value: MyString
+  rate: MyString
+  taxable_value: MyString
+  igst: MyString
+  sgst: MyString
+  cgst: MyString
+  cess: MyString
+  total_invoice_value: MyString
+  invoice_value: MyString
+
+two:
+  customer: two
+  refund_voucher_number: MyString
+  refund_voucher_date: MyString
+  payment_voucher_number: MyString
+  pregst: MyString
+  document_type: MyString
+  reason_for_issuing_document: MyString
+  supply_type: MyString
+  reverse_charge: MyString
+  refund_voucher_value: MyString
+  rate: MyString
+  taxable_value: MyString
+  igst: MyString
+  sgst: MyString
+  cgst: MyString
+  cess: MyString
+  total_invoice_value: MyString
+  invoice_value: MyString
