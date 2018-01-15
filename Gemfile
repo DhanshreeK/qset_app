@@ -32,7 +32,7 @@ gem "font-awesome-rails"
 # this will convert total amount
 gem 'to_words'
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 1.0'
+gem 'pg'
 # Use Puma as the app server
 gem 'puma'
 # Use SCSS for stylesheets
