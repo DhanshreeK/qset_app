@@ -1,0 +1,68 @@
+             <div class="pageheader">
+              <h1>Composite C/D Invoice</h1>
+              <div class="breadcrumb-wrapper hidden-xs">
+                <span class="label">You are here:</span>
+                <ol class="breadcrumb">
+                  <li><a href="/">Dashboard</a>
+                  </li>
+                  <li>Tables</li>
+                  <li class="active">Credit/DebitNote Invoice</li>
+                </ol>
+              </div>
+            </div>
+            <section id="main-content" class="animated fadeInUp">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class=" panel panel-info">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">Credit/DebitNote Invoice</h3>
+                      <div class="actions pull-right">
+                       <i class="fa fa-expand"></i>
+                       <i class="fa fa-chevron-down"></i>
+                       <i class="fa fa-times"></i>
+                     </div>
+                   </div>
+                   <div class="panel-body">
+                    <%= link_to 'Add Invoice', new_composite_cd_note_path, class: 'btn btn-primary' %>
+
+                    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                          <th>SR NO</th>
+                          <th>Invoice Number</th>
+                          <th>Date of Invoice</th>
+                          <th>Customer Name</th>
+<!--                           <th>Action</th>
+ -->                          <th>Action</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                       <% @composite_cd_notes.each_with_index do |a,i| %>
+                       <tr>
+                        <td><%=i+1%></td>
+                        <td><%=link_to a.refund_voucher_number,composite_cd_note_path(a), class: 'btn btn-link'%></td>
+                        <td><%=a.refund_voucher_date %></td>
+                        <td><%=a.customer.customer_name if a.customer.present? %></td>
+<!--                         <td><%#= link_to 'Edit',edit_invoice_path(a)  , class: 'btn btn-link'%></td>
+ -->                        <td><%= link_to 'Destroy',composite_cd_note_path(a), method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn btn-link'%></td>
+                      </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <% content_for :javascript do %>
+        <!--Load these page level functions-->
+        <script>
+          $(document).ready(function() {
+           $('#example').dataTable();
+         });
+       </script>
+       <% end %>

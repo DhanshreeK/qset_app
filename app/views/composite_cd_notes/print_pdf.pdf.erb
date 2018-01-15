@@ -68,7 +68,7 @@
    <div class="gallery-text" align="right">
     <p>
       <p> <h2><strong><font color="black"><%=current_user.party.party_name%> <br>
-      Tax Invoice</strong>  </h2></font> <font size="3">(Original for Recipient)</font>
+      Credit/DebitNote Invoice</strong>  </h2></font> <font size="3">(Original for Recipient)</font>
       </p>
     </div> 
   </div>
@@ -88,11 +88,7 @@
            <p><strong>Contact Details:</strong>
           <%=current_user.party.contact_no%></p>
 
-            <p> <strong>Vehicle Number:</strong>
-               <%=@invoice.vehicle_number%></p>
-
-                <p> <strong>Transportation Mode:</strong>
-               <%=@invoice.transportation_mode%></p>
+ 
            
            </div>
 
@@ -101,19 +97,16 @@
             <p>
 
             <p> <strong>Consigner:</strong>
-               <%=@invoice.customer.customer_name%></p>
+               <%=@composite_cd_note.customer.customer_name%></p>
               <address> <strong>Address:</strong>
-                 <%=@invoice.customer.address%></address>
+                 <%=@composite_cd_note.customer.address%></address>
                  <p> <strong>GSTIN No:</strong>
-                   <%=@invoice.customer.gstin_no_reg%></p>
+                   <%=@composite_cd_note.customer.gstin_no_reg%></p>
                  </p>
                  <p> <strong>Place of Supply:</strong>
-                   <%=@invoice.customer.cust_place_of_supply%></p>
+                   <%=@composite_cd_note.customer.cust_place_of_supply%></p>
                  </p>
-               </div>
-             <p> <strong>E-Way Bill No</strong>
-               <%=@invoice.ebay_bill_no%></p>
-             </div>
+                         </div>
    <div class align ="right">
               
                <br>
@@ -122,10 +115,24 @@
              </div>  
              <div class align="left">
 
-              <p><strong>Invoice Date:</strong>
-                <%=@invoice.date%></p>
-                <p><strong>Invoice no:</strong>
-                  <%=@invoice.invoice_no%></p><br>
+            <p><strong>Refund Voucher Number:</strong>
+              <%=@composite_cd_note.refund_voucher_number%></p>
+              <p><strong>Refund Voucher Date:</strong>
+                <%=@composite_cd_note.refund_voucher_date%></p>
+                <p> <strong>Payment Voucher Number:</strong>
+                 <%=@composite_cd_note.payment_voucher_number %></p>
+                   <p> <strong>Document type:</strong>
+                     <%=@composite_cd_note.document_type %></p>
+                <p> <strong>Reason for Issuing Documents:</strong>
+                     <%=@composite_cd_note.reason_for_issuing_document %></p>
+<p> <strong>Supply Type:</strong>
+                     <%=@composite_cd_note.supply_type %></p>
+                     <p> <strong>Reverse Charge:</strong>
+                     <%=@composite_cd_note.reverse_charge %></p>
+                      <p> <strong>Refund Voucher Value:</strong>
+                     <%=@composite_cd_note.refund_voucher_value %></p>
+                     <p> <strong>Register type:</strong>
+                     <%=@composite_cd_note.register_type %></p>
                 </div>
               </div>  
             </div>  
@@ -135,7 +142,7 @@
             <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
               <thead>
                 <tr>
-                  <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="11"><center>Tax Invoice</center></th>
+                  <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="11"><center> Composite Invoice</center></th>
                 </tr>
 
                 <th>Sr No</th>
@@ -154,7 +161,7 @@
               <%tax_amt = 0%>
               <%total_amt = 0%>
               <% rate = 0 %>
-              <% @invoice.invoice_items.each_with_index do |i,n|%>
+              <% @composite_cd_note.composite_cd_note_items.each_with_index do |i,n|%>
               <tr>
                 <td><%= n + 1 %></td>
                 <td><%= i.item.dogns%></td>
@@ -164,7 +171,7 @@
                 <td><%= i.quantity%></td>
                 <td>&#8377;<%= i.net_amt%></td>
                  <td><%= i.tax_rate%>&#37;</td>
-                <td>&#8377;<%=ans = i.tax_amt/2%></td>
+                <td>&#8377;<%=ans = i.tax_amt.to_f/2%></td>
                 <td>&#8377;<%=ans%></td>
                
                 <% rate = rate + i.tax_rate.to_f %>
@@ -191,7 +198,6 @@
                 <td>Total Amount: &#8377;<%= total_amt%></td>
               </tr>
 
-
             </div>
           </div>
         </div>
@@ -204,19 +210,15 @@
     <thead>
 
       <tr>
-        <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> Only </th>
+        <th><h3>Amount in Words:- </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> Only   <br>    Cess Amount : <%= @composite_cd_note.total_invoice_value%>
+</th>
+
       </tr>
 
       <tr>
         <th> 
-
-          <H4 align="right">Note <%=@invoice.narration%></H4>
-          <H4 align="left">Terms and Conditions <%=@invoice.terms_and_conditions%></H4>
           <h4 align="right">&nbsp;</h4>
-
           <h4 align="right">Authorized Signatory</h4> 
-
-
         </th>
       </tr>
 

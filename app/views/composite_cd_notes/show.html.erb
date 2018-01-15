@@ -1,9 +1,9 @@
-<div class="pageheader">
+ <div class="pageheader">
    <div class="row">
     <div class="col-md-12">
       <div class="panel panel-warning">
         <div class="panel-heading">
-          <h3 class="panel-title">Tax Invoice</h3>
+          <h3 class="panel-title">Composite</h3>
           <div class="actions pull-right">
            <i class="fa fa-expand"></i>
            <i class="fa fa-chevron-down"></i>
@@ -12,25 +12,34 @@
        </div>
        <div class="panel-body">
         <div class="pull-right">
-        <%= link_to 'Download PDF ',show_invoice_invoice_path(@invoice, format: 'pdf'),target: '_blank', class: "btn btn-primary"%> <b> | </b> <%=link_to 'Back', invoices_path, class: 'btn btn-success'%></div>
+        <%= link_to 'Download PDF ', print_pdf_composite_cd_note_path(@composite_cd_note, format: 'pdf'),target: '_blank', class: "btn btn-primary"%> <b> | </b> <%=link_to 'Back', composite_cd_notes_path, class: 'btn btn-success'%></div>
 
         <div class="row">
              <div class="col-md-4">
-             <div class="pull-left">
-            <p><strong>Invoice Number:</strong>
-              <%=@invoice.invoice_no%></p>
-              <p><strong>Date:</strong>
-                <%=@invoice.date%></p>
-                <p> <strong>Customer Name:</strong>
-                 <%=@invoice.customer.customer_name  if @invoice.customer.present? %></p>
-                 <p> <strong>Address:</strong>
-                   <%=@invoice.customer.address if @invoice.customer.present? %></p>
-                   <p> <strong>GSTIN No:</strong>
-                     <%=@invoice.customer.gstin_no_reg if @invoice.customer.present? %></p>
-                     <p> <strong>GSTR:</strong>
-                       <%=@invoice.gstr_holder%></p>
-                       <p> <strong>E-Way Bill No:</strong>
-                       <%=@invoice.ebay_bill_no%></p>
+             <div class="pull-left"> Composite C/D Note
+            <p><strong>Refund Voucher Number:</strong>
+              <%=@composite_cd_note.refund_voucher_number%></p>
+              <p><strong>Refund Voucher Date:</strong>
+                <%=@composite_cd_note.refund_voucher_date%></p>
+                <p> <strong>Payment Voucher Number:</strong>
+                 <%=@composite_cd_note.payment_voucher_number %></p>
+                 <p> <strong>pregst:</strong>
+                   <%=@composite_cd_note.pregst %></p>
+                   <p> <strong>Document type:</strong>
+                     <%=@composite_cd_note.document_type %></p>
+                <p> <strong>Reason for Issuing Documents:</strong>
+                     <%=@composite_cd_note.reason_for_issuing_document %></p>
+                   <p> <strong>Supply Type:</strong>
+                     <%=@composite_cd_note.supply_type %></p>
+                     <p> <strong>Reverse Charge:</strong>
+                     <%=@composite_cd_note.reverse_charge %></p>
+                      <p> <strong>Refund Voucher Value:</strong>
+                     <%=@composite_cd_note.refund_voucher_value %></p>
+                      <p> <strong>Register type:</strong>
+                     <%=@composite_cd_note.register_type %></p>
+
+                     
+
                        <br>
                      </div></div>
                          <div class="col-md-12">
@@ -57,25 +66,25 @@
                                   <%tax_amt = 0%>
                                   <%total_amt = 0%>
                                   <%ans = 0%>
-                                  <% @invoice.invoice_items.each_with_index do |i,n|%>
+                                  <% @composite_cd_note.composite_cd_note_items.each_with_index do |i,n|%>
                                   <tr>
                                     <td><%= n + 1 %></td>
                                     <td><%= i.item.dogns%></td>
                                     <td><%= i.item.item_hsn_no%></td>
                                     <td><%= i.item.unit_of_measure.name%></td>
                                     <td>&#8377;<%= i.unit_price%></td>
-                                    <td><%= i.quantity%></td>
+                                    <td><%=i.quantity%></td>
                                     <td>&#8377;<%= i.net_amt%></td>
-                                     <td>&#8377;<%=ans = i.tax_amt/2%></td>
+                                     <td>&#8377;<%=ans = i.tax_amt.to_f/2%></td>
                                      <td>&#8377;<%=ans%></td>
-                                    <td><%= i.tax_rate%>&#37;</td>
-                                    <%@invoice.update(tax_rate: i.tax_rate)%>
+                                    <td><%= i.tax_amt%>&#37;</td>
+                                    <%@composite_cd_note.update(taxable_value: i.tax_amt)%>
                                     <td>&#8377;<%= i.tax_amt%></td>
                                     <td>&#8377;<%= i.total_amt%></td>
                                   </tr>
                                   <% tax_amt += i.tax_amt.to_f%>
                                   <%total_amt += i.total_amt.to_f%>
-                                  <%@invoice.update(invoice_value: total_amt)%>
+                                  <%@composite_cd_note.update(invoice_value: total_amt)%>
                                   
 
                                   <% end %>
@@ -83,15 +92,15 @@
                                 </tbody>
                               </table>
                            
-                    <b> Total Tax </b>&#8377;<%=tax_amt%><br>
+    <b> Total Tax </b>&#8377;<%=tax_amt%><br>
                     <b>Total Amount</b>&#8377;<%=total_amt%><br>
                     <b>Taxable Value</b>&#8377;<%=text_field_tag :total_amt,"",value: total_amt.to_i,id: :total_amt, readonly:true%><br>
                     <b>Cess</b> <%=text_field_tag :cess,"",id: :cess%><br>
-                    <b>Caluclated Cess</b> <%=text_field_tag :invoice1,"",id: :invoice1, readonly:true%><br>
+                    <b>Caluclated Cess</b> <%=text_field_tag :composite_cd_note1,"",id: :composite_cd_note1, readonly:true%><br>
                     <b>Total Invoice Value</b><%=text_field_tag :total_invoice_value,"",id: :total_invoice_value, readonly:true%><br>
-                    <%if @invoice.total_invoice_value.present?%>
-                     <b>Cess:</b><%=@invoice.cess%>&#37;<br>
-                    <b>Total:</b>&#8377;<%=@invoice.total_invoice_value%>
+                    <%if @composite_cd_note.total_invoice_value.present?%>
+                     <b>Cess:</b><%=@composite_cd_note.cess%>&#37;<br>
+                    <b>Total:</b>&#8377;<%=@composite_cd_note.total_invoice_value%>
                     <%end%>
                     <br>
 
@@ -111,7 +120,7 @@
 
 
 
-                    <% content_for :javascript do %>
+ <% content_for :javascript do %>
 <script type="text/javascript">
 
 function refresh (timeoutPeriod){ 
@@ -125,7 +134,7 @@ function refresh (timeoutPeriod){
     var a =  +$('#total_amt').val();
     var b =  $('#cess').val();
     var c =  a*b/100;
-    +$('#invoice1').val(c);
+    +$('#composite_cd_note1').val(c);
     var d = +$('#total_invoice_value').val(c+a);
 
     par = c+a;

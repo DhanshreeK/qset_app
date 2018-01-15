@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  b2b_composite: one
+  item: one
+  quantity: MyString
+  net_amt: MyString
+  tax_rate: MyString
+  decimal: MyString
+  tax_amt: 9.99
+  total_amt: MyString
+  item_descritption: MyString
+  unit_price: MyString
+
+two:
+  b2b_composite: two
+  item: two
+  quantity: MyString
+  net_amt: MyString
+  tax_rate: MyString
+  decimal: MyString
+  tax_amt: 9.99
+  total_amt: MyString
+  item_descritption: MyString
+  unit_price: MyString

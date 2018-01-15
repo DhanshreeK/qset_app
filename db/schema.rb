@@ -10,10 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180106043145) do
+ActiveRecord::Schema.define(version: 20180112095914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "b2b_composite_items", force: :cascade do |t|
+    t.bigint "b2b_composite_id"
+    t.bigint "item_id"
+    t.string "quantity"
+    t.string "net_amt"
+    t.string "tax_rate"
+    t.string "decimal"
+    t.decimal "tax_amt"
+    t.string "total_amt"
+    t.string "item_descritption"
+    t.string "unit_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["b2b_composite_id"], name: "index_b2b_composite_items_on_b2b_composite_id"
+    t.index ["item_id"], name: "index_b2b_composite_items_on_item_id"
+  end
+
+  create_table "b2b_composites", force: :cascade do |t|
+    t.string "gstin_of_supplier"
+    t.string "invoice_number"
+    t.date "invoice_date"
+    t.string "place_of_supply"
+    t.string "rcm"
+    t.string "invoice_type"
+    t.string "rate"
+    t.string "taxable_value"
+    t.string "igst"
+    t.string "cgst"
+    t.string "sgst"
+    t.string "cess"
+    t.bigint "customer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.string "b2b_composite_value"
+    t.string "tax_rate"
+    t.string "total_b2b_composite_value"
+    t.index ["customer_id"], name: "index_b2b_composites_on_customer_id"
+    t.index ["user_id"], name: "index_b2b_composites_on_user_id"
+  end
 
   create_table "business_sales", force: :cascade do |t|
     t.date "invoice_date"
@@ -44,6 +85,55 @@ ActiveRecord::Schema.define(version: 20180106043145) do
     t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.boolean "ca_status", default: false
+  end
+
+  create_table "composite_cd_note_items", force: :cascade do |t|
+    t.bigint "composite_cd_note_id"
+    t.bigint "item_id"
+    t.string "quantity"
+    t.string "string"
+    t.string "net_amt"
+    t.string "tax_rate"
+    t.string "decimal"
+    t.string "tax_amt"
+    t.string "total_amt"
+    t.string "item_descritption"
+    t.string "unit_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["composite_cd_note_id"], name: "index_composite_cd_note_items_on_composite_cd_note_id"
+    t.index ["item_id"], name: "index_composite_cd_note_items_on_item_id"
+  end
+
+  create_table "composite_cd_notes", force: :cascade do |t|
+    t.bigint "customer_id"
+    t.string "refund_voucher_number"
+    t.string "refund_voucher_date"
+    t.string "payment_voucher_number"
+    t.string "pregst"
+    t.string "document_type"
+    t.string "reason_for_issuing_document"
+    t.string "supply_type"
+    t.string "reverse_charge"
+    t.string "refund_voucher_value"
+    t.string "rate"
+    t.string "taxable_value"
+    t.string "igst"
+    t.string "sgst"
+    t.string "cgst"
+    t.string "cess"
+    t.string "total_invoice_value"
+    t.string "invoice_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "advance_payment_voucher_number"
+    t.date "advance_voaucher_date"
+    t.string "inward_supply_type"
+    t.bigint "user_id"
+    t.string "register_type"
+    t.string "note_type"
+    t.index ["customer_id"], name: "index_composite_cd_notes_on_customer_id"
+    t.index ["user_id"], name: "index_composite_cd_notes_on_user_id"
   end
 
   create_table "credit_debit_note_items", force: :cascade do |t|
@@ -552,6 +642,7 @@ ActiveRecord::Schema.define(version: 20180106043145) do
     t.string "alternate_contact_no"
     t.date "joining_date"
     t.date "due_date"
+    t.string "party_type"
     t.index ["charted_accountant_id"], name: "index_parties_on_charted_accountant_id"
   end
 
@@ -714,6 +805,14 @@ ActiveRecord::Schema.define(version: 20180106043145) do
     t.index ["setting_id"], name: "index_users_on_setting_id"
   end
 
+  add_foreign_key "b2b_composite_items", "b2b_composites"
+  add_foreign_key "b2b_composite_items", "items"
+  add_foreign_key "b2b_composites", "customers"
+  add_foreign_key "b2b_composites", "users"
+  add_foreign_key "composite_cd_note_items", "composite_cd_notes"
+  add_foreign_key "composite_cd_note_items", "items"
+  add_foreign_key "composite_cd_notes", "customers"
+  add_foreign_key "composite_cd_notes", "users"
   add_foreign_key "credit_debit_note_items", "credit_debit_notes"
   add_foreign_key "credit_debit_note_items", "items"
   add_foreign_key "credit_debit_notes", "customers"

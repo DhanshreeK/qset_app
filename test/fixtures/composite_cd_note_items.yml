@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  composite_cd_note: one
+  item: one
+  quantity: MyString
+  string: MyString
+  net_amt: MyString
+  string: MyString
+  tax_rate: MyString
+  string: MyString
+  decimal: MyString
+  string: MyString
+  tax_amt: MyString
+  decimal: MyString
+  total_amt: MyString
+  string: MyString
+  item_descritption: MyString
+  string: MyString
+  unit_price: MyString
+  string: MyString
+
+two:
+  composite_cd_note: two
+  item: two
+  quantity: MyString
+  string: MyString
+  net_amt: MyString
+  string: MyString
+  tax_rate: MyString
+  string: MyString
+  decimal: MyString
+  string: MyString
+  tax_amt: MyString
+  decimal: MyString
+  total_amt: MyString
+  string: MyString
+  item_descritption: MyString
+  string: MyString
+  unit_price: MyString
+  string: MyString

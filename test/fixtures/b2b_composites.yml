@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gstin_of_supplier: MyString
+  invoice_number: MyString
+  invoice_date: 2018-01-11
+  place_of_supply: MyString
+  rcm: MyString
+  invoice_type: MyString
+  rate: MyString
+  taxable_value: MyString
+  igst: MyString
+  cgst: MyString
+  sgst: MyString
+  cess: MyString
+  customer: one
+
+two:
+  gstin_of_supplier: MyString
+  invoice_number: MyString
+  invoice_date: 2018-01-11
+  place_of_supply: MyString
+  rcm: MyString
+  invoice_type: MyString
+  rate: MyString
+  taxable_value: MyString
+  igst: MyString
+  cgst: MyString
+  sgst: MyString
+  cess: MyString
+  customer: two

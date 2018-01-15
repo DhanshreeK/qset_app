@@ -34,7 +34,7 @@
                                                 <div class="panel panel-solid-success widget-mini">
                                                     <div class="panel-body">
                                                         <i class="icon-bar-chart"></i>
-                                                        <span class="total text-center"><%=Invoice.count%></span>
+                                                        <span class="total text-center"><%=current_user.invoices.count%></span>
                                                         <span class="title text-center"><%= link_to "Sale Bill GSTR1", invoices_path%></span>
                                                     </div>
                                                 </div>
@@ -43,7 +43,7 @@
                                                 <div class="panel widget-mini">
                                                     <div class="panel-body">
                                                         <i class="icon-support"></i>
-                                                        <span class="total text-center"><%=PurchaseBill.count%></span>
+                                                        <span class="total text-center"><%=current_user.purchase_bills.count%></span>
                                                         <span class="title text-center"><%= link_to "Purchase Bill", purchase_bills_path%></span>
                                                     </div>
                                                 </div>
@@ -52,7 +52,7 @@
                                                 <div class="panel widget-mini">
                                                     <div class="panel-body">
                                                         <i class="icon-envelope-open"></i>
-                                                        <span class="total text-center"><%= CreditDebitNote.count%></span>
+                                                        <span class="total text-center"><%= current_user.credit_debit_notes.count%></span>
                                                         <span class="title text-center"><%= link_to "Credit Debit Note", credit_debit_notes_path%></span>
                                                     </div>
                                                 </div>
@@ -61,7 +61,7 @@
                                                 <div class="panel panel-solid-info widget-mini">
                                                     <div class="panel-body">
                                                         <i class="icon-user"></i>
-                                                        <span class="total text-center"><%=ExportInvoice.count%></span>
+                                                        <span class="total text-center"><%=current_user.export_invoices.count%></span>
                                                         <span class="title text-center"><%= link_to "Export Invoice GSTR1", '/export_invoices'%></span>
                                                     </div>
                                                 </div>

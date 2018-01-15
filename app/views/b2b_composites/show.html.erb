@@ -1,9 +1,9 @@
-<div class="pageheader">
+ <div class="pageheader">
    <div class="row">
     <div class="col-md-12">
       <div class="panel panel-warning">
         <div class="panel-heading">
-          <h3 class="panel-title">Tax Invoice</h3>
+          <h3 class="panel-title">Composite</h3>
           <div class="actions pull-right">
            <i class="fa fa-expand"></i>
            <i class="fa fa-chevron-down"></i>
@@ -12,25 +12,21 @@
        </div>
        <div class="panel-body">
         <div class="pull-right">
-        <%= link_to 'Download PDF ',show_invoice_invoice_path(@invoice, format: 'pdf'),target: '_blank', class: "btn btn-primary"%> <b> | </b> <%=link_to 'Back', invoices_path, class: 'btn btn-success'%></div>
+        <%= link_to 'Download PDF ',print_pdf_b2b_composite_path(@b2b_composite, format: 'pdf'),target: '_blank', class: "btn btn-primary"%> <b> | </b> <%=link_to 'Back', b2b_composites_path, class: 'btn btn-success'%></div>
 
         <div class="row">
              <div class="col-md-4">
-             <div class="pull-left">
+             <div class="pull-left">B2B Composite
             <p><strong>Invoice Number:</strong>
-              <%=@invoice.invoice_no%></p>
+              <%=@b2b_composite.invoice_number%></p>
               <p><strong>Date:</strong>
-                <%=@invoice.date%></p>
+                <%=@b2b_composite.invoice_date%></p>
                 <p> <strong>Customer Name:</strong>
-                 <%=@invoice.customer.customer_name  if @invoice.customer.present? %></p>
+                 <%=@b2b_composite.customer.customer_name  if @b2b_composite.customer.present? %></p>
                  <p> <strong>Address:</strong>
-                   <%=@invoice.customer.address if @invoice.customer.present? %></p>
+                   <%=@b2b_composite.customer.address if @b2b_composite.customer.present? %></p>
                    <p> <strong>GSTIN No:</strong>
-                     <%=@invoice.customer.gstin_no_reg if @invoice.customer.present? %></p>
-                     <p> <strong>GSTR:</strong>
-                       <%=@invoice.gstr_holder%></p>
-                       <p> <strong>E-Way Bill No:</strong>
-                       <%=@invoice.ebay_bill_no%></p>
+                     <%=@b2b_composite.customer.gstin_no_reg if @b2b_composite.customer.present? %></p>
                        <br>
                      </div></div>
                          <div class="col-md-12">
@@ -57,25 +53,25 @@
                                   <%tax_amt = 0%>
                                   <%total_amt = 0%>
                                   <%ans = 0%>
-                                  <% @invoice.invoice_items.each_with_index do |i,n|%>
+                                  <% @b2b_composite.b2b_composite_items.each_with_index do |i,n|%>
                                   <tr>
                                     <td><%= n + 1 %></td>
                                     <td><%= i.item.dogns%></td>
                                     <td><%= i.item.item_hsn_no%></td>
                                     <td><%= i.item.unit_of_measure.name%></td>
                                     <td>&#8377;<%= i.unit_price%></td>
-                                    <td><%= i.quantity%></td>
+                                    <td><%=i.quantity%></td>
                                     <td>&#8377;<%= i.net_amt%></td>
                                      <td>&#8377;<%=ans = i.tax_amt/2%></td>
                                      <td>&#8377;<%=ans%></td>
                                     <td><%= i.tax_rate%>&#37;</td>
-                                    <%@invoice.update(tax_rate: i.tax_rate)%>
+                                    <%@b2b_composite.update(tax_rate: i.tax_rate)%>
                                     <td>&#8377;<%= i.tax_amt%></td>
                                     <td>&#8377;<%= i.total_amt%></td>
                                   </tr>
                                   <% tax_amt += i.tax_amt.to_f%>
                                   <%total_amt += i.total_amt.to_f%>
-                                  <%@invoice.update(invoice_value: total_amt)%>
+                                  <%@b2b_composite.update(b2b_composite_value: total_amt)%>
                                   
 
                                   <% end %>
@@ -83,15 +79,15 @@
                                 </tbody>
                               </table>
                            
-                    <b> Total Tax </b>&#8377;<%=tax_amt%><br>
+    <b> Total Tax </b>&#8377;<%=tax_amt%><br>
                     <b>Total Amount</b>&#8377;<%=total_amt%><br>
                     <b>Taxable Value</b>&#8377;<%=text_field_tag :total_amt,"",value: total_amt.to_i,id: :total_amt, readonly:true%><br>
                     <b>Cess</b> <%=text_field_tag :cess,"",id: :cess%><br>
-                    <b>Caluclated Cess</b> <%=text_field_tag :invoice1,"",id: :invoice1, readonly:true%><br>
-                    <b>Total Invoice Value</b><%=text_field_tag :total_invoice_value,"",id: :total_invoice_value, readonly:true%><br>
-                    <%if @invoice.total_invoice_value.present?%>
-                     <b>Cess:</b><%=@invoice.cess%>&#37;<br>
-                    <b>Total:</b>&#8377;<%=@invoice.total_invoice_value%>
+                    <b>Caluclated Cess</b> <%=text_field_tag :b2b_composite1,"",id: :b2b_composite1, readonly:true%><br>
+                    <b>Total b2b_composite Value</b><%=text_field_tag :total_b2b_composite_value,"",id: :total_b2b_composite_value, readonly:true%><br>
+                    <%if @b2b_composite.total_b2b_composite_value.present?%>
+                     <b>Cess:</b><%=@b2b_composite.cess%>&#37;<br>
+                    <b>Total:</b>&#8377;<%=@b2b_composite.total_b2b_composite_value%>
                     <%end%>
                     <br>
 
@@ -125,8 +121,8 @@ function refresh (timeoutPeriod){
     var a =  +$('#total_amt').val();
     var b =  $('#cess').val();
     var c =  a*b/100;
-    +$('#invoice1').val(c);
-    var d = +$('#total_invoice_value').val(c+a);
+    +$('#b2b_composite1').val(c);
+    var d = +$('#total_b2b_composite_value').val(c+a);
 
     par = c+a;
     par1 = b;
@@ -141,7 +137,7 @@ function refresh (timeoutPeriod){
  //  }
 
  function myFunction() {
-    var test  = $('#total_invoice_value').val();
+    var test  = $('#total_b2b_composite_value').val();
     var test1 = $('#cess').val();
     document.location.search += '&params1='+ test + '&params2='+ test1;
 

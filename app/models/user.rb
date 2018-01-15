@@ -27,6 +27,9 @@ class User < ApplicationRecord
   has_many :job_works, dependent: :destroy
   has_many :job_work_inwards, dependent: :destroy
   has_many :other_challans, dependent: :destroy
+  has_many :b2b_composites, dependent: :destroy
+  has_many :composite_cd_notes, dependent: :destroy
+
 
 
   def create_general_setting

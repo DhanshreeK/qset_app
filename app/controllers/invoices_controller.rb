@@ -30,6 +30,11 @@ class InvoicesController < ApplicationController
     end
   end
 
+  def load_item_data
+    @item = Invoice.shod(params[:id])
+    @item.invoice_items
+  end
+
   # def export
   #   book = Spreadsheet::Workbook.new
   #   sheet1 = book.create_worksheet :name => 'Sheet1'
@@ -82,9 +87,8 @@ class InvoicesController < ApplicationController
    respond_to do |format|
     format.html
     format.pdf do
-        render pdf: "show_invoice.pdf.erb",
-        orientation: 'Landscape'   # Excluding ".pdf" extension.
-      end
+        render pdf: "show_invoice.pdf.erb"
+              end
     end
   end
   
