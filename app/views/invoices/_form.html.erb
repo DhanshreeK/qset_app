@@ -28,21 +28,24 @@
 
         <form class="form-horizontal">
           <div class="form-group">
-    <div class="col-sm-12">
-     <%if current_user.role == 'Party'%>
-
-      <div class="form-group">
-        <div class="col-sm-3">
-          <label class="col-sm-10 control-label">Search Customers</label>           <%=f.select :customer_id ,current_user.customers.collect{|i| [i.customer_name, i.id]}, {prompt:true},class: "form-control"%>
-        </div>
-      </div>
-      <%else%>
-      <div class="form-group">
-        <div class="col-sm-3">
-          <label class="col-sm-10 control-label">Search Customers</label>           <%=f.select :customer_id ,Customer.all.collect{|i| [i.customer_name, i.id]}, {prompt:true},class: "form-control"%>
-        </div>
-      </div>
-      <%end%>  
+          <div class="col-sm-12">
+           <%if current_user.role == 'Party'%>
+          
+          <div class="form-group">
+              <div class="col-sm-3">
+                <label class="col-sm-10 control-label">Search Customers</label>         
+                  <%=f.select :customer_id ,current_user.customers.collect{|i| [i.customer_name, i.id]}, {prompt:true},class: "form-control"%>
+              </div>
+            </div>
+          <%else%>
+          
+          <div class="form-group">
+            <div class="col-sm-3">
+              <label class="col-sm-10 control-label">Search Customers</label>         
+                <%=f.select :customer_id ,Customer.all.collect{|i| [i.customer_name, i.id]}, {prompt:true},class: "form-control"%>
+            </div>
+          </div>
+          <%end%>  
 
        <div class="form-group">
           <div class="col-sm-3">
@@ -149,6 +152,7 @@
               <thead>
                <tr>
                 <th><h6>Description&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></th>
+                <th><h6>Item Code</h6></th>
                 <th><h6>Unit-Price</h6></th>
                 <th><h6>Quantity</h6></th>
                 <th><h6>Net Amt</h6></th>
@@ -177,6 +181,7 @@
             <col class="six"/>
             <col class="seven"/>
             <col class="eight"/>
+            <col class="nine"/>
           </colgroup>
 
           
@@ -187,7 +192,7 @@
             <%else%>
             <td> <%=invoice_item.select :item_id ,Item.all.collect{|i| [i.dogns,i.rate, i.id]}, {prompt:true},class: "select"%></td>
             <%end%>
-
+            <td><%= text_field_tag :item_code,"", id: :item_code,class: 'form-control'%></td>
             <td><%= invoice_item.text_field :unit_price, id: :rate,class: 'form-control'%></td>
             <td><%= invoice_item.text_field :quantity, id: :qty,placeholder: 'Add qty', class: 'form-control'%></td>
             <td><%= invoice_item.text_field :net_amt, id: :net_amt, class: 'form-control'%></td>
@@ -220,14 +225,6 @@
 </div>
 </div>
 </section>
-
-  
-
-     
-
-
-
-
 
 
 
@@ -267,10 +264,6 @@
 </script>
 <% end %>
 
-
-
-
-
 <% content_for :javascript do %>
 <script type="text/javascript">
   $(document).on("change", ".select", function () {
@@ -289,7 +282,7 @@
         container.find("#rate").val(item[0]);
         container.find("#cgst").val(item[1]);
         container.find("#sgst").val(item[2]);
-
+        container.find("#item_code").val(item[3]);
       }
     });
 
@@ -334,8 +327,6 @@
 })
 </script>
 <% end %>
-
-
 
 <% content_for :javascript do %>
 <script type="text/javascript">

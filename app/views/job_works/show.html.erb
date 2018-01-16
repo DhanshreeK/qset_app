@@ -1,85 +1,86 @@
- <div class="pageheader">
- <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-warning">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Job Worker(Mfg to JW)</h3>
-                                <div class="actions pull-right">
-                                 <i class="fa fa-expand"></i>
-                                    <i class="fa fa-chevron-down"></i>
-                                    <i class="fa fa-times"></i>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                            <div class="pull-right">
-                            <%= link_to 'Download PDF ',show_job_work_job_work_path(@job_work, format: 'pdf'),target: '_blank', class: "btn btn-primary"%> <b> | </b> <%=link_to 'Back', job_works_path,class: 'btn btn-success'%>
-                            </div>
-                            <p>&nbsp;</p><p>&nbsp;</p>
-                              <p> <strong>Customer Name:</strong>
-                           <%=@job_work.customer.customer_name  if @job_work.customer.present? %></p>
-                           <p> <strong>Address:</strong>
-                             <%=@job_work.customer.address if @job_work.customer.present? %></p>
-                             <p> <strong>GSTIN No:</strong>
-                               <%=@job_work.customer.gstin_no_reg if @job_work.customer.present? %></p>
-                                <p><strong>E-Way Bill No:</strong>
-                                <%=@job_work.e_way_bill_no%></p>
-                                 <p> <strong>Transportation Mode:</strong>
-                               <%=@job_work.transportation_mode%></p>
-                                <p> <strong>Vehicle No:</strong>
-                               <%=@job_work.vehicle_no%></p>
-                              
-                              <p> <strong>Place of Supply:</strong>
-                               <%=@job_work.customer.cust_place_of_supply%></p>
+<div class="pageheader">
+<div class="row">
+<div class="col-md-12">
+<div class="panel panel-warning">
+<div class="panel-heading">
+  <h3 class="panel-title">Job Worker(Mfg to JW)</h3>
+  <div class="actions pull-right">
+   <i class="fa fa-expand"></i>
+      <i class="fa fa-chevron-down"></i>
+      <i class="fa fa-times"></i>
+  </div>
+</div>
+<div class="panel-body">
+<div class="pull-right">
+<%= link_to 'Download PDF ',show_job_work_job_work_path(@job_work, format: 'pdf'),target: '_blank', class: "btn btn-primary"%> <b> | </b> <%=link_to 'Back', job_works_path,class: 'btn btn-success'%>
+</div>
+<p>&nbsp;</p><p>&nbsp;</p>
+<p> <strong>Customer Name:</strong>
+<%=@job_work.customer.customer_name  if @job_work.customer.present? %></p>
+<p> <strong>Address:</strong>
+<%=@job_work.customer.address if @job_work.customer.present? %></p>
+<p> <strong>GSTIN No:</strong>
+ <%=@job_work.customer.gstin_no_reg if @job_work.customer.present? %></p>
+  <p><strong>E-Way Bill No:</strong>
+  <%=@job_work.e_way_bill_no%></p>
+   <p> <strong>Transportation Mode:</strong>
+ <%=@job_work.transportation_mode%></p>
+  <p> <strong>Vehicle No:</strong>
+ <%=@job_work.vehicle_no%></p>
 
-                               <p> <strong>Challan No:</strong>
-                               <%=@job_work.challan_no%></p>
+<p> <strong>Place of Supply:</strong>
+ <%=@job_work.customer.cust_place_of_supply%></p>
 
-                               <p> <strong>Challan Date:</strong>
-                               <%=@job_work.challan_date%></p>
+ <p> <strong>Challan No:</strong>
+ <%=@job_work.challan_no%></p>
 
-                               <p> <strong>Nature of Processing:</strong>
-                               <%=@job_work.nature_of_processing%></p>
-                              
-                             <br>
+ <p> <strong>Challan Date:</strong>
+ <%=@job_work.challan_date%></p>
 
-                             
-  
-                            <div class="table-responsive">
-                              <table class="table table-bordered table-striped">
-                                <thead>
-                                  <tr>
-                                   <th>Sr No</th>
-                                    <th>Item Description</th>
-                                    <th>Unit Price</th>
-                                    <th>Quantity</th>
-                                    <th>Net Amount</th>
-                           
-                                    <th>Total Amount</th>
-                                  </tr>
-                                </thead>
+ <p> <strong>Nature of Processing:</strong>
+ <%=@job_work.nature_of_processing%></p>
 
-                                <tbody>
-                                  <% @job_work.job_work_items.each_with_index do |i,n|%>
-                                    <tr>
-                                      <td><%= n + 1 %></td>
-                                       <td><%= i.item.dogns%></td>
-                                       <td>&#8377;<%= i.unit_price%></td>
-                                      <td><%= i.quantity%></td>
-                                      <td>&#8377;<%= i.taxable_value%></td>
-                                     <td>&#8377;<%= i.total_amt%></td>
-                                    </tr>
-                                  <% end %>
-                                </tbody>
-                              </table>
-                              </div>
-                              </div>
-                              </div>
-                              </div>
-                              </div>
+<br>
 
-                              <br>
 
-                            </div>
-                        </div>
-                    </div>
+
+<div class="table-responsive">
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+     <th>Sr No</th>
+      <th>Item Description</th>
+      <th>Item Code</th>
+      <th>Unit Price</th>
+      <th>Quantity</th>
+      <th>Net Amount</th>
+      <th>Total Amount</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @job_work.job_work_items.each_with_index do |i,n|%>
+      <tr>
+        <td><%= n + 1 %></td>
+         <td><%= i.item.dogns%></td>
+         <td><%= i.item.item_code%></td>
+         <td>&#8377;<%= i.unit_price%></td>
+        <td><%= i.quantity%></td>
+        <td>&#8377;<%= i.taxable_value%></td>
+       <td>&#8377;<%= i.total_amt%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<br>
+
+</div>
+</div>
+</div>
 </div>

@@ -135,13 +135,13 @@
             <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
               <thead>
                 <tr>
-                  <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="11"><center>Tax Invoice</center></th>
+                  <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="12"><center>Tax Invoice</center></th>
                 </tr>
 
                 <th>Sr No</th>
                 <th>Item Description</th>
+                <th>Item Code</th>
                 <th>HSN/SAC</th>
-
                 <th>Unit Price</th>
                 <th>Quantity</th>
                 <th>Net Amount</th>
@@ -158,6 +158,7 @@
               <tr>
                 <td><%= n + 1 %></td>
                 <td><%= i.item.dogns%></td>
+                <td><%= i.item.item_code%></td>
                 <td><%= i.item.item_hsn_no%></td>
 
                 <td>&#8377;<%= i.unit_price%></td>
@@ -176,6 +177,7 @@
               <% end %>
 
               <tr>
+              <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -204,7 +206,7 @@
     <thead>
 
       <tr>
-        <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> Only </th>
+        <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> Only <br>Cess: &nbsp;<%= @invoice.total_invoice_value%></th>
       </tr>
 
       <tr>

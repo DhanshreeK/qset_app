@@ -124,22 +124,19 @@
             <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
               <thead>
                 <tr>
-                <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="11"><center><%= raw "#{@credit_debit_note.note_type}" if @credit_debit_note.present?%></center></th>
+                <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="12"><center><%= raw "#{@credit_debit_note.note_type}" if @credit_debit_note.present?%></center></th>
                 </tr>
 
                 <th>Sr No</th>
                 <th>Item Description</th>
+                <th>Item Code</th>
                 <th>HSN/SAC</th>
-
                 <th>Unit Price</th>
                 <th>Quantity</th>
                 <th>Net Amount</th>
                 <th>Tax Rate</th>
                 <th>CGST</th>
-                <th>SGST</th>
-                
-
-                
+                <th>SGST</th>    
                 <th>Tax Amount</th>
                 <th>Total Amount</th>
               </tr>
@@ -151,8 +148,8 @@
               <tr>
                 <td><%= n + 1 %></td>
                 <td><%= i.item.dogns%></td>
+                <td><%= i.item.item_code%></td>
                 <td><%= i.item.item_hsn_no%></td>
-
                 <td>&#8377;<%= i.unit_price%></td>
                 <td><%= i.quantity%></td>
                 <td>&#8377;<%= i.net_amt%></td>
@@ -170,6 +167,7 @@
               <% end %>
 
               <tr>
+              <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -178,15 +176,10 @@
                 <td></td>
                 <td>Tax Rate: &#8377;<%= rate %></td>
                 <td></td>
-
                 <td></td>
-                
-
                 <td>Total Tax: &#8377;<%=tax_amt%></td>
                 <td>Total Amount: &#8377;<%= total_amt%></td>
               </tr>
-
-
             </div>
           </div>
         </div>
@@ -194,11 +187,12 @@
     </div>
   </thead>
 </table>
+
 <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
   <thead>
 
     <tr>
-      <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> </th>
+      <th><h3>Amount in Words:-   </h3> <h3><%= total_amt.to_i.to_words.split.map(&:capitalize).join(' ')%> <br> Cess: &nbsp; <%=@credit_debit_note.total_invoice_value%> </th>
     </tr>
 
     <tr>

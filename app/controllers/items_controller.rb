@@ -13,7 +13,7 @@ class ItemsController < ApplicationController
 
   def load_item_data
     @item = Item.find_by_id(params[:item_id]).present? ? Item.find(params[:item_id]) : Item.unscoped.find_by_id(params[:item_id])
-    render :json => [ @item.rate, @item.cgst.to_f, @item.sgst.to_f, @item.dogns]
+    render :json => [@item.rate, @item.cgst.to_f, @item.sgst.to_f, @item.item_code]
   end
 
   # GET /items/new

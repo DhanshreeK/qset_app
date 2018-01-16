@@ -7,7 +7,9 @@ class Party < ApplicationRecord
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
     def create_user_account
-    	# @user = User.create!(first_name: self.party_name, username: self.email, party_id: self.id, password: self.party_no, role: 'Party',email: self.email)
+      if current_user.role ==  "SuperAdmin"
+    	@user = User.create!(first_name: self.party_name, username: self.email, party_id: self.id, password: self.party_no, role: 'Party',email: self.email)
+      end
     end
 
    def self.set_party_no

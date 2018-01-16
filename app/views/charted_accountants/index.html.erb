@@ -33,6 +33,7 @@
                           <th>Email</th>
                            <th>Status</th>
                           <th>Action</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
 
@@ -49,6 +50,7 @@
                               <%=link_to 'Activate', charted_accountants_path(:param1 => true, :id => charted_accountant.id),style: 'color: green'%>
                               <%end%>
                             </td>
+                            <td><%= link_to 'Edit',edit_charted_accountant_path(charted_accountant) , class: 'btn btn-link'%></td>
 
                            <td><%= link_to 'Destroy', charted_accountant, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link' %></td>
                       </tr>

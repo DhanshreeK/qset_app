@@ -126,11 +126,12 @@
               <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px; border-color: white;">
                 <thead>
                   <tr>
-                    <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="11"><center>Nill Rated Exempt Invoice</center></th>
+                    <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="12"><center>Nill Rated Exempt Invoice</center></th>
                   </tr>
 
                   <th>Sr No</th>
                   <th>Item Description</th>
+                  <th>Item Code</th>
                   <th>HSN/SAC</th>
                   <th>Unit Price</th>
                   <th>Quantity</th>
@@ -145,6 +146,7 @@
                 <tr>
                   <td><%= n + 1 %></td>
                   <td><%= i.item.dogns%></td>
+                    <td><%= i.item.item_code%></td>
                   <td><%= i.item.item_hsn_no%></td>
 
                   <td>&#8377;<%= i.unit_price%></td>
@@ -160,6 +162,7 @@
                 <% end %>
 
                 <tr>
+                <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
