@@ -11,7 +11,7 @@
 <%else%>
 
 
-                    <%if current_user.role == 'Party' && current_user.party.party_status == true%>
+                    <%if current_user.role == 'Party' && current_user.party.party_status == true && current_user.party.party_type == 'Regular'%>
 
                 
 
@@ -68,7 +68,7 @@
                                             </div>
                                         </div>
                                     </div>
-
+                               <%elsif current_user.role == 'Party' && current_user.party.party_status == true && current_user.party.party_type == 'Composite'%> 
                                 <%elsif current_user.role == 'SuperAdmin' %>
                                 <%elsif current_user.role == 'ChartedAccountant' %>
                                 <%else%>

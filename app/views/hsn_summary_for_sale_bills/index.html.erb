@@ -62,16 +62,13 @@
                         <td><%=a.sgst%></td>
                         <td><%=a.igst%></td>
                         <td><% if a.invoice.present?%>
-                          <%=a.invoice.total_invoice_value if a.invoice.present?%>
-                          <%elsif  a.issue_note.present?
-                            %>
+                           <%=a.invoice.total_invoice_value if a.invoice.present?%>
+                        <%elsif  a.issue_note.present?%>
                            <%=a.issue_note.total_invoice_value if a.issue_note.present?%>
-
                         <% end %></td>
 
                        
-                      <td></td>
-                      </tr>
+                        </tr>
                       <% end %>
                     </tbody>
                   </table>

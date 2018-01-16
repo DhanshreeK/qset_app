@@ -136,19 +136,20 @@
             <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
               <thead>
                 <tr>
-                  <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="11"><center>Regular Purchase Invoice</center></th>
+                  <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="12"><center>Regular Purchase Invoice</center></th>
                 </tr>
 
                 <th>Sr No</th>
                 <th>Item Description</th>
+                <th>Item Code</th>
                 <th>HSN/SAC</th>
-                
                 <th>Unit Price</th>
                 <th>Quantity</th>
                 <th>Net Amount</th>
+                  <th>Tax Rate</th>
                 <th>CGST</th>
                 <th>SGST</th>
-                <th>Tax Rate</th>
+              
                 
                 <th>Tax Amount</th>
                 <th>Total Amount</th>
@@ -161,14 +162,15 @@
               <tr>
                 <td><%= n + 1 %></td>
                 <td><%= i.item.dogns%></td>
+                <td><%= i.item.item_code%></td>
                 <td><%= i.item.item_hsn_no%></td>
-                
                 <td>&#8377;<%= i.unit_price%></td>
                 <td><%= i.quantity%></td>
                 <td>&#8377;<%= i.net_amount%></td>
+                <td><%= i.tax_rate%>&#37;</td>
                 <td>&#8377;<%=ans = i.tax_amt/2%></td>
                 <td>&#8377;<%=ans%></td>
-                <td><%= i.tax_rate%>&#37;</td>
+                
                 <% rate = rate + i.tax_rate.to_f %>
                 <td>&#8377;<%= i.tax_amt%></td>
                 <td align="right">&#8377;<%= i.total_amt%></td>
@@ -184,9 +186,10 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td>CGST: &#8377;<%=tax_amt.round(2)/2%></td>
-                <td>SGST: &#8377;<%=tax_amt.round(2)/2%></td>
+                <td></td>
                 <td>Tax Rate: &#8377;<%= rate %></td>
+                <td></td>
+                <td></td>
                 
                 <td>Total Tax: &#8377;<%=tax_amt.round(2)%></td>
                 <td>Total Amount: &#8377;<%= total_amt%></td>

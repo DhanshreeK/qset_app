@@ -54,6 +54,7 @@
                                     <tr>
                                      <th>Sr No</th>
                                      <th>Item Description</th>
+                                     <th>Item Code</th>
                                      <th>HSN/SAC</th>
                                      <th>UOM</th>
                                      <th>Unit Price</th>
@@ -73,6 +74,7 @@
                                   <tr>
                                     <td><%= n + 1 %></td>
                                     <td><%= i.item.dogns%></td>
+                                    <td><%= i.item.item_code%></td>
                                     <td><%= i.item.item_hsn_no%></td>
                                     <td><%= i.item.unit_of_measure.name%></td>
                                     <td>&#8377;<%= i.unit_price%></td>

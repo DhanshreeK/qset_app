@@ -103,7 +103,8 @@
           <table id="example"  class="table table-bordered table-striped" cellspacing="0" width="100%">
             <thead>
              <tr>
-             <th width="155"><h6>Item Detail</h6></th>
+             <th width="155"><h6>Item Description</h6></th>
+              <th width="115"><h6>Item Code</h6></th>
              <th width="115"><h6>Unit Price</h6></th>
              <th width="115"><h6>Quantity</h6></th>
                      <th width="115"><h6>Taxable Value</h6></th>
@@ -133,6 +134,7 @@
           <%else%>
             <td> <%=invoice_item.select :item_id ,Item.all.collect{|i| [i.dogns,i.rate, i.id]}, {prompt:true},class: "select"%></td>
           <%end%>
+          <td><%= text_field_tag :item_code,"",class: 'form-control'%></td>
               <td><%= invoice_item.text_field :unit_price, id: :rate,placeholder: 'Unit Price', class: 'form-control'%></td>
            <td><%= invoice_item.text_field :quantity, id: :qty, placeholder: 'Enter Qty', class: 'form-control'%></td>
             <td><%= invoice_item.text_field :taxable_value, id: :net_amount,placeholder: 'Taxable Value', class: 'form-control'%></td>
@@ -184,6 +186,8 @@ $(document).on("change", ".select", function () {
               container.find("#rate").val(item[0]);
               container.find("#cgst").val(item[1]);
               container.find("#sgst").val(item[2]);
+              container.find("#item_code").val(item[3]);
+
 
         }
     });

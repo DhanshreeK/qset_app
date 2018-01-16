@@ -90,6 +90,7 @@
                                     <tr>
                                      <th>Sr No</th>
                                      <th>Item Description</th>
+                                      <th>Item Code</th>
                                      <th>Total Amount</th>
                                    </tr>
                                  </thead>
@@ -101,11 +102,13 @@
                                   <tr>
                                     <td><%= n + 1 %></td>
                                     <td><%= i.item.dogns%></td>
+                                    <td><%= i.item.item_code%></td>
                                     <td>&#8377;<%= i.total_amt%></td>
                                   </tr>
                                   <%total_amt += i.total_amt.to_f%>
                                   <% end %>
                                   <tr>
+                                  <td></td>
                                     <td></td>
                                     <td></td>
                                     <td><b>Total Amount </b>&#8377;<%=total_amt%></td>

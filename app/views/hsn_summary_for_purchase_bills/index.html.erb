@@ -43,7 +43,7 @@
                          <th> Central Tax Amount </th>
                          <th> State/UT Tax Amount</th>
                          <th> Integrated Tax Amount </th>
-                         <th> Cess </th>
+                        
                         </tr>
                       </thead>
 
@@ -53,16 +53,14 @@
                           <td><%=i+1%></td>
                           <td><%= a.hsn_no %></td>
                           <td><%=a.description %></td>
-                        <td><%=a.uqc%></td>
-
-                         <td><%= a.total_quantity%></td>
-                        <td><%=a.total_value%></td>
-                        <td><%=a.taxable_value%></td>
-                        <td><%=a.cgst%></td>
-                        <td><%=a.sgst%></td>
-                        <td><%=a.igst%></td>
-                        <td><%=a.cess%></td>
-                      <td></td>
+                          <td><%=a.uqc%></td>
+                          <td><%=a.total_quantity%></td>
+                          <td><%=a.total_value%></td>
+                          <td><%=a.taxable_value%></td>
+                          <td><%=a.cgst%></td>
+                          <td><%=a.sgst%></td>
+                          <td><%=a.igst%></td>
+                         
                       </tr>
                       <% end %>
                     </tbody>

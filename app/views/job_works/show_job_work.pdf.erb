@@ -1,144 +1,147 @@
- <style>
-    table {
-     width:100%;
-   }
-   table, th, td {
-     border: 1px solid black;
-     border-collapse: collapse;
-     font-size: 12px;
-   }
-   th, td {
-     padding: 2px;
-     text-align: left;
-   }
-   p{
-    width: 250px;
-   }
-   table#t01 tr:nth-child(even) {
-     background-color: #eee;
-   }
-   table#t01 tr:nth-child(odd) {
-    background-color:#fff;
-  }
-  table#t01 th {
-   background-color: black;
-   color: white;
- }
- h5 {
-   display:inline;
- }
+[ <style>
+table {
+width:100%;
+}
+table, th, td {
+border: 1px solid black;
+border-collapse: collapse;
+font-size: 12px;
+}
+th, td {
+padding: 2px;
+text-align: left;
+}
+p{
+width: 250px;
+}
+table#t01 tr:nth-child(even) {
+background-color: #eee;
+}
+table#t01 tr:nth-child(odd) {
+background-color:#fff;
+}
+table#t01 th {
+background-color: black;
+color: white;
+}
+h5 {
+display:inline;
+}
 
- img {
-  border: 1px solid #ddd;
-  border-radius: 1px;
-  padding: 3px;
-  width: 150px;
+img {
+border: 1px solid #ddd;
+border-radius: 1px;
+padding: 3px;
+width: 150px;
 }
 </style>
 </head>
 <body>
 
-  <div id="gallery-text">
-    <div class="gallery-text">
-     <%= wicked_pdf_image_tag 'test.jpg' %>
-   </div>
-   <div class="gallery-text" align="right">
-    <p>
-      <p> <h2><strong><font color="black"><%=current_user.party.party_name%><br>Job Worker(Mfg to JW)</strong>  </h2></font> 
-      </p>
-    </div> 
-  </div>
+<div id="gallery-text">
+<div class="gallery-text">
+<%= wicked_pdf_image_tag 'test.jpg' %>
+</div>
+<div class="gallery-text" align="right">
+<p>
+<p> <h2><strong><font color="black"><%=current_user.party.party_name%><br>Job Worker(Mfg to JW)</strong>  </h2></font> 
+</p>
+</div> 
+</div>
 
 <div class align ="left">
-                        <p><strong>Consigner GSTIN No:</strong>
-                          <%=current_user.party.party_gstin_no%></p>
-                          <p><strong>Date:</strong>
-                            <%=@job_work.challan_date%></p>
-                            <p> <strong>Address:</strong>
-                             <%=current_user.party.party_address%></p>
-                              <p> <strong>Contact No:</strong>
-                             <%=current_user.party.contact_no%></p>
-                             
-                           </div>
-      
-    <div class align ="right">
-    <p><strong>Consignee GSTIN NO</strong>
-       <%=@job_work.customer.gstin_no_reg if @job_work.customer.present? %></p>
-       <p> <strong>Address:</strong>
-         <%=@job_work.customer.address if @job_work.customer.present? %></p>
-         <p> <strong>GSTIN No:</strong>
-           <%=@job_work.customer.gstin_no_reg if @job_work.customer.present? %></p>
-        <p><strong>E-Way Bill No:</strong>
-          <%=@job_work.e_way_bill_no%></p>
-          <p> <strong>Tranportation Mode:</strong>
-           <%=@job_work.transportation_mode%></p>
+<p><strong>Consigner GSTIN No:</strong>
+<%=current_user.party.party_gstin_no%></p>
+<p><strong>Date:</strong>
+<%=@job_work.challan_date%></p>
+<p> <strong>Address:</strong>
+ <%=current_user.party.party_address%></p>
+  <p> <strong>Contact No:</strong>
+ <%=current_user.party.contact_no%></p>
+ 
+</div>
 
- <div class align ="left">
+<div class align ="right">
+<p><strong>Consignee GSTIN NO</strong>
+<%=@job_work.customer.gstin_no_reg if @job_work.customer.present? %></p>
+<p> <strong>Address:</strong>
+<%=@job_work.customer.address if @job_work.customer.present? %></p>
+<p> <strong>GSTIN No:</strong>
+<%=@job_work.customer.gstin_no_reg if @job_work.customer.present? %></p>
+<p><strong>E-Way Bill No:</strong>
+<%=@job_work.e_way_bill_no%></p>
+<p> <strong>Tranportation Mode:</strong>
+<%=@job_work.transportation_mode%></p>
 
-                               <p> <strong>Challan No:</strong>
-                               <%=@job_work.challan_no%></p>
+<div class align ="left">
 
-                               <p> <strong>Challan Date:</strong>
-                               <%=@job_work.challan_date%></p></div>
+   <p> <strong>Challan No:</strong>
+   <%=@job_work.challan_no%></p>
 
-                  
-                              
-           
-                    
-  <table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
-              <thead>
-                <tr>
-                  <th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="11"><center>Job Worker</center></th>
-                </tr>
-                                  <thead>
-                                    <tr>
-                                     <th>Sr No</th>
-                                     <th>Item Description</th>
-                                     <th>CGST</th>
-                                     <th>SGST</th>
-                                      <th>Tax rate</th>
-                                     <th>Total Amount</th>
-                                   </tr>
-                                 </thead>
+   <p> <strong>Challan Date:</strong>
+   <%=@job_work.challan_date%></p></div>
 
-                                 <tbody>
-                                 
-                                  <%total_amt = 0%>
-                                  <% rate = 0 %>
-                                  <% cgst = 0 %>
-                                  <% sgst = 0 %>
-                                  <% @job_work.job_work_items.each_with_index do |i,n|%>
-                                  <tr>
-                                    <td><%= n + 1 %></td>
-                                    <td><%= i.item.dogns%></td>
-                                    <td>&#8377;<%=ans = i.taxable_value.to_f/2%></td>
-                                    <td>&#8377;<%=ans%></td>
-                                    <td><%= i.state_tax_rate%>&#37;</td>
-                                    <% rate = rate + i.state_tax_rate.to_f %>
-                                    <% sgst = sgst + ans.to_f %>
 
-                                   
-                                    <td>&#8377;<%= i.total_amt%></td>
-                                  </tr>
-                                  <%total_amt += i.total_amt.to_f%>
-                                  <% end %>
-                                  <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td>CGST: &#8377;<%= sgst %></td>
-                                    <td>SGST: &#8377;<%= sgst %></td>
-                                    <td>Tax Rate: &#8377;<%= rate %></td>
-                                    <td><b>Total Amount </b>&#8377;<%=total_amt%></td>
-                                  </tr>
-                                </tbody>
-                              </table>
-              </thead>
-              </table>
-              </div>
-              </strong>
-              </h2>
-              </p>
-              </p>
-              </div>
-              </div>
-        
+  
+
+
+<table class="table table-condensed table-bordered" style="margin-top: -15px; margin-bottom: 15px;">
+<thead>
+<tr>
+<th style="font-size: 16px; background-color: #ccc; width: 75px;" colspan="11"><center>Job Worker</center></th>
+</tr>
+      <thead>
+        <tr>
+         <th>Sr No</th>
+         <th>Item Description</th>
+          <th>Item Code</th>
+           <th>Tax rate</th>
+         <th>CGST</th>
+         <th>SGST</th>
+         <th>Total Amount</th>
+       </tr>
+     </thead>
+
+     <tbody>
+     
+      <%total_amt = 0%>
+      <% rate = 0 %>
+      <% cgst = 0 %>
+      <% sgst = 0 %>
+      <% @job_work.job_work_items.each_with_index do |i,n|%>
+      <tr>
+        <td><%= n + 1 %></td>
+        <td><%= i.item.dogns%></td>
+         <td><%= i.item.item_code%></td>
+         <td><%= i.state_tax_rate%>&#37;</td>
+        <td>&#8377;<%=ans = i.taxable_value.to_f/2%></td>
+        <td>&#8377;<%=ans%></td>
+        <% rate = rate + i.state_tax_rate.to_f %>
+        <% sgst = sgst + ans.to_f %>
+
+       
+        <td>&#8377;<%= i.total_amt%></td>
+      </tr>
+      <%total_amt += i.total_amt.to_f%>
+      <% end %>
+      <tr>
+      <td></td>
+        <td></td>
+        <td></td>
+        <td>Tax Rate: &#8377;<%= rate %></td>
+        <td>CGST: &#8377;<%= sgst %></td>
+        <td>SGST: &#8377;<%= sgst %></td>
+        <td><b>Total Amount </b>&#8377;<%=total_amt%></td>
+      </tr>
+    </tbody>
+  </table>
+</thead>
+</table>
+</div>
+</strong>
+</h2>
+</p>
+</p>
+</div>
+</div>
+]
